@@ -1,0 +1,28 @@
+{
+  "_help": "Edit this list to change the events shown in the app. See AGENTS.md for the rules.",
+  "items": [
+    {
+      "id": "luncheon",
+      "title": "Fundraising Luncheon",
+      "when": "Date to be announced",
+      "blurb": "The Foundation's annual donor event.",
+      "url": "https://www.mentalawarenessfoundation.org/fundraising-luncheon"
+    },
+    {
+      "id": "workshops",
+      "title": "Spot–Speak–Support workshops",
+      "when": "Book any time",
+      "place": "Your workplace",
+      "blurb": "45-minute mental health workshop for teams.",
+      "url": "https://www.mentalawarenessfoundation.org/spot-speak-support"
+    },
+    {
+      "id": "walk",
+      "title": "Walk For Awareness",
+      "when": "Date to be announced",
+      "place": "Brisbane",
+      "blurb": "The Foundation's flagship walk. Register, walk, fundraise or volunteer.",
+      "url": "https://www.walkforawareness.org.au/"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "MAF Wellbeing",
+  "short_name": "MAF Wellbeing",
+  "description": "Free, private wellbeing tools and support from the Mental Awareness Foundation.",
+  "start_url": "./#today",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FBF9F7",
+  "theme_color": "#C2540F",
+  "lang": "en-AU",
+  "categories": ["health", "lifestyle"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Get help now", "url": "./#support" },
+    { "name": "Toolkit", "url": "./#toolkit" }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "_help": "Edit this list to change the partners shown in the app. See AGENTS.md for the rules.",
+  "items": [
+    {
+      "id": "gympie",
+      "name": "Snap Fitness Gympie",
+      "area": "Gympie, QLD",
+      "blurb": "15 Cross Street, Gympie QLD 4570",
+      "phone": "0428 039 099",
+      "url": "https://www.snapfitness.com/au/gyms/gympie",
+      "order": 1
+    },
+    {
+      "id": "maroochydore",
+      "name": "Snap Fitness Maroochydore",
+      "area": "Sunshine Coast, QLD",
+      "blurb": "45–49 Plaza Parade, Maroochydore QLD 4558",
+      "phone": "0406 183 634",
+      "url": "https://www.snapfitness.com/au/gyms/maroochydore",
+      "order": 2
+    },
+    {
+      "id": "deception-bay",
+      "name": "Snap Fitness Deception Bay",
+      "area": "Moreton Bay, QLD",
+      "blurb": "Shop T4, Market Square, cnr Deception Bay Rd & Bay Ave, Deception Bay QLD 4508",
+      "phone": "0424 724 720",
+      "url": "https://www.snapfitness.com/au/gyms/deception-bay",
+      "order": 3
+    },
+    {
+      "id": "indooroopilly",
+      "name": "Snap Fitness Indooroopilly",
+      "area": "Brisbane, QLD",
+      "blurb": "Shop 8, 34 Coonan St, Indooroopilly QLD 4068",
+      "phone": "0457 472 134",
+      "url": "https://www.snapfitness.com/au/gyms/indooroopilly",
+      "order": 4
+    },
+    {
+      "id": "karalee",
+      "name": "Snap Fitness Karalee",
+      "area": "Ipswich, QLD",
+      "blurb": "1 Perseverance Street, Karalee QLD 4306",
+      "phone": "0426 776 454",
+      "url": "https://www.snapfitness.com/au/gyms/karalee",
+      "order": 5
+    },
+    {
+      "id": "munno-para",
+      "name": "Snap Fitness Munno Para",
+      "area": "Adelaide, SA",
+      "blurb": "Level 1, 256 Curtis Rd, Munno Para SA 5115",
+      "phone": "0499 033 118",
+      "url": "https://www.snapfitness.com/au/gyms/munno-para",
+      "order": 6
+    },
+    {
+      "id": "aston-hills",
+      "name": "Snap Fitness Aston Hills",
+      "area": "Mount Barker, SA",
+      "blurb": "103/485 Heysen Boulevard, Aston Hills SA 5251",
+      "phone": "0410 560 922",
+      "url": "https://www.snapfitness.com/au/gyms/aston-hills",
+      "order": 7
+    }
+  ]
+}

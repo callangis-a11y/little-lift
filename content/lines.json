@@ -1,0 +1,103 @@
+{
+  "_help": "Edit this list to change the lines shown in the app. See AGENTS.md for the rules.",
+  "items": [
+    {
+      "id": "lifeline",
+      "name": "Lifeline",
+      "number": "13 11 14",
+      "sms": "0477 13 11 14",
+      "who": "Anyone in crisis or needing to talk",
+      "hours": "24/7 · call or text",
+      "url": "https://www.lifeline.org.au",
+      "order": 1
+    },
+    {
+      "id": "suicide-callback",
+      "name": "Suicide Call Back Service",
+      "number": "1300 659 467",
+      "who": "Anyone affected by suicide",
+      "hours": "24/7",
+      "url": "https://www.suicidecallbackservice.org.au",
+      "order": 2
+    },
+    {
+      "id": "standby",
+      "name": "StandBy Support After Suicide",
+      "number": "1300 727 247",
+      "who": "Anyone bereaved by suicide",
+      "hours": "24/7",
+      "order": 2.5
+    },
+    {
+      "id": "beyond-blue",
+      "name": "Beyond Blue",
+      "number": "1300 22 4636",
+      "who": "Anxiety, depression, low mood",
+      "hours": "24/7",
+      "url": "https://www.beyondblue.org.au",
+      "order": 3
+    },
+    {
+      "id": "medicare-mental-health",
+      "name": "Medicare Mental Health",
+      "number": "1800 595 212",
+      "who": "Free mental health nurses who help you find the right care. Not a crisis line",
+      "hours": "Weekdays, business hours",
+      "url": "https://www.medicarementalhealth.gov.au",
+      "order": 3.5
+    },
+    {
+      "id": "kids-helpline",
+      "name": "Kids Helpline",
+      "number": "1800 55 1800",
+      "who": "Young people aged 5–25",
+      "hours": "24/7",
+      "url": "https://kidshelpline.com.au",
+      "order": 4
+    },
+    {
+      "id": "mensline",
+      "name": "MensLine Australia",
+      "number": "1300 78 99 78",
+      "who": "Men, relationships and family",
+      "hours": "24/7",
+      "url": "https://mensline.org.au",
+      "order": 5
+    },
+    {
+      "id": "13yarn",
+      "name": "13YARN",
+      "number": "13 92 76",
+      "who": "Aboriginal and Torres Strait Islander people",
+      "hours": "24/7",
+      "url": "https://www.13yarn.org.au",
+      "order": 6
+    },
+    {
+      "id": "qlife",
+      "name": "QLife",
+      "number": "1800 184 527",
+      "who": "LGBTIQ+ peer support",
+      "hours": "3pm–midnight daily",
+      "url": "https://qlife.org.au",
+      "order": 7
+    },
+    {
+      "id": "open-arms",
+      "name": "Open Arms",
+      "number": "1800 011 046",
+      "who": "Veterans and their families",
+      "hours": "24/7",
+      "url": "https://www.openarms.gov.au",
+      "order": 8
+    },
+    {
+      "id": "mates-construction",
+      "name": "MATES in Construction",
+      "number": "1300 642 111",
+      "who": "Construction, mining and energy workers",
+      "hours": "24/7",
+      "order": 9
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "_help": "Edit this list to change the services shown in the app. See AGENTS.md for the rules.",
+  "items": [
+    {
+      "id": "4-aussie-heroes",
+      "name": "4 Aussie Heroes",
+      "category": "Defence",
+      "area": "National",
+      "blurb": "Supports the wellbeing of Australian Defence Force members and veterans."
+    },
+    {
+      "id": "carers",
+      "name": "Carers Foundation",
+      "category": "Carers",
+      "area": "Moreton Bay",
+      "blurb": "Support for carers, including young carers."
+    },
+    {
+      "id": "grow",
+      "name": "Grow",
+      "category": "Peer support",
+      "area": "Queensland",
+      "blurb": "Free peer-support groups that help people build skills for good mental health."
+    },
+    {
+      "id": "mates",
+      "name": "MATES in Construction",
+      "category": "Workplace",
+      "area": "Queensland",
+      "blurb": "Suicide prevention and peer support for construction, mining and energy workers.",
+      "phone": "1300 642 111"
+    },
+    {
+      "id": "mind-blank",
+      "name": "Mind Blank",
+      "category": "Youth",
+      "area": "Queensland",
+      "blurb": "Mental health education for young people in schools, delivered through performance."
+    },
+    {
+      "id": "peach-tree",
+      "name": "Peach Tree",
+      "category": "Parents",
+      "area": "Queensland",
+      "blurb": "Peer support for parents' mental health during pregnancy and early parenthood."
+    },
+    {
+      "id": "rize-up",
+      "name": "Rize Up",
+      "category": "Families",
+      "area": "Queensland",
+      "blurb": "Practical support for families rebuilding after domestic and family violence."
+    },
+    {
+      "id": "stepping-stone",
+      "name": "Stepping Stone",
+      "category": "Recovery",
+      "area": "Brisbane",
+      "blurb": "A clubhouse supporting the recovery of people living with mental illness."
+    },
+    {
+      "id": "spp",
+      "name": "Suicide Prevention Pathways",
+      "category": "Suicide prevention",
+      "area": "Queensland",
+      "blurb": "Community suicide prevention support."
+    },
+    {
+      "id": "sunshine-butterflies",
+      "name": "Sunshine Butterflies",
+      "category": "Disability",
+      "area": "Sunshine Coast",
+      "blurb": "Programs and support for people living with disability and their families."
+    },
+    {
+      "id": "sunlight",
+      "name": "The Sunlight Centre",
+      "category": "Counselling",
+      "area": "Brisbane",
+      "blurb": "Not-for-profit counselling service."
+    },
+    {
+      "id": "trek2health",
+      "name": "Trek 2 Health",
+      "category": "Community",
+      "area": "Queensland",
+      "blurb": "Community walks and treks that get people moving for health."
+    }
+  ]
+}
