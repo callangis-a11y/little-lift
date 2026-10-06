@@ -1,8 +1,8 @@
 {
-  "name": "maf-wellbeing",
+  "name": "little-lift",
   "version": "1.0.0",
   "private": true,
-  "description": "Free wellbeing app for the Mental Awareness Foundation",
+  "description": "Little Lift: a free, private wellbeing app for everyone",
   "type": "module",
   "scripts": {
     "validate": "node scripts/validate.mjs",

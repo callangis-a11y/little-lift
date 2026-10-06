@@ -1,5 +1,5 @@
 // Offline support. The build replaces __VERSION__ and __PRECACHE__.
-const VERSION = "maf-__VERSION__";
+const VERSION = "little-lift-__VERSION__";
 const PRECACHE = __PRECACHE__;
 
 self.addEventListener("install", e => {

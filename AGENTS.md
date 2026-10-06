@@ -1,6 +1,6 @@
 # Instructions for AI assistants (Claude, ChatGPT/Codex and others)
 
-You are helping maintain **MAF Wellbeing**, a free mental health app for the Mental Awareness Foundation (Brisbane, Australia). People in distress use it. Accuracy and safety come before everything else.
+You are helping maintain **Little Lift** ("A little lift, any time."), a free mental health and wellbeing app for everyone, supported by the Mental Awareness Foundation (Brisbane, Australia). People in distress use it. Accuracy and safety come before everything else.
 
 ## How publishing works
 
@@ -43,6 +43,13 @@ To remove something temporarily, set `"hidden": true` instead of deleting it.
 4. Don't add tracking, analytics, ads, sign-ups or anything that sends a user's entries off their phone. User data stays in the browser's local storage only.
 5. Don't invent facts about organisations, people, dates or offers. If you don't know, ask, or leave the field out.
 6. Plain text only in content files. No HTML, no Markdown.
+
+## Brand
+
+- Name: always "Little Lift" in text (the logo wordmark is lowercase, but text isn't). Tagline: "A little lift, any time."
+- Logo files are in `public/brand/`. Don't redraw, recolour or retype the logo.
+- Colours are CSS tokens in `src/app.html`: coral is the brand (decorative), sky blue `--accent` is for buttons and links, and `--danger` red is only for help and emergency cues.
+- Fonts: Gabarito for headings, Atkinson Hyperlegible for body text.
 
 ## Writing style
 

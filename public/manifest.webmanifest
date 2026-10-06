@@ -1,13 +1,13 @@
 {
-  "name": "MAF Wellbeing",
-  "short_name": "MAF Wellbeing",
-  "description": "Free, private wellbeing tools and support from the Mental Awareness Foundation.",
+  "name": "Little Lift",
+  "short_name": "Little Lift",
+  "description": "A little lift, any time. Free, private wellbeing tools and support lines for everyone.",
   "start_url": "./#today",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#FBF9F7",
-  "theme_color": "#C2540F",
+  "background_color": "#FFF8F4",
+  "theme_color": "#FF6A55",
   "lang": "en-AU",
   "categories": ["health", "lifestyle"],
   "icons": [

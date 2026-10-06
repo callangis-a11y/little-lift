@@ -1,6 +1,8 @@
-# MAF Wellbeing
+# Little Lift
 
-A free, private wellbeing app made for the [Mental Awareness Foundation](https://www.mentalawarenessfoundation.org/). It works in any phone browser and can be added to the home screen like an app. It also works offline.
+![Little Lift](public/brand/little-lift-lockup.svg)
+
+**A little lift, any time.** A free, private wellbeing app for everyone, supported by the [Mental Awareness Foundation](https://www.mentalawarenessfoundation.org/). It works in any phone browser and can be added to the home screen like an app. It also works offline.
 
 **What's in it:** a Get help now button on every screen, daily mood check-ins, games based on CBT techniques, mood-lifting activities, breathing and grounding tools, a personal safety plan, and guides on helping a mate, exercise, ADHD and grief. It also lists the services the Foundation funds, its events and supporting gyms.
 
@@ -18,7 +20,7 @@ Before anything goes live, automatic checks run. If something's wrong (a typo th
 
 In Claude (claude.ai or the Claude app) with GitHub connected, or in Claude Code, say for example:
 
-> In the maf-wellbeing repo, add the Walk For Awareness 2026 date: Sunday 9 November, Brisbane. Open a pull request.
+> In the little-lift repo, add the Walk For Awareness 2026 date: Sunday 9 November, Brisbane. Open a pull request.
 
 Claude reads `AGENTS.md`, makes the change, runs the checks and opens a pull request for you to merge.
 
@@ -51,9 +53,9 @@ In ChatGPT, open **Codex** and connect it to this GitHub repository. Then ask in
 
 ## Going live for the first time (one-off setup)
 
-1. Create a GitHub repository (for example `maf-wellbeing`) and upload these files.
+1. Create a GitHub repository (for example `little-lift`) and upload these files.
 2. In the repository, go to **Settings → Pages** and set **Source** to **GitHub Actions**.
-3. Push to `main`, or run the **Check and publish** workflow from the **Actions** tab. The site appears at `https://<your-account>.github.io/maf-wellbeing/`.
+3. Push to `main`, or run the **Check and publish** workflow from the **Actions** tab. The site appears at `https://<your-account>.github.io/little-lift/`.
 4. Optional: to use your own web address (like `app.mentalawarenessfoundation.org`), add it under **Settings → Pages → Custom domain** and add the DNS record GitHub shows you.
 
 GitHub Pages is free for public repositories. The app has no secrets in it, so a public repository is fine. Cloudflare Pages or Netlify also work: point them at this repository with build command `node scripts/build.mjs` and output folder `dist`.
@@ -69,3 +71,4 @@ npm run serve        # build and preview locally
 - `src/app.html` holds the whole app (markup, styles and script). `scripts/build.mjs` wraps it into `dist/index.html` and adds offline support (`public/sw.js`) and the app manifest.
 - The same `src/app.html` also runs as a Claude artifact. There it reads content from the artifact's own database instead of `content/`.
 - Rules for AI assistants are in `AGENTS.md`.
+- Brand: logo files are in `public/brand/`. The full brand guide (palette, type, voice, logo rules) is kept as a Claude design system called "Little Lift". In short: coral `#FF6A55` is the brand colour, sky blue `#1D6FB8` is for actions, red is only for help. Headings use Gabarito, and body text uses Atkinson Hyperlegible.

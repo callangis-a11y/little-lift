@@ -10,20 +10,20 @@ rmSync(dist, { recursive: true, force: true });
 mkdirSync(dist, { recursive: true });
 
 const app = readFileSync(join(root, "src/app.html"), "utf8");
-const title = (app.match(/<title>([^<]*)<\/title>/) || [, "MAF Wellbeing"])[1];
+const title = (app.match(/<title>([^<]*)<\/title>/) || [, "Little Lift"])[1];
 
 const head = `<!doctype html>
 <html lang="en-AU" data-site="1">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="A free wellbeing app from the Mental Awareness Foundation: support lines, daily check-ins, games and practical guides.">
-<meta name="theme-color" content="#FBF9F7" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#1A1817" media="(prefers-color-scheme: dark)">
+<meta name="description" content="A little lift, any time. A free, private wellbeing app with support lines, daily check-ins, games and practical guides.">
+<meta name="theme-color" content="#FFF8F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#101924" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="${title}">
 <meta property="og:title" content="${title}">
-<meta property="og:description" content="Free, private wellbeing tools and support from the Mental Awareness Foundation.">
+<meta property="og:description" content="A little lift, any time. Free, private wellbeing tools for everyone.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
