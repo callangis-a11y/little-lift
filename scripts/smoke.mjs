@@ -34,7 +34,7 @@ for (const [route, sel, min] of [["support", "#svcList .li", 1], ["involved", "#
   const n = await page.$$eval(sel, x => x.length);
   if (n < min) fail.push(`#${route}: expected content in ${sel}, found ${n}`);
 }
-for (const r of ["today", "toolkit", "tool-flip", "tool-smile", "tool-boost", "tool-jar", "tool-breathe", "tool-ground", "tool-plan", "guides", "guide-mate", "guide-move", "guide-adhd", "guide-grief", "support", "involved"]) {
+for (const r of ["today", "toolkit", "tool-flip", "tool-smile", "tool-boost", "tool-jar", "tool-breathe", "tool-ground", "tool-wave", "tool-kind", "tool-worry", "tool-solve", "tool-plan", "guides", "guide-mate", "guide-move", "guide-adhd", "guide-grief", "support", "involved"]) {
   await page.goto(base + "#" + r); await page.waitForTimeout(150);
   if (await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)) fail.push(`#${r} scrolls sideways on a phone`);
 }
