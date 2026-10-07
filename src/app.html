@@ -459,6 +459,7 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
             <button class="chip" type="button" data-now="self" aria-pressed="false">Hard on myself</button>
             <button class="chip" type="button" data-now="avoid" aria-pressed="false">Avoiding something</button>
             <button class="chip" type="button" data-now="sleep" aria-pressed="false">Can't sleep</button>
+            <button class="chip" type="button" data-now="money" aria-pressed="false">Money stress</button>
           </div>
           <div id="nowOut" class="stack" hidden></div>
         </div>
@@ -711,10 +712,12 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
     <section class="view" id="v-guides" hidden>
       <div class="stack" id="guideGrid" style="gap:20px">
         <div class="hello"><p class="eyebrow">Guides</p><h1 class="h-xl">For the people in your life</h1><p class="muted">Short, practical guides for the situations people ask about most.</p></div>
+        <button class="guide-card" type="button" data-guide="system"><span class="gc-ic" style="background:var(--accent-soft);color:var(--accent-ink)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10M10 20v-5h4v5"/></svg></span><span class="gc-txt"><b>Getting help in Australia</b><span>GPs, Medicare plans, costs and free options, in plain English</span></span></button>
         <button class="guide-card" type="button" data-guide="mate"><span class="gc-ic" style="background:var(--accent-soft);color:var(--accent-ink)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></span><span class="gc-txt"><b>Worried about a mate</b><span>Spot the signs, start the conversation, help them get support</span></span></button>
         <button class="guide-card" type="button" data-guide="move"><span class="gc-ic" style="background:color-mix(in srgb,var(--m2) 22%,var(--surface));color:var(--accent-ink)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="14" cy="4" r="2"/><path d="M8 21l3-6 3 2v5M6 12l3-4 4 1 2 4 3 1"/></svg></span><span class="gc-txt"><b>Move for your mind</b><span>Quick guided workouts and a weekly move goal</span></span></button>
         <button class="guide-card" type="button" data-guide="sleep"><span class="gc-ic" style="background:color-mix(in srgb,var(--sky) 20%,var(--surface));color:var(--accent-ink)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></span><span class="gc-txt"><b>Sleep better</b><span>Simple habits that help, and a wind-down routine for tonight</span></span></button>
         <button class="guide-card" type="button" data-guide="adhd"><span class="gc-ic" style="background:color-mix(in srgb,var(--m5) 20%,var(--surface));color:var(--m5)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="3"/></svg></span><span class="gc-txt"><b>Living with ADHD</b><span>For you, your partner or your child, with tools that help day to day</span></span></button>
+        <button class="guide-card" type="button" data-guide="money"><span class="gc-ic" style="background:color-mix(in srgb,var(--m4) 22%,var(--surface));color:var(--accent-ink)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h3"/></svg></span><span class="gc-txt"><b>Money worries</b><span>Free financial counselling, hardship help and gambling support</span></span></button>
         <button class="guide-card" type="button" data-guide="young"><span class="gc-ic" style="background:var(--coral-soft);color:var(--ink-2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="6" r="3"/><circle cx="17" cy="9" r="2.2"/><path d="M3 21v-1a6 6 0 0 1 12 0v1M14.5 21v-1a4 4 0 0 1 6.5-3"/></svg></span><span class="gc-txt"><b>Supporting a young person</b><span>For parents and carers of teens and young adults</span></span></button>
         <button class="guide-card" type="button" data-guide="grief"><span class="gc-ic" style="background:color-mix(in srgb,var(--m3) 25%,var(--surface));color:var(--ink-2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21c-4-3-8-6.5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 4.5-4 8-8 11z"/></svg></span><span class="gc-txt"><b>After a suicide loss</b><span>Grief, what can help, and support for those left behind</span></span></button>
       </div>
@@ -950,6 +953,71 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
         </div>
         <div class="list">
           <div class="li"><div class="li-main"><b>Sleep Health Foundation</b><span class="small muted">Australian fact sheets on sleep problems</span></div><a class="icon-btn" href="https://www.sleephealthfoundation.org.au/" target="_blank" rel="noopener" aria-label="Visit Sleep Health Foundation website">${LINK}</a></div>
+        </div>
+      </div>
+
+      <!-- GETTING HELP IN AUSTRALIA -->
+      <div class="stack" id="g-system" hidden style="gap:20px">
+        <div class="hello"><p class="eyebrow">Getting help in Australia</p><h1 class="h-xl">Where do I start?</h1><p class="muted">Not sure how the system works or what it costs? Here's the short version. You don't have to be in crisis to ask for help.</p></div>
+        <div class="card">
+          <h2 class="h-m">Your options, step by step</h2>
+          <ol class="steps">
+            <li><div><b>Free help you can use today.</b><p class="small muted">Medicare Mental Health (1800 595 212) is a free phone service on weekdays. Their team can talk through what's going on and help you find the right care near you, including free walk-in Medicare Mental Health Centres in many areas.</p></div></li>
+            <li><div><b>See a GP.</b><p class="small muted">Book a longer appointment and say it's about your mental health. Your GP can listen, check your physical health and, if it suits you, make a Mental Health Treatment Plan. Since 1 November 2025, the plan is made by a GP at the practice you're registered with through MyMedicare, or by your usual GP.</p></div></li>
+            <li><div><b>Get Medicare-rebated sessions.</b><p class="small muted">With a plan, Medicare helps pay for up to 10 individual and 10 group sessions each calendar year with a psychologist or other mental health professional.</p></div></li>
+            <li><div><b>Ask about cost when you book.</b><p class="small muted">Some practitioners bulk bill, so there's nothing to pay. Others charge a gap. Ask: "Do you bulk bill? If not, how much will I pay after the Medicare rebate?"</p></div></li>
+            <li><div><b>Aged 12 to 25?</b><p class="small muted">headspace offers free or low-cost help at centres across Australia, and online or by phone through eheadspace.</p></div></li>
+          </ol>
+        </div>
+        <div class="card">
+          <h2 class="h-m">Making the most of your GP visit</h2>
+          <ul class="ticks">
+            <li>Say how long you've been feeling this way</li>
+            <li>Say how it's affecting sleep, work, study or family</li>
+            <li>Say what you'd like: someone to talk to, a plan, or a referral</li>
+            <li>Bring your Little Lift summary of the last 4 weeks if you like</li>
+            <li>If the first GP isn't a good fit, it's okay to try another</li>
+          </ul>
+          <button class="btn ghost" type="button" id="openGpSummary">Make my GP summary</button>
+        </div>
+        <div class="nudge">
+          <h3 class="h-m">Need help sooner?</h3>
+          <p class="small">If you're struggling right now, you don't have to wait for an appointment. Lifeline is there 24/7 on 13 11 14, by call or text. In an emergency, call 000.</p>
+          <button class="btn" type="button" data-open-help>Support lines</button>
+        </div>
+        <div class="list">
+          <div class="li"><div class="li-main"><b>Medicare Mental Health</b><span class="num">1800 595 212</span><span class="small muted">Free, helps you find the right care · weekdays, business hours. Not a crisis line</span></div><button class="icon-btn" type="button" data-copy="1800 595 212" aria-label="Copy Medicare Mental Health number">${COPY}</button><a class="icon-btn call" href="tel:1800595212" aria-label="Call Medicare Mental Health">${CALL}</a></div>
+        </div>
+        <p class="small muted">Medicare details checked October 2026 on <a href="https://www.health.gov.au/our-work/better-access-initiative" target="_blank" rel="noopener">health.gov.au</a>. Rules change, so check with your GP.</p>
+      </div>
+
+      <!-- MONEY WORRIES -->
+      <div class="stack" id="g-money" hidden style="gap:20px">
+        <div class="hello"><p class="eyebrow">Money worries</p><h1 class="h-xl">You're not alone, and help is free</h1><p class="muted">Money stress is one of the most common reasons people feel overwhelmed. It can hit sleep, mood and relationships. The sooner you get help, the more options you usually have.</p></div>
+        <div class="card">
+          <h2 class="h-m">What can help</h2>
+          <ul class="ticks">
+            <li><span><b>Talk to a free financial counsellor.</b> The National Debt Helpline is free and confidential. Counsellors don't lend money or sell anything. They can help you sort out bills, debts and payment plans, and explain your rights.</span></li>
+            <li><span><b>Call the hardship team.</b> Banks, energy, phone and other providers have hardship options. Try: "I'm having trouble paying. Can I talk to someone about hardship options?"</span></li>
+            <li><span><b>Take one bill at a time.</b> List what's due, then deal with the most urgent first, like rent, power and food.</span></li>
+            <li><span><b>Be careful with quick fixes.</b> Payday loans and buy now, pay later can make things harder. A financial counsellor can talk through other options.</span></li>
+            <li><span><b>If your income has changed,</b> check with Services Australia whether you can get support.</span></li>
+          </ul>
+          <button class="btn ghost" type="button" data-go="toolkit" data-tool="solve">Make a plan with Sort It Out</button>
+        </div>
+        <div class="card">
+          <h2 class="h-m">Gambling</h2>
+          <p class="small">If gambling is causing problems for you or someone you love, Gambling Help Online has free counselling 24/7 by phone, chat or email, including for family and friends.</p>
+        </div>
+        <div class="list">
+          <div class="li"><div class="li-main"><b>National Debt Helpline</b><span class="num">1800 007 007</span><span class="small muted">Free financial counselling · phone weekdays 9:30am–4:30pm, chat weekdays 9am–8pm</span></div><button class="icon-btn" type="button" data-copy="1800 007 007" aria-label="Copy National Debt Helpline number">${COPY}</button><a class="icon-btn call" href="tel:1800007007" aria-label="Call National Debt Helpline">${CALL}</a></div>
+          <div class="li"><div class="li-main"><b>Gambling Help Online</b><span class="num">1800 858 858</span><span class="small muted">Free gambling counselling for you or someone you love · 24/7</span></div><button class="icon-btn" type="button" data-copy="1800 858 858" aria-label="Copy Gambling Help Online number">${COPY}</button><a class="icon-btn call" href="tel:1800858858" aria-label="Call Gambling Help Online">${CALL}</a></div>
+        </div>
+        <div class="row" style="flex-wrap:wrap"><a class="btn ghost" href="https://ndh.org.au/" target="_blank" rel="noopener">Chat with a counsellor</a><a class="btn ghost" href="https://www.gamblinghelponline.org.au/" target="_blank" rel="noopener">Gambling Help Online</a></div>
+        <div class="nudge">
+          <h3 class="h-m">If it all feels too much</h3>
+          <p class="small">Money problems can be fixed, even when it doesn't feel like it. If you're feeling hopeless or unsafe, please talk to someone now.</p>
+          <button class="btn" type="button" data-open-help>Support lines</button>
         </div>
       </div>
 
@@ -1369,7 +1437,7 @@ $("#aboutBtn").onclick=()=>showSheet("#aboutSheet");
 /* ---------- Routing: #today, #toolkit, #tool-flip, #guides, #guide-adhd, #support, #involved ---------- */
 const TABS=["today","toolkit","guides","support","involved"];
 const TOOLS=["flip","smile","boost","jar","breathe","ground","wave","kind","worry","solve","brave","sleep","plan"];
-const GUIDES=["mate","move","sleep","adhd","young","grief"];
+const GUIDES=["system","mate","move","sleep","adhd","money","young","grief"];
 let route="today";
 function parseRoute(r){
   r=String(r||"").replace(/^#/,"");
@@ -1896,6 +1964,8 @@ $("#wkEnd").onclick=()=>finishWorkout(false);
 /* ---------- What brings you here (focus) and "For you" tiles ---------- */
 const FOCUS_OPTS=[["stress","Stress and worry"],["low","Low mood"],["sleep","Sleep"],["grief","Grief or loss"],["adhd","ADHD"],["support","Supporting someone"],["active","Getting active"],["explore","Just exploring"]];
 const TILE_IC={
+ system:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10M10 20v-5h4v5"/></svg>',
+ money:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h3"/></svg>',
  young:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="6" r="3"/><circle cx="17" cy="9" r="2.2"/><path d="M3 21v-1a6 6 0 0 1 12 0v1M14.5 21v-1a4 4 0 0 1 6.5-3"/></svg>',
  brave:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 21V3M18 21V3M6 7h12M6 12h12M6 17h12"/></svg>',
  wave:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 15c2.5 0 2.5-3 5-3s2.5 3 5 3 2.5-3 5-3 2.5 3 5 3M2 20c2.5 0 2.5-3 5-3s2.5 3 5 3 2.5-3 5-3 2.5 3 5 3M12 3v5"/></svg>',
@@ -1934,6 +2004,8 @@ const TILES={
  brave:{go:"toolkit",tool:"brave",t:"Brave Steps",d:"Face a fear one small step at a time"},
  talk:{help:true,t:"Talk to someone",d:"Free support lines, any time"},
  grief:{go:"guides",guide:"grief",t:"Grief and loss",d:"What can help, and who to call"},
+ system:{go:"guides",guide:"system",t:"Getting help",d:"GPs, Medicare plans and free options"},
+ money:{go:"guides",guide:"money",t:"Money worries",d:"Free financial counselling and hardship help"},
  young:{go:"guides",guide:"young",t:"Supporting a young person",d:"Signs, what to say, and where to get help"},
  smile:{go:"toolkit",tool:"smile",t:"Find the Smile",d:"A 30-second attention game"}
 };
@@ -1982,7 +2054,7 @@ function renderInsights(){
   const fx=got.length<7?[]:FACTORS.map(f=>{const ms=got.filter(x=>x.f.includes(f)).map(x=>x.m);return {f,n:ms.length,diff:ms.length?avg(ms)-all:0}}).filter(x=>x.n>=3);
   const lowF=fx.filter(x=>x.diff<=-0.5).sort((a,b)=>a.diff-b.diff)[0];
   const highF=fx.filter(x=>x.diff>=0.5).sort((a,b)=>b.diff-a.diff)[0];
-  const tips={Sleep:`<button class="linkish" type="button" data-go="guides" data-guide="sleep">Try the Sleep better guide</button>`,Work:`<button class="linkish" type="button" data-go="toolkit" data-tool="breathe">Try a breathing break</button>`,Money:`The National Debt Helpline (1800 007 007, weekdays) gives free, confidential advice.`,Loneliness:`<button class="linkish" type="button" data-go="toolkit" data-tool="boost">Try Mood Boost's Connect ideas</button>`,Family:`<button class="linkish" type="button" data-open-help>Support lines are here if you need them</button>`,Relationships:`<button class="linkish" type="button" data-open-help>Support lines are here if you need them</button>`,Health:`It might be worth talking it over with your GP.`,Study:`<button class="linkish" type="button" data-go="guides" data-guide="adhd">Try a focus sprint</button>`};
+  const tips={Sleep:`<button class="linkish" type="button" data-go="guides" data-guide="sleep">Try the Sleep better guide</button>`,Work:`<button class="linkish" type="button" data-go="toolkit" data-tool="breathe">Try a breathing break</button>`,Money:`<button class="linkish" type="button" data-go="guides" data-guide="money">See the Money worries guide</button>`,Loneliness:`<button class="linkish" type="button" data-go="toolkit" data-tool="boost">Try Mood Boost's Connect ideas</button>`,Family:`<button class="linkish" type="button" data-open-help>Support lines are here if you need them</button>`,Relationships:`<button class="linkish" type="button" data-open-help>Support lines are here if you need them</button>`,Health:`It might be worth talking it over with your GP.`,Study:`<button class="linkish" type="button" data-go="guides" data-guide="adhd">Try a focus sprint</button>`};
   if(lowF)notes.push(`Days you mentioned <b>${lowF.f.toLowerCase()}</b> were often harder in your check-ins so far. ${tips[lowF.f]||""}`);
   if(highF)notes.push(`Days you mentioned <b>${highF.f.toLowerCase()}</b> were often better in your check-ins so far.`);
   const boostDays=new Set(store.get("ll.boost",[]).filter(b=>b&&b.at).map(b=>dayKey(new Date(b.at))));
@@ -2259,12 +2331,14 @@ $("#braveList").addEventListener("click",e=>{const d=braveData();
   const dn=e.target.closest("[data-bdone]");if(dn){const x=d.steps.find(s=>String(s.id)===dn.dataset.bdone);if(x){x.done=(x.done||0)+1;x.last=Date.now();braveSave(d);plant("brave");toast("That took courage. Well done.")}return}
   const dl=e.target.closest("[data-bdel]");if(dl){d.steps=d.steps.filter(s=>String(s.id)!==dl.dataset.bdel);braveSave(d)}});
 
+$("#openGpSummary").onclick=()=>{showSheet("#aboutSheet");setTimeout(()=>$("#dataCard").scrollIntoView({block:"start"}),60)};
+
 /* ---------- Toolkit: "Right now I feel…" picker ---------- */
-const NOW_PICK={anx:["breathe","ground","worry"],low:["boost","kind","jar"],urge:["wave","plan"],prob:["solve","worry"],self:["kind","flip"],avoid:["brave","breathe"],sleep:["sleep","breathe","worry"]};
+const NOW_PICK={anx:["breathe","ground","worry"],low:["boost","kind","jar"],urge:["wave","plan"],prob:["solve","worry"],self:["kind","flip"],avoid:["brave","breathe"],sleep:["sleep","breathe","worry"],money:["money","solve","worry"]};
 document.addEventListener("click",e=>{const b=e.target.closest("[data-now]");if(!b)return;const k=b.dataset.now,on=b.getAttribute("aria-pressed")!=="true";
   $$("[data-now]").forEach(x=>x.setAttribute("aria-pressed",x===b&&on));const out=$("#nowOut");
   if(!on){out.hidden=true;return}
-  out.innerHTML=`<p class="small muted">Try one of these:</p><div class="tile-grid">${NOW_PICK[k].map(t=>{const T=TILES[t];return `<button class="tile" type="button" data-tool="${T.tool}"><span class="ic">${TILE_IC[t]}</span><b>${T.t}</b><span>${T.d}</span></button>`}).join("")}</div>${k==="urge"?`<p class="small">If you might act on an urge to hurt yourself or end your life, <button class="linkish" type="button" data-open-help>talk to someone now</button>.</p>`:""}`;
+  out.innerHTML=`<p class="small muted">Try one of these:</p><div class="tile-grid">${NOW_PICK[k].map(t=>{const T=TILES[t];return `<button class="tile" type="button" ${T.tool?`data-tool="${T.tool}"`:`data-go="${T.go}" data-guide="${T.guide}"`}><span class="ic">${TILE_IC[t]}</span><b>${T.t}</b><span>${T.d}</span></button>`}).join("")}</div>${k==="urge"?`<p class="small">If you might act on an urge to hurt yourself or end your life, <button class="linkish" type="button" data-open-help>talk to someone now</button>.</p>`:""}`;
   out.hidden=false});
 
 /* ---------- Your week: a gentle look back (Sundays and Mondays) ---------- */
