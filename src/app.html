@@ -253,6 +253,10 @@ details.acc summary::-webkit-details-marker{display:none}
 h1[tabindex="-1"]:focus{outline:none}
 .event .row a,.event .row .linkish{display:inline-block;padding:10px 0;margin:-6px 0}
 .feel-words .chip{font-size:14px}
+.wk-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.wk-stats div{background:var(--sunk);border-radius:12px;padding:10px;text-align:center}
+.wk-stats b{display:block;font-family:var(--font-display);font-size:24px}
+.wk-stats span{font-size:12px;color:var(--ink-3)}
 .wave-stage{position:relative;height:120px;border-radius:16px;overflow:hidden;background:var(--sunk)}
 .wave-stage svg{position:absolute;left:0;bottom:0;width:200%;height:100%;animation:waveMove 6s linear infinite}
 .wave-stage svg.w2{opacity:.5;animation-duration:9s;animation-direction:reverse}
@@ -384,6 +388,14 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
           <button class="btn ghost" type="button" id="nudgePlan" data-go="toolkit" data-tool="plan" hidden>My safety plan</button>
           <button class="btn ghost" type="button" data-go="toolkit" data-tool="breathe">Try a breathing exercise</button>
         </div>
+      </div>
+
+      <div class="card" id="weekCard" hidden>
+        <div class="row" style="justify-content:space-between"><h2 class="h-m">Your week</h2><span class="small muted" id="weekRange"></span></div>
+        <div id="weekBody" class="stack"></div>
+        <label for="weekWin" class="small"><b>What's one thing that went okay this week?</b> <span class="muted">Big or tiny.</span></label>
+        <input type="text" id="weekWin" placeholder="e.g. I got out for a walk on Tuesday">
+        <div class="row" style="flex-wrap:wrap"><button class="btn" type="button" id="weekSave">Add to my jar</button><button class="btn ghost" type="button" id="weekDone">Done for this week</button></div>
       </div>
 
       <div class="card a2hs" id="a2hs" hidden>
@@ -1850,6 +1862,10 @@ function renderForYou(){
   const lists=(focusSel.size?[...focusSel]:["explore"]).map(f=>FOCUS_TILES[f]);
   const out=[];for(let i=0;out.length<4&&i<4;i++)lists.forEach(l=>{if(out.length<4&&l[i]&&!out.includes(l[i]))out.push(l[i])});
   ["breathe","workout","mate","plan"].forEach(k=>{if(out.length<4&&!out.includes(k))out.push(k)});
+  // Put one tile that suits the time of day first.
+  const h=new Date().getHours();
+  const now=h>=21||h<4?"sleep":h<11?(focusSel.has("adhd")?"adhd":"boost"):h>=16&&h<21?(focusSel.has("stress")?"worry":"jar"):"breathe";
+  const idx=out.indexOf(now);if(idx>0){out.splice(idx,1);out.unshift(now)}else if(idx<0){out.pop();out.unshift(now)}
   $("#forYou").innerHTML=out.map(k=>{const t=TILES[k];return `<button class="tile" type="button" ${t.help?"data-open-help":`data-go="${t.go}"`}${t.tool?` data-tool="${t.tool}"`:""}${t.guide?` data-guide="${t.guide}"`:""}><span class="ic">${TILE_IC[k]}</span><b>${t.t}</b><span>${t.d}</span></button>`}).join("");
 }
 function saveFocus(){store.set("ll.focus",[...focusSel]);renderForYou()}
@@ -2156,6 +2172,34 @@ function confirmBrave(b){if(braveArm===b){braveArm=null;return true}braveArm=b;t
 $("#braveList").addEventListener("click",e=>{const d=braveData();
   const dn=e.target.closest("[data-bdone]");if(dn){const x=d.steps.find(s=>String(s.id)===dn.dataset.bdone);if(x){x.done=(x.done||0)+1;x.last=Date.now();braveSave(d);plant("brave");toast("That took courage. Well done.")}return}
   const dl=e.target.closest("[data-bdel]");if(dl){d.steps=d.steps.filter(s=>String(s.id)!==dl.dataset.bdel);braveSave(d)}});
+
+/* ---------- Your week: a gentle look back (Sundays and Mondays) ---------- */
+const PLANT_NAMES={checkin:["check-in","check-ins"],jar:["good thing","good things"],flip:["thought flipped","thoughts flipped"],boost:["mood boost","mood boosts"],smile:["smile game","smile games"],breathe:["breathing session","breathing sessions"],wave:["wave ridden","waves ridden"],kind:["kind line","kind lines"],worry:["worry parked","worries parked"],solve:["plan made","plans made"],brave:["brave step","brave steps"]};
+function weekKey(d){const x=new Date(d);x.setHours(0,0,0,0);x.setDate(x.getDate()-((x.getDay()+6)%7));return dayKey(x)}
+function renderWeekCard(){
+  const now=new Date(),dow=now.getDay(),card=$("#weekCard");
+  const wk=dow===1?weekKey(new Date(now.getTime()-864e5)):weekKey(now);
+  if(!(dow===0||dow===1)||store.get("ll.weekDone","")===wk){card.hidden=true;return}
+  const start=new Date(wk+"T00:00:00"),days=[];for(let i=0;i<7;i++){const d=new Date(start);d.setDate(start.getDate()+i);days.push(d)}
+  const log=store.get("ll.checkins",{});const ms=days.map(d=>{const e=log[dayKey(d)];return e&&MOODS[(+e.mood)-1]?+e.mood:0});
+  const got=ms.filter(Boolean);
+  const end=new Date(start);end.setDate(start.getDate()+6);
+  const plants=store.get("ll.garden",[]).filter(p=>p&&p.at>=start.getTime()&&p.at<end.getTime()+864e5);
+  if(got.length<2&&plants.length<3){card.hidden=true;return}
+  const counts={};plants.forEach(p=>counts[p.t]=(counts[p.t]||0)+1);
+  const done=Object.entries(counts).filter(([t])=>PLANT_NAMES[t]&&t!=="checkin").sort((a,b)=>b[1]-a[1]).slice(0,3).map(([t,n])=>`${n} ${PLANT_NAMES[t][n===1?0:1]}`);
+  const best=got.length?days[ms.indexOf(Math.max(...ms))]:null;
+  const low=ms.filter(m=>m&&m<=2).length;
+  $("#weekRange").textContent=start.toLocaleDateString("en-AU",{day:"numeric",month:"short"})+" to "+end.toLocaleDateString("en-AU",{day:"numeric",month:"short"});
+  $("#weekBody").innerHTML=`<div class="wk-stats"><div><b>${got.length}</b><span>of 7 days checked in</span></div><div><b>${plants.length}</b><span>things done for you</span></div><div><b>${best?best.toLocaleDateString("en-AU",{weekday:"short"}):"–"}</b><span>your best day</span></div></div>
+   <div class="week" aria-hidden="true">${days.map((d,i)=>`<div class="day"><span class="dot ${ms[i]?"f":""}" style="${ms[i]?`background:var(--m${ms[i]})`:""}"></span><b>${d.toLocaleDateString("en-AU",{weekday:"narrow"})}</b></div>`).join("")}</div>
+   ${done.length?`<p class="small">This week you did: ${done.join(", ")}. Every one of those counts.</p>`:""}
+   ${low>=3?`<p class="small">It's been a tough week, with ${low} low days. Be kind to yourself, and think about <button class="linkish" type="button" data-open-help>talking to someone</button>.</p>`:""}`;
+  card.hidden=false;
+}
+$("#weekSave").onclick=()=>{const v=$("#weekWin").value.trim();if(!v){toast("Write one small thing first");return}const l=store.get("ll.jar",[]);l.push({t:v,at:Date.now()});store.set("ll.jar",l.slice(-1000));plant("jar");$("#weekWin").value="";toast("Added to your Good Things Jar")};
+$("#weekDone").onclick=()=>{const now=new Date();store.set("ll.weekDone",now.getDay()===1?weekKey(new Date(now.getTime()-864e5)):weekKey(now));$("#weekCard").hidden=true};
+safe(renderWeekCard,"week");
 
 /* ---------- Your data: backup, restore, GP summary ---------- */
 function backupInfo(){const t=store.get("ll.lastBackup",0);$("#backupInfo").textContent=t?"Last backup: "+new Date(t).toLocaleDateString("en-AU",{day:"numeric",month:"long",year:"numeric"}):"No backup saved yet."}
