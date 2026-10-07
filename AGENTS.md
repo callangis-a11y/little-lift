@@ -40,7 +40,7 @@ To remove something temporarily, set `"hidden": true` instead of deleting it.
 1. **Never change, add or remove a crisis phone number unless you have checked it on the service's official website** in the same session. Say which page you checked in the pull request.
 2. Lifeline (13 11 14), Suicide Call Back Service (1300 659 467), Beyond Blue (1300 22 4636), Kids Helpline (1800 55 1800) and the Call 000 button must always be present. The app has them built in as a safety net, and the validator blocks hiding them.
 3. Don't add medical advice, diagnoses, dosages or claims that a tool "treats" or "cures" anything. Describe tools as support, not treatment.
-4. Don't add tracking, analytics, ads, sign-ups or anything that sends a user's entries off their phone. User data stays in the browser's local storage only.
+4. Don't add tracking, analytics, ads, sign-ups or anything that sends a user's entries off their phone. User data stays in the browser's local storage only. The one exception is the built-in anonymous usage counts (Umami Cloud, set in `site.config.json`): screen names, time-on-screen buckets and a fixed list of button taps, with no cookies or identifiers, never anything typed, moods, check-ins or feeling words, and an off switch in About. Don't widen what it sends without the Foundation's agreement.
 5. Don't invent facts about organisations, people, dates or offers. If you don't know, ask, or leave the field out.
 6. Plain text only in content files. No HTML, no Markdown.
 

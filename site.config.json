@@ -1,0 +1,5 @@
+{
+  "_help": "Anonymous usage stats (Umami Cloud). Paste the Website ID from Umami here and publish. Leave it empty to turn stats off for everyone. See AGENTS.md.",
+  "umamiWebsiteId": "",
+  "umamiHost": "https://cloud.umami.is"
+}

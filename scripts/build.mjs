@@ -15,6 +15,18 @@ const title = (app.match(/<title>([^<]*)<\/title>/) || [, "Little Lift"])[1];
 // Public address of the live site (link previews need a full URL).
 const SITE = "https://callangis-a11y.github.io/little-lift/";
 
+// Anonymous usage stats: only switched on when site.config.json has a Umami Website ID.
+let statsTag = "";
+try {
+  const cfg = JSON.parse(readFileSync(join(root, "site.config.json"), "utf8"));
+  const id = String(cfg.umamiWebsiteId || "").trim(), host = String(cfg.umamiHost || "").trim();
+  if (id) {
+    if (!/^[0-9a-f-]{36}$/i.test(id)) throw new Error("umamiWebsiteId should look like 1a2b3c4d-....");
+    if (!/^https:\/\/[a-z0-9.-]+$/i.test(host)) throw new Error("umamiHost should look like https://cloud.umami.is");
+    statsTag = `<script>window.LL_STATS=${JSON.stringify({ id, host })}</script>\n`;
+  }
+} catch (e) { if (e.code !== "ENOENT") throw e; }
+
 const head = `<!doctype html>
 <html lang="en-AU" data-site="1">
 <head>
@@ -36,7 +48,7 @@ const head = `<!doctype html>
 <meta property="og:image:alt" content="Little Lift logo with the words: A little lift, any time. Free, private wellbeing tools for everyone.">
 <meta property="og:locale" content="en_AU">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="manifest" href="manifest.webmanifest">
+${statsTag}<link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="preload" href="fonts/AtkinsonHyperlegible-Regular.woff2" as="font" type="font/woff2" crossorigin>
@@ -75,4 +87,4 @@ const sw = readFileSync(join(root, "public/sw.js"), "utf8")
 if (/__VERSION__|__PRECACHE__/.test(sw)) throw new Error("sw.js placeholders were not filled in");
 writeFileSync(join(dist, "sw.js"), sw);
 
-console.log(`Built dist/ (${files.length + 1} files, version ${version})`);
+console.log(`Built dist/ (${files.length + 1} files, version ${version})${statsTag ? ", usage stats on" : ", usage stats off"}`);

@@ -1200,6 +1200,10 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
         <li>If you share this phone, anyone using it could see them. You can delete them any time.</li>
         <li data-gfonts-note>The app's fonts load from Google, which sees your device's internet address, as with any website visit. Nothing you write is sent.</li>
       </ul>
+      <div id="statsWrap" hidden class="stack" style="gap:8px">
+        <p class="small"><b>Anonymous usage counts.</b> To help us improve Little Lift, the app counts which screens and buttons are used and roughly how long people spend on them. No names, no cookies, no device ID, nothing you type, and never your moods or check-ins.</p>
+        <label class="small row" style="gap:8px"><input type="checkbox" id="statsToggle" style="width:auto" checked> Share anonymous usage counts</label>
+      </div>
       <button class="btn ghost" id="clearData" type="button">Delete my data from this device</button>
     </div>
     <div class="card" id="dataCard">
@@ -1390,6 +1394,7 @@ function applyRoute(r,{focus=false}={}){
   if(o.tab==="today") safe(()=>{renderWeek();drawGarden();renderInsights();renderForYou()});
   window.scrollTo({top:0});
   if(focus) focusView();
+  if(typeof STATS!=="undefined") STATS.screen(route);
 }
 function nav(o){
   const r=routeOf(o);
@@ -2430,9 +2435,63 @@ async function loadFromFiles(){
 })();
 setTimeout(()=>{if(contentState==="loading"){contentState="off";renderAll()}},12000);
 
+/* ---------- Anonymous usage counts (live site only, Umami Cloud, no cookies) ----------
+   Sends: screen names, time-on-screen buckets and named button taps from a fixed list.
+   Never sends: anything typed, moods, check-ins, feeling words, notes, plans or worries.
+   Off when: no site ID is configured, the person switches it off in About, or the browser sends Global Privacy Control / Do Not Track. */
+const STATS=(()=>{
+  const cfg=window.LL_STATS||{};const onSite=/^https?:$/.test(location.protocol)&&document.documentElement.dataset.site==="1";
+  const gpc=navigator.globalPrivacyControl===true||navigator.doNotTrack==="1";
+  const ready=onSite&&!!cfg.id&&!!cfg.host;
+  const enabled=()=>ready&&!gpc&&store.get("ll.stats",true)!==false&&navigator.onLine!==false;
+  function send(type,payload){if(!enabled())return;
+    const body={type:"event",payload:Object.assign({website:cfg.id,hostname:location.hostname,language:"",referrer:"",screen:"",title:"Little Lift",url:"/"+(route||"today")},payload)};
+    try{fetch(cfg.host.replace(/\/$/,"")+"/api/send",{method:"POST",keepalive:true,headers:{"Content-Type":"application/json"},body:JSON.stringify(body),credentials:"omit",referrerPolicy:"no-referrer"}).catch(()=>{})}catch(e){}}
+  const bucket=s=>s<10?"under 10s":s<30?"10-30s":s<60?"30-60s":s<180?"1-3 min":s<600?"3-10 min":"10+ min";
+  let cur=null,since=0;
+  function screen(r){const now=Date.now();if(cur&&cur!==r){const sec=Math.round((now-since)/1000);if(sec>=2)send("event",{url:"/"+cur,name:"time-on-screen",data:{screen:cur,time:bucket(sec)}})}
+    if(cur!==r){cur=r;since=now;send("event",{url:"/"+r,title:r})}}
+  document.addEventListener("visibilitychange",()=>{if(!cur)return;if(document.visibilityState==="hidden"){const sec=Math.round((Date.now()-since)/1000);if(sec>=2)send("event",{url:"/"+cur,name:"time-on-screen",data:{screen:cur,time:bucket(sec)}})}else since=Date.now()});
+  function track(name,data){send("event",data?{name,data}:{name})}
+  // Named taps only. Values are fixed labels from the app, never user input.
+  document.addEventListener("click",e=>{const t=e.target.closest("a,button");if(!t||!enabled())return;
+    if(t.closest("[data-exit]"))return;
+    const href=t.getAttribute("href")||"";
+    if(href.startsWith("tel:"))return track("call-tap",{number:href.slice(4)});
+    if(href.startsWith("sms:"))return track("text-tap",{number:href.slice(4).split("?")[0]});
+    if(t.id==="helpBtn")return track("help-open");
+    if(t.matches("[data-open-help]"))return track("help-open",{from:cur||""});
+    if(t.matches("[data-share]"))return track("share");
+    if(t.id==="donateBtn")return track("donate-click");
+    if(t.id==="feedbackBtn")return track("feedback-click");
+    if(t.matches("[data-addcal]"))return track("event-calendar",{event:t.dataset.addcal});
+    if(t.closest(".event")&&href.startsWith("http"))return track("event-link",{url:href});
+    if(t.closest("#partnersList")&&href.startsWith("http"))return track("gym-link",{url:href});
+    if(t.matches("[data-now]"))return track("feeling-picker");
+    if(t.closest("#forYou"))return track("for-you-tap",{to:t.dataset.tool||t.dataset.guide||"help"});
+    if(t.id==="saveCheckin")return track("checkin-saved");
+    if(t.id==="breatheBtn"&&t.textContent.trim()==="Start")return track("tool-start",{tool:"breathe"});
+    if(t.id==="waveStart")return track("tool-start",{tool:"wave"});
+    if(t.id==="waveSave")return track("tool-finish",{tool:"wave"});
+    if(t.id==="kindNext"&&t.textContent.includes("Save"))return track("tool-finish",{tool:"kind"});
+    if(t.id==="worryAdd")return track("tool-finish",{tool:"worry"});
+    if(t.id==="solveNext"&&t.textContent.includes("Save"))return track("tool-finish",{tool:"solve"});
+    if(t.id==="wdNext")return track("tool-step",{tool:"sleep"});
+    if(t.id==="backupBtn")return track("backup");
+    if(t.id==="gpBtn")return track("gp-summary");
+    if(t.id==="remGoogle"||t.id==="remIcs")return track("reminder-added");
+    if(t.id==="welcomeGo")return track("welcome-done");
+  },true);
+  return {screen,track,ready,gpc};
+})();
+safe(()=>{if(STATS.ready){$("#statsWrap").hidden=false;$("#statsToggle").checked=store.get("ll.stats",true)!==false&&!STATS.gpc;$("#statsToggle").disabled=STATS.gpc;
+  if(STATS.gpc)$("#statsToggle").parentElement.insertAdjacentHTML("afterend",'<p class="small muted">Off, because your browser asks sites not to track.</p>');
+  $("#statsToggle").onchange=e=>{store.set("ll.stats",e.target.checked);toast(e.target.checked?"Thanks for helping us improve":"Usage counts turned off")}}},"stats");
+
 /* ---------- Start ---------- */
 applyRoute(location.hash||"today");
 try{history.replaceState({r:route},"","#"+route)}catch(e){}
+safe(()=>STATS.screen(route));
 setInterval(()=>{const k=dayKey(new Date());if(k!==checkinLoadedFor&&parseRoute(route).tab==="today")safe(()=>{greet();renderWeek()})},60000);
 
 /* ---------- Live site uses its own copy of the fonts ---------- */
