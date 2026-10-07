@@ -2,7 +2,9 @@
 
 ![Little Lift](public/brand/little-lift-lockup.svg)
 
-**A little lift, any time.** A free, private wellbeing app for everyone, supported by the [Mental Awareness Foundation](https://www.mentalawarenessfoundation.org/). It works in any phone browser and can be added to the home screen like an app. It also works offline.
+**A little lift, any time.** A free, private wellbeing app for everyone, supported by the [Mental Awareness Foundation](https://www.mentalawarenessfoundation.org/).
+
+**Live app:** https://callangis-a11y.github.io/little-lift/ It works in any phone browser and can be added to the home screen like an app. It also works offline.
 
 **What's in it:** a Get help now button on every screen, daily mood check-ins, games based on CBT techniques, mood-lifting activities, breathing and grounding tools, a personal safety plan, and guides on helping a mate, exercise, ADHD and grief. It also lists the services the Foundation funds, its events and supporting gyms.
 
