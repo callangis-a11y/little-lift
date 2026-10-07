@@ -459,6 +459,7 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
           <button class="tile" type="button" data-tool="worry"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M12 12v3"/></svg></span><b>Worry Time</b><span>Park it now, sort it later</span></button>
           <button class="tile" type="button" data-tool="solve"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg></span><b>Sort It Out</b><span>A plan for a real problem</span></button>
         </div>
+        <button class="tile" type="button" data-tool="brave" style="flex-direction:row;align-items:center;gap:12px"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21V3M18 21V3M6 7h12M6 12h12M6 17h12"/></svg></span><span class="stack" style="gap:2px"><b>Brave Steps</b><span>Face something hard, one small step at a time</span></span></button>
         <button class="tile" type="button" data-tool="sleep" style="flex-direction:row;align-items:center;gap:12px"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></span><span style="display:flex;flex-direction:column;gap:2px;min-width:0"><b>Wind down for sleep</b><span>A 10-minute routine to help you switch off</span></span></button>
         <button class="tile" type="button" data-tool="plan" style="flex-direction:row;align-items:center;gap:12px"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg></span><span style="display:flex;flex-direction:column;gap:2px;min-width:0"><b>My safety plan</b><span>Your steps for tough moments, ready when you need them</span></span></button>
       </div>
@@ -575,11 +576,29 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
         </div>
       </div>
 
+      <!-- Brave Steps (graded exposure ladder) -->
+      <div class="card" id="t-brave" hidden>
+        <h2 class="h-m">Brave Steps</h2>
+        <p class="small muted">Avoiding things that make us anxious keeps the fear going. Facing them in small steps, starting with the easiest, helps it shrink. Go at your own pace.</p>
+        <label for="braveGoal" class="small"><b>What would you like to be able to do?</b></label>
+        <input type="text" id="braveGoal" placeholder="e.g. Feel okay going to the gym">
+        <div class="row" style="gap:6px;flex-wrap:wrap"><span class="small muted">Ideas:</span><button class="chip" type="button" data-bravex="gym">The gym</button><button class="chip" type="button" data-bravex="social">Social events</button><button class="chip" type="button" data-bravex="phone">Phone calls</button></div>
+        <p class="small"><b>Your steps</b> <span class="muted">From easiest to hardest. Rate how scary each one feels, 0 to 10.</span></p>
+        <div class="list" id="braveList"></div>
+        <div class="row" style="gap:8px;align-items:flex-end;flex-wrap:wrap">
+          <span class="stack" style="flex:1;min-width:180px;gap:4px"><label for="braveStep" class="small muted">Add a step</label><input type="text" id="braveStep" placeholder="e.g. Walk past the gym"></span>
+          <span class="stack" style="gap:4px"><label for="braveFear" class="small muted">Scary (0–10)</label><select id="braveFear" style="width:auto"></select></span>
+          <button class="btn" type="button" id="braveAdd">Add</button>
+        </div>
+        <p class="small" id="braveNext"></p>
+      </div>
+
       <!-- Ride the Wave -->
       <div class="card" id="t-wave" hidden>
         <h2 class="h-m">Ride the Wave</h2>
         <div id="waveS1" class="stack">
           <p class="small muted">Strong urges, like wanting to drink, lash out, send that text, binge, spend or hurt yourself, rise like a wave, peak and then pass, often within 10 to 15 minutes. You don't have to act on it. Let's ride it out together.</p>
+          <p class="small">If you might act on an urge to hurt yourself or end your life, please talk to someone now. <button class="linkish" type="button" data-open-help>Get help now</button></p>
           <label for="waveBefore" class="small"><b>How strong is the urge right now?</b> <span id="waveBeforeV" class="tag">5</span></label>
           <input type="range" id="waveBefore" min="0" max="10" value="5">
           <div class="scale-row"><span>0 Barely there</span><span>10 Overwhelming</span></div>
@@ -600,6 +619,7 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
           <label for="waveAfter" class="small"><b>How strong is the urge now?</b> <span id="waveAfterV" class="tag">5</span></label>
           <input type="range" id="waveAfter" min="0" max="10" value="5">
           <div class="scale-row"><span>0 Gone</span><span>10 Overwhelming</span></div>
+          <p class="small">If you might act on an urge to hurt yourself or end your life, please talk to someone now. <button class="linkish" type="button" data-open-help>Get help now</button></p>
           <button class="btn" type="button" id="waveSave">Save</button>
         </div>
         <div id="waveS4" class="stack" hidden>
@@ -626,6 +646,7 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
           <label for="worryInput" class="small"><b>What's the worry?</b></label>
           <textarea id="worryInput" placeholder="e.g. What if I mess up the presentation?"></textarea>
           <button class="btn" type="button" id="worryAdd">Park it for later</button>
+          <p class="small muted">If the worry is about your safety or someone else's, don't park it. <button class="linkish" type="button" data-open-help>Talk to someone now</button></p>
           <p class="small" id="worryCount"></p>
           <div class="row" style="flex-wrap:wrap;align-items:center"><label for="worryTimeIn" class="small"><b>My worry time</b></label><input type="time" id="worryTimeIn" value="17:30" style="width:auto"><a class="btn ghost" id="worryCal" href="#" target="_blank" rel="noopener">Add to calendar</a></div>
           <button class="btn ghost" type="button" id="worryStart">Start worry time now</button>
@@ -1092,7 +1113,7 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
     </div>
     <div class="card" id="dataCard">
       <h3 class="h-m">Your data</h3>
-      <p class="small muted">Everything you've saved lives only in this browser. Save a backup so you don't lose it if you clear your browser or change phones. The file holds your private entries, so keep it somewhere safe.</p>
+      <p class="small muted">Everything you've saved lives only in this browser. Save a backup so you don't lose it if you clear your browser or change phones. The file holds your private entries, including notes, worries and your safety plan, in plain text. Keep it somewhere safe.</p>
       <div class="row" style="flex-wrap:wrap"><button class="btn" id="backupBtn" type="button">Save a backup</button><button class="btn ghost" id="restoreBtn" type="button">Restore a backup</button></div>
       <input type="file" id="restoreFile" accept="application/json,.json" hidden>
       <p class="small muted" id="backupInfo"></p>
@@ -1252,7 +1273,7 @@ $("#aboutBtn").onclick=()=>showSheet("#aboutSheet");
 
 /* ---------- Routing: #today, #toolkit, #tool-flip, #guides, #guide-adhd, #support, #involved ---------- */
 const TABS=["today","toolkit","guides","support","involved"];
-const TOOLS=["flip","smile","boost","jar","breathe","ground","wave","kind","worry","solve","sleep","plan"];
+const TOOLS=["flip","smile","boost","jar","breathe","ground","wave","kind","worry","solve","brave","sleep","plan"];
 const GUIDES=["mate","move","sleep","adhd","grief"];
 let route="today";
 function parseRoute(r){
@@ -1358,7 +1379,7 @@ function face(v){
   return `<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="var(--m${v})"/><circle cx="14" cy="16" r="2.2" fill="#2A2420"/><circle cx="26" cy="16" r="2.2" fill="#2A2420"/><path d="M12 ${26-curve/2} Q20 ${26+curve} 28 ${26-curve/2}" fill="none" stroke="#2A2420" stroke-width="2.4" stroke-linecap="round"/></svg>`;
 }
 const FEEL_WORDS={1:["Hopeless","Overwhelmed","Numb","Exhausted","Lonely","Scared"],2:["Flat","Anxious","Frustrated","Tired","Sad","Stressed"],3:["Meh","Restless","Distracted","Unsure","Steady","Calm"],4:["Content","Relieved","Hopeful","Focused","Grateful","Relaxed"],5:["Energised","Proud","Joyful","Connected","Excited","Peaceful"]};
-const FEEL_TIPS={wired:["Overwhelmed","Scared","Anxious","Frustrated","Stressed","Restless"],flat:["Numb","Exhausted","Flat","Tired","Meh","Lonely","Sad","Hopeless"]};
+const FEEL_TIPS={wired:["Overwhelmed","Anxious","Frustrated","Stressed","Restless"],flat:["Numb","Exhausted","Flat","Tired","Meh","Lonely","Sad"]};
 function renderFeel(){const w=FEEL_WORDS[sel.mood]||[];$("#feelWords").innerHTML=w.map(x=>`<button class="chip" type="button" data-feel="${x}" aria-pressed="${sel.word===x}">${x}</button>`).join("")}
 let sel={mood:null,factors:new Set()},checkinLoadedFor=null;
 $("#moods").innerHTML=MOODS.map(m=>`<button class="mood" type="button" data-mood="${m.v}" aria-pressed="false">${face(m.v)}${m.l}</button>`).join("");
@@ -1380,7 +1401,9 @@ $("#saveCheckin").onclick=()=>{
   $("#savedMsg").hidden=false; renderWeek(); safe(renderInsights); if(ok&&first) plant("checkin");
   $("#remLink").hidden=!ok||store.get("ll.reminded",false);
   const tip=$("#feelTip");
-  if(ok&&FEEL_TIPS.wired.includes(sel.word)){tip.innerHTML=`Feeling ${esc(sel.word.toLowerCase())}? <button class="linkish" type="button" data-go="toolkit" data-tool="breathe">Try a minute of slow breathing</button>`;tip.hidden=false}
+  if(ok&&sel.word==="Hopeless"){tip.innerHTML=`Feeling hopeless is really heavy. You don't have to carry it alone. <button class="linkish" type="button" data-open-help>Talk to someone now</button>`;tip.hidden=false}
+  else if(ok&&sel.word==="Scared"){tip.innerHTML=`Feeling scared? If you're not safe right now, call 000 or <button class="linkish" type="button" data-open-help>talk to someone</button>. You could also <button class="linkish" type="button" data-go="toolkit" data-tool="breathe">try a minute of slow breathing</button>.`;tip.hidden=false}
+  else if(ok&&FEEL_TIPS.wired.includes(sel.word)){tip.innerHTML=`Feeling ${esc(sel.word.toLowerCase())}? <button class="linkish" type="button" data-go="toolkit" data-tool="breathe">Try a minute of slow breathing</button>`;tip.hidden=false}
   else if(ok&&FEEL_TIPS.flat.includes(sel.word)){tip.innerHTML=`Feeling ${esc(sel.word.toLowerCase())}? <button class="linkish" type="button" data-go="toolkit" data-tool="boost">One small Mood Boost can help</button>`;tip.hidden=false}
   else tip.hidden=true;
 };
@@ -1405,7 +1428,7 @@ function greet(){const d=new Date(),h=d.getHours();
 safe(greet); safe(renderWeek,"week");
 
 /* ---------- Garden ---------- */
-const PLANT_COLORS={checkin:"--m4",jar:"--coral",flip:"--sky",boost:"--m2",smile:"--sunshine",breathe:"--m5",wave:"--sky",kind:"--coral",worry:"--m3",solve:"--m2"};
+const PLANT_COLORS={checkin:"--m4",jar:"--coral",flip:"--sky",boost:"--m2",smile:"--sunshine",breathe:"--m5",wave:"--sky",brave:"--sunshine",kind:"--coral",worry:"--m3",solve:"--m2"};
 function plant(type){const g=store.get("ll.garden",[]);g.push({t:type,at:Date.now()});store.set("ll.garden",g.slice(-500));drawGarden(true)}
 function cssv(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()||"#888"}
 function rnd(seed){const x=Math.sin(seed*9301+49297)*233280;return x-Math.floor(x)}
@@ -1443,6 +1466,7 @@ function showTool(t){
   if(t==="kind"&&typeof renderKind==="function") renderKind();
   if(t==="worry"&&typeof renderWorry==="function") renderWorry();
   if(t==="solve"&&typeof renderSolve==="function") renderSolve();
+  if(t==="brave"&&typeof renderBrave==="function") renderBrave();
   if(t!=="smile") stopSmile(false);
   if(t==="jar") drawJar();
   if(t==="sleep") renderWD(); else if(typeof wdStop==="function") wdStop();
@@ -1776,6 +1800,7 @@ $("#wkEnd").onclick=()=>finishWorkout(false);
 /* ---------- What brings you here (focus) and "For you" tiles ---------- */
 const FOCUS_OPTS=[["stress","Stress and worry"],["low","Low mood"],["sleep","Sleep"],["grief","Grief or loss"],["adhd","ADHD"],["support","Supporting someone"],["active","Getting active"],["explore","Just exploring"]];
 const TILE_IC={
+ brave:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 21V3M18 21V3M6 7h12M6 12h12M6 17h12"/></svg>',
  wave:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 15c2.5 0 2.5-3 5-3s2.5 3 5 3 2.5-3 5-3 2.5 3 5 3M2 20c2.5 0 2.5-3 5-3s2.5 3 5 3 2.5-3 5-3 2.5 3 5 3M12 3v5"/></svg>',
  kind:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21c-4-3-8-6.5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 4.5-4 8-8 11z"/><path d="M9 11h6"/></svg>',
  worry:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M12 12v3"/></svg>',
@@ -1809,6 +1834,7 @@ const TILES={
  kind:{go:"toolkit",tool:"kind",t:"Kind Words",d:"Talk to yourself like a good mate"},
  wave:{go:"toolkit",tool:"wave",t:"Ride the Wave",d:"Get through a strong urge"},
  solve:{go:"toolkit",tool:"solve",t:"Sort It Out",d:"Turn a problem into a plan"},
+ brave:{go:"toolkit",tool:"brave",t:"Brave Steps",d:"Face a fear one small step at a time"},
  talk:{help:true,t:"Talk to someone",d:"Free support lines, any time"},
  grief:{go:"guides",guide:"grief",t:"Grief and loss",d:"What can help, and who to call"},
  smile:{go:"toolkit",tool:"smile",t:"Find the Smile",d:"A 30-second attention game"}
@@ -1982,7 +2008,7 @@ document.addEventListener("click",e=>{
 
 /* ---------- Ride the Wave (urge surfing, DBT-style distress tolerance) ---------- */
 const WAVE_IDEAS={
- distract:["Text a friend about something random","Put on a song you love and sing along","Play a quick game or puzzle on your phone","Count backwards from 100 in sevens","Tidy one small spot, like a drawer or your desk","Watch something that makes you laugh","Name an animal for every letter of the alphabet"],
+ distract:["Text a friend about something random","Put on a song you love and sing along","Play a quick game or puzzle on your phone","Count backwards from 100 in threes","Tidy one small spot, like a drawer or your desk","Watch something that makes you laugh","Name an animal for every letter of the alphabet"],
  soothe:["Make a warm drink and hold the cup in both hands","Wrap yourself in a blanket or soft jumper","Have a warm shower or bath","Pat a pet, or hug a pillow","Put on calming music and lie down","Smell something you like, such as a candle, soap or coffee","Try a few rounds of slow breathing"],
  express:["Write exactly how you feel, then tear it up if you like","Scribble or draw what it feels like","Record a voice note about what's going on, just for you","Write the message you want to send, but don't send it","Call or message someone you trust","Cry if you need to. It's a release, not a weakness"],
  move:["Walk around the block, or to the letterbox and back","Do 20 star jumps or march on the spot","Stretch slowly for five minutes","Dance to one whole song","Squeeze a pillow as hard as you can, then let go","Step outside and take ten slow breaths of fresh air"]
@@ -1994,7 +2020,7 @@ function renderWaveIdeas(){const l=shuffle(WAVE_IDEAS[wCat]).slice(0,3);if(!l.in
 function waveShow(n){[1,2,3,4].forEach(i=>$("#waveS"+i).hidden=i!==n)}
 function waveStop(){if(wInt){clearInterval(wInt);wInt=null;wantWake(false)}}
 function waveReset(){waveStop();waveShow(1);renderWaveIdeas()}
-const WAVE_CUES=["Notice the urge without acting on it. It's allowed to be here, and it will pass.","Urges build up like a wave. You might feel it getting stronger. That's normal.","Keep going with your activity. Each minute you ride it out, it gets easier.","Breathe out slowly. You're doing it.","Notice where you feel it in your body. Breathe into that spot.","The wave is starting to settle. You're almost there."];
+const WAVE_CUES=["Notice the urge without acting on it. It's allowed to be here, and it will pass.","Urges build up like a wave. You might feel it getting stronger. That's normal.","Keep going with your activity. Urges rise and fall, and you're riding this one.","Breathe out slowly. You're doing it.","Notice where you feel it in your body. Breathe into that spot.","Nearly at the end of the timer. If it's still strong, that's okay. You can keep going, or reach out."];
 $("#waveBefore").oninput=e=>$("#waveBeforeV").textContent=e.target.value;
 $("#waveAfter").oninput=e=>$("#waveAfterV").textContent=e.target.value;
 $$("[data-wcat]").forEach(x=>x.onclick=()=>{wCat=x.dataset.wcat;wPick="";renderWaveIdeas()});
@@ -2008,9 +2034,10 @@ $("#waveStart").onclick=()=>{wBefore=+$("#waveBefore").value;wEnd=Date.now()+600
 $("#waveDone").onclick=waveEnd;
 $("#waveSave").onclick=()=>{const after=+$("#waveAfter").value;const log=store.get("ll.waves",[]);log.push({at:Date.now(),before:wBefore,after,cat:wCat});store.set("ll.waves",log.slice(-300));plant("wave");
   const drop=wBefore-after;$("#waveResult").textContent=after<=2?"You rode it out. That takes real strength.":drop>0?`It dropped from ${wBefore} to ${after}. Well done for riding it.`:"That was a big one. You stayed with it, and that counts.";
-  $("#waveSos").hidden=after<7;
+  $("#waveSos").hidden=!(after>=7||(after>=5&&after>=wBefore));
   const valid=log.filter(x=>typeof x.before==="number"&&typeof x.after==="number");
-  $("#waveStats").textContent=valid.length>=3?`Across your last ${Math.min(valid.length,10)} waves, urges dropped by ${(valid.slice(-10).reduce((a,x)=>a+(x.before-x.after),0)/Math.min(valid.length,10)).toFixed(1)} points on average. Proof they pass.`:"";
+  const wn=Math.min(valid.length,10),wavg=wn?valid.slice(-10).reduce((a,x)=>a+(x.before-x.after),0)/wn:0;
+  $("#waveStats").textContent=valid.length>=3&&wavg>0?`Across your last ${wn} waves, urges dropped by ${wavg.toFixed(1)} points on average. They do pass.`:"";
   waveShow(4)};
 $("#waveAgain").onclick=waveReset;
 safe(waveReset,"wave");
@@ -2046,7 +2073,7 @@ $("#kindNext").onclick=()=>{
 let wqIdx=0;
 const worryList=()=>store.get("ll.worries",[]).filter(x=>x&&x.t);
 function worryCalLink(){const [h,m]=($("#worryTimeIn").value||"17:30").split(":").map(Number);const a=new Date();a.setHours(h,m,0,0);if(a<new Date())a.setDate(a.getDate()+1);const b=new Date(a.getTime()+15*60000);
-  $("#worryCal").href="https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("Worry time")+"&dates="+ymdhms(a)+"/"+ymdhms(b)+"&recur="+encodeURIComponent("RRULE:FREQ=DAILY")+"&details="+encodeURIComponent("15 minutes to go through parked worries: "+APP_URL+"#tool-worry")}
+  $("#worryCal").href="https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("Little Lift time")+"&dates="+ymdhms(a)+"/"+ymdhms(b)+"&recur="+encodeURIComponent("RRULE:FREQ=DAILY")+"&details="+encodeURIComponent("15 minutes to go through what you parked: "+APP_URL+"#tool-worry")}
 function renderWorry(){
   $("#worryPark").hidden=false;$("#worryReview").hidden=true;
   const n=worryList().length;
@@ -2065,19 +2092,19 @@ function showWorryItem(){const l=worryList();if(wqIdx>=l.length){toast("That's a
 $("#worryStart").onclick=()=>{wqIdx=0;showWorryItem()};
 $("#worryReview").addEventListener("click",e=>{const b=e.target.closest("[data-wact]");if(!b)return;const act=b.dataset.wact;const l=worryList();const item=l[wqIdx];if(!item)return;
   if(act==="keep"){wqIdx++;showWorryItem();return}
+  if(act==="solve"){solveStart(item.t,item.at);nav({tab:"toolkit",tool:"solve"});return}
   l.splice(wqIdx,1);store.set("ll.worries",l);const st=store.get("ll.worryStats",{});st[act]=(st[act]||0)+1;store.set("ll.worryStats",st);
-  if(act==="solve"){solveStart(item.t);nav({tab:"toolkit",tool:"solve"});return}
   showWorryItem()});
 
 /* ---------- Sort It Out (structured problem solving + if-then plan) ---------- */
 let sStep=0,sDraft={problem:"",options:["","",""],chosen:-1,when:"",will:""};
-function solveStart(problem){sStep=0;sDraft={problem:problem||"",options:["","",""],chosen:-1,when:"",will:""}}
+function solveStart(problem,fromWorry){sStep=0;sDraft={problem:problem||"",options:["","",""],chosen:-1,when:"",will:"",fromWorry:fromWorry||0}}
 function renderSolve(){
   const B=$("#solveBody");
-  if(sStep===0)B.innerHTML=`<p class="small muted">Some problems are worth worrying less and doing more about. This takes about 5 minutes.</p><label for="sProb" class="small"><b>What's the problem, in one sentence?</b></label><textarea id="sProb" placeholder="e.g. I'm behind on my phone bill">${esc(sDraft.problem)}</textarea>`;
+  if(sStep===0)B.innerHTML=`<p class="small muted">Some worries are problems you can do something about. This takes about 5 minutes.</p><label for="sProb" class="small"><b>What's the problem, in one sentence?</b></label><textarea id="sProb" placeholder="e.g. I'm behind on my phone bill">${esc(sDraft.problem)}</textarea>`;
   if(sStep===1)B.innerHTML=`<p class="small"><b>List a few things you could do.</b> <span class="muted">No idea is too small or silly. Don't judge them yet.</span></p>${sDraft.options.map((o,i)=>`<input type="text" data-sopt="${i}" value="${esc(o)}" placeholder="Option ${i+1}" aria-label="Option ${i+1}">`).join("")}<button class="linkish small" type="button" id="sAddOpt" style="align-self:flex-start">Add another option</button>`;
   if(sStep===2){const opts=sDraft.options.map((o,i)=>[o.trim(),i]).filter(x=>x[0]);B.innerHTML=`<p class="small"><b>Which one seems most doable right now?</b> <span class="muted">Think about what it would cost you, and what it might fix.</span></p><div class="idea-list">${opts.map(([o,i])=>`<button type="button" data-schoose="${i}" aria-pressed="${sDraft.chosen===i}">${esc(o)}</button>`).join("")}</div>`}
-  if(sStep===3)B.innerHTML=`<p class="small"><b>Make the first step small and specific.</b> <span class="muted">Plans written as “When…, I will…” are much more likely to happen.</span></p><p class="small muted">Plan: ${esc(sDraft.options[sDraft.chosen]||"")}</p><label for="sWhen" class="small"><b>When…</b></label><input type="text" id="sWhen" value="${esc(sDraft.when)}" placeholder="e.g. I finish lunch on Thursday"><label for="sWill" class="small"><b>I will…</b></label><input type="text" id="sWill" value="${esc(sDraft.will)}" placeholder="e.g. call the provider and ask about a payment plan">`;
+  if(sStep===3)B.innerHTML=`<p class="small"><b>Make the first step small and specific.</b> <span class="muted">Writing it as “When…, I will…” can make it easier to follow through.</span></p><p class="small muted">Plan: ${esc(sDraft.options[sDraft.chosen]||"")}</p><label for="sWhen" class="small"><b>When…</b></label><input type="text" id="sWhen" value="${esc(sDraft.when)}" placeholder="e.g. I finish lunch on Thursday"><label for="sWill" class="small"><b>I will…</b></label><input type="text" id="sWill" value="${esc(sDraft.will)}" placeholder="e.g. call the provider and ask about a payment plan">`;
   $$("#solveDots i").forEach((d,i)=>d.classList.toggle("on",i<=sStep));
   $("#solveBack").style.visibility=sStep?"visible":"hidden";
   $("#solveNext").textContent=sStep===3?"Save my plan":"Next";
@@ -2085,7 +2112,7 @@ function renderSolve(){
   $("#solvePlans").hidden=!plans.length;
   $("#solveList").innerHTML=plans.slice(-6).reverse().map(x=>`<div class="li"><div class="li-main"><b>${esc(x.problem)}</b><span class="small">When ${esc(x.when)}, I will ${esc(x.will)}.</span></div><button class="chip" type="button" data-sdone="${x.at}" aria-pressed="${!!x.done}">${x.done?"Done ✓":"Mark done"}</button></div>`).join("");
 }
-$("#solveBody").addEventListener("input",e=>{const t=e.target;if(t.id==="sProb")sDraft.problem=t.value;if(t.dataset.sopt!==undefined)sDraft.options[+t.dataset.sopt]=t.value;if(t.id==="sWhen")sDraft.when=t.value;if(t.id==="sWill")sDraft.will=t.value});
+$("#solveBody").addEventListener("input",e=>{const t=e.target;if(t.id==="sProb")sDraft.problem=t.value;if(t.dataset.sopt!==undefined){sDraft.options[+t.dataset.sopt]=t.value;if(+t.dataset.sopt===sDraft.chosen&&!t.value.trim())sDraft.chosen=-1}if(t.id==="sWhen")sDraft.when=t.value;if(t.id==="sWill")sDraft.will=t.value});
 $("#solveBody").addEventListener("click",e=>{if(e.target.id==="sAddOpt"){if(sDraft.options.length<6){sDraft.options.push("");renderSolve()}return}
   const b=e.target.closest("[data-schoose]");if(b){sDraft.chosen=+b.dataset.schoose;renderSolve()}});
 $("#solveList").addEventListener("click",e=>{const b=e.target.closest("[data-sdone]");if(!b)return;const l=store.get("ll.plans",[]);const p=l.find(x=>String(x.at)===b.dataset.sdone);if(p){p.done=!p.done;store.set("ll.plans",l);if(p.done)toast("Nice one. Ticked off.");renderSolve()}});
@@ -2097,8 +2124,38 @@ $("#solveNext").onclick=()=>{
   if(sStep<3){sStep++;renderSolve();return}
   if(!sDraft.when.trim()||!sDraft.will.trim()){toast("Fill in both parts of your plan");return}
   const l=store.get("ll.plans",[]);l.push({problem:sDraft.problem.trim(),options:sDraft.options.map(o=>o.trim()).filter(Boolean),chosen:sDraft.options[sDraft.chosen].trim(),when:sDraft.when.trim(),will:sDraft.will.trim(),done:false,at:Date.now()});
-  store.set("ll.plans",l.slice(-100));plant("solve");toast("Plan saved. You've got this.");solveStart("");renderSolve();
+  store.set("ll.plans",l.slice(-100));plant("solve");
+  if(sDraft.fromWorry){const w=store.get("ll.worries",[]).filter(x=>!(x&&x.at===sDraft.fromWorry));store.set("ll.worries",w);const st=store.get("ll.worryStats",{});st.solve=(st.solve||0)+1;store.set("ll.worryStats",st)}toast("Plan saved. You've got this.");solveStart("");renderSolve();
 };
+
+/* ---------- Brave Steps (graded exposure) ---------- */
+const BRAVE_EX={
+ gym:{g:"Feel okay going to the gym",s:[["Look at the gym's website and class times",1],["Walk or drive past the gym",2],["Go in at a quiet time and ask for a tour",4],["Do a 15-minute session at a quiet time",5],["Go at a busier time",7],["Try a group class",8]]},
+ social:{g:"Feel more comfortable at social events",s:[["Message a friend to say hi",1],["Have a coffee with one person I know",3],["Go to a small catch-up for 30 minutes",5],["Introduce myself to someone new",6],["Stay at a party for an hour",8]]},
+ phone:{g:"Make phone calls without dreading them",s:[["Write down what I want to say",1],["Call a friend or family member",2],["Call a shop to ask their opening hours",4],["Call to book an appointment",5],["Make a call I've been putting off",8]]}
+};
+$("#braveFear").innerHTML=[...Array(11)].map((_,i)=>`<option value="${i}"${i===3?" selected":""}>${i}</option>`).join("");
+function braveData(){const d=store.get("ll.brave",{goal:"",steps:[]});if(!Array.isArray(d.steps))d.steps=[];return d}
+function renderBrave(){
+  const d=braveData();$("#braveGoal").value=d.goal||"";
+  const steps=d.steps.slice().sort((a,b)=>a.fear-b.fear);
+  $("#braveList").innerHTML=steps.length?steps.map(x=>`<div class="li"><div class="li-main"><b>${esc(x.t)}</b><span class="small muted">Scary: ${x.fear}/10${x.done?` · done ${x.done} time${x.done===1?"":"s"}`:""}</span><span class="row" style="gap:14px;margin-top:6px;flex-wrap:wrap"><button class="chip" type="button" data-bdone="${x.id}" aria-pressed="${!!x.done}">${x.done?"Did it again":"I did it"}</button><button class="linkish small" type="button" data-bdel="${x.id}">Remove<span class="sr"> step: ${esc(x.t)}</span></button></span></div></div>`).join(""):`<div class="empty">No steps yet. Add a few, or tap an idea above.</div>`;
+  const next=steps.find(x=>!x.done);
+  $("#braveNext").innerHTML=!steps.length?"":next?`<b>Next step:</b> ${esc(next.t)}. Stay with it until the anxiety starts to ease, or for as long as you can. Repeat a step until it feels easier before moving up.`:"<b>You've done every step.</b> That's brave. Keep practising, or add a harder one.";
+}
+function braveSave(d){store.set("ll.brave",d);renderBrave()}
+$("#braveGoal").onchange=e=>{const d=braveData();d.goal=e.target.value.trim();braveSave(d)};
+$("#braveAdd").onclick=()=>{const t=$("#braveStep").value.trim();if(!t)return;const d=braveData();if(d.steps.length>=15){toast("That's plenty of steps for now");return}
+  d.steps.push({id:Date.now(),t,fear:+$("#braveFear").value,done:0});$("#braveStep").value="";braveSave(d)};
+$("#braveStep").addEventListener("keydown",e=>{if(e.key==="Enter")$("#braveAdd").click()});
+$$("[data-bravex]").forEach(b=>b.onclick=()=>{const ex=BRAVE_EX[b.dataset.bravex];const d=braveData();
+  if(d.steps.length&&!confirmBrave(b))return;
+  braveSave({goal:ex.g,steps:ex.s.map(([t,f],i)=>({id:Date.now()+i,t,fear:f,done:0}))});toast("Edit or remove any steps to make them yours")});
+let braveArm=null;
+function confirmBrave(b){if(braveArm===b){braveArm=null;return true}braveArm=b;toast("Tap again to replace your current steps");setTimeout(()=>{if(braveArm===b)braveArm=null},4000);return false}
+$("#braveList").addEventListener("click",e=>{const d=braveData();
+  const dn=e.target.closest("[data-bdone]");if(dn){const x=d.steps.find(s=>String(s.id)===dn.dataset.bdone);if(x){x.done=(x.done||0)+1;x.last=Date.now();braveSave(d);plant("brave");toast("That took courage. Well done.")}return}
+  const dl=e.target.closest("[data-bdel]");if(dl){d.steps=d.steps.filter(s=>String(s.id)!==dl.dataset.bdel);braveSave(d)}});
 
 /* ---------- Your data: backup, restore, GP summary ---------- */
 function backupInfo(){const t=store.get("ll.lastBackup",0);$("#backupInfo").textContent=t?"Last backup: "+new Date(t).toLocaleDateString("en-AU",{day:"numeric",month:"long",year:"numeric"}):"No backup saved yet."}
@@ -2143,6 +2200,7 @@ $("#gpBtn").onclick=()=>{
   <h2>Words I used for my feelings</h2><p>${top(words)}</p>
   <h2>Day by day</h2><table><tr><th>Date</th><th>Mood</th><th>On my mind</th>${withNotes?"<th>Note</th>":""}</tr>${rows.map(r=>`<tr><td>${r.d.toLocaleDateString("en-AU",{weekday:"short",day:"numeric",month:"short"})}</td><td>${MOODS[r.e.mood-1].l}${r.e.word?" · "+esc(r.e.word):""}</td><td>${esc((r.e.factors||[]).join(", "))}</td>${withNotes?`<td>${esc(r.e.note||"")}</td>`:""}</tr>`).join("")}</table>
   <p style="margin-top:14pt;font-size:10pt">Self-recorded daily check-ins from the Little Lift app. This is not a clinical assessment. Your GP can talk with you about support options, such as a Mental Health Treatment Plan.</p>`;
+  window.addEventListener("afterprint",()=>{$("#printArea").innerHTML=""},{once:true});
   setTimeout(()=>{try{window.print()}catch(e){toast("Printing isn't available here. Try the app in your browser.")}},50);
 };
 

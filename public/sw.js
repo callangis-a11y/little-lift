@@ -1,4 +1,4 @@
-// Offline support. The build replaces __VERSION__ and __PRECACHE__.
+// Offline support. The build fills in the version and the list of files to keep offline.
 const VERSION = "little-lift-__VERSION__";
 const PRECACHE = __PRECACHE__;
 

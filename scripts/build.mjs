@@ -70,8 +70,9 @@ const hash = createHash("sha256");
 for (const f of files.sort()) hash.update(f).update(readFileSync(join(dist, f)));
 const version = hash.digest("hex").slice(0, 12);
 const sw = readFileSync(join(root, "public/sw.js"), "utf8")
-  .replace("__VERSION__", version)
-  .replace("__PRECACHE__", JSON.stringify(["./", ...files.filter(f => !f.startsWith("content/") && f !== "og.png")]));
+  .replaceAll("__VERSION__", version)
+  .replaceAll("__PRECACHE__", JSON.stringify(["./", ...files.filter(f => !f.startsWith("content/") && f !== "og.png")]));
+if (/__VERSION__|__PRECACHE__/.test(sw)) throw new Error("sw.js placeholders were not filled in");
 writeFileSync(join(dist, "sw.js"), sw);
 
 console.log(`Built dist/ (${files.length + 1} files, version ${version})`);

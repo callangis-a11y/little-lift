@@ -34,9 +34,30 @@ for (const [route, sel, min] of [["support", "#svcList .li", 1], ["involved", "#
   const n = await page.$$eval(sel, x => x.length);
   if (n < min) fail.push(`#${route}: expected content in ${sel}, found ${n}`);
 }
-for (const r of ["today", "toolkit", "tool-flip", "tool-smile", "tool-boost", "tool-jar", "tool-breathe", "tool-ground", "tool-wave", "tool-kind", "tool-worry", "tool-solve", "tool-plan", "guides", "guide-mate", "guide-move", "guide-adhd", "guide-grief", "support", "involved"]) {
+for (const r of ["today", "toolkit", "tool-flip", "tool-smile", "tool-boost", "tool-jar", "tool-breathe", "tool-ground", "tool-wave", "tool-kind", "tool-worry", "tool-solve", "tool-brave", "tool-plan", "guides", "guide-mate", "guide-move", "guide-adhd", "guide-grief", "support", "involved"]) {
   await page.goto(base + "#" + r); await page.waitForTimeout(150);
   if (await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)) fail.push(`#${r} scrolls sideways on a phone`);
+}
+// Offline: once opened, the app (and its support lines) must work without signal.
+{
+  const ctx = await browser.newContext({ viewport: { width: 375, height: 800 } });
+  const off = await ctx.newPage();
+  off.on("pageerror", e => fail.push("Script error (offline test): " + e.message));
+  await off.route(/fonts\.(googleapis|gstatic)\.com/, r => r.abort());
+  await off.goto(base);
+  const ready = await off.evaluate(() => Promise.race([navigator.serviceWorker.ready.then(() => true), new Promise(r => setTimeout(() => r(false), 8000))]));
+  if (!ready) fail.push("Offline support (service worker) didn't start");
+  else {
+    await off.reload(); await off.waitForTimeout(500);
+    await ctx.setOffline(true);
+    try {
+      await off.reload(); await off.waitForTimeout(800);
+      await off.click("#helpBtn");
+      const n = await off.$$eval("#linesSheet .li", x => x.length);
+      if (n < 4) fail.push(`Offline: help sheet shows ${n} support lines`);
+    } catch (e) { fail.push("Offline: app didn't open without signal (" + e.message.split("\n")[0] + ")"); }
+  }
+  await ctx.close();
 }
 await browser.close(); server.close();
 if (fail.length) { fail.forEach(f => console.error("Problem: " + f)); process.exit(1); }
