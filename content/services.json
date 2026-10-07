@@ -6,21 +6,24 @@
       "name": "4 Aussie Heroes",
       "category": "Defence",
       "area": "National",
-      "blurb": "Supports the wellbeing of Australian Defence Force members and veterans."
+      "blurb": "Supports the wellbeing of Australian Defence Force members and veterans.",
+      "state": "QLD"
     },
     {
       "id": "carers",
       "name": "Carers Foundation",
       "category": "Carers",
       "area": "Moreton Bay",
-      "blurb": "Support for carers, including young carers."
+      "blurb": "Support for carers, including young carers.",
+      "state": "QLD"
     },
     {
       "id": "grow",
       "name": "Grow",
       "category": "Peer support",
       "area": "Queensland",
-      "blurb": "Free peer-support groups that help people build skills for good mental health."
+      "blurb": "Free peer-support groups that help people build skills for good mental health.",
+      "state": "QLD"
     },
     {
       "id": "mates",
@@ -28,63 +31,151 @@
       "category": "Workplace",
       "area": "Queensland",
       "blurb": "Suicide prevention and peer support for construction, mining and energy workers.",
-      "phone": "1300 642 111"
+      "phone": "1300 642 111",
+      "state": "QLD"
     },
     {
       "id": "mind-blank",
       "name": "Mind Blank",
       "category": "Youth",
       "area": "Queensland",
-      "blurb": "Mental health education for young people in schools, delivered through performance."
+      "blurb": "Mental health education for young people in schools, delivered through performance.",
+      "state": "QLD"
     },
     {
       "id": "peach-tree",
       "name": "Peach Tree",
       "category": "Parents",
       "area": "Queensland",
-      "blurb": "Peer support for parents' mental health during pregnancy and early parenthood."
+      "blurb": "Peer support for parents' mental health during pregnancy and early parenthood.",
+      "state": "QLD"
     },
     {
       "id": "rize-up",
       "name": "Rize Up",
       "category": "Families",
       "area": "Queensland",
-      "blurb": "Practical support for families rebuilding after domestic and family violence."
+      "blurb": "Practical support for families rebuilding after domestic and family violence.",
+      "state": "QLD"
     },
     {
       "id": "stepping-stone",
       "name": "Stepping Stone",
       "category": "Recovery",
       "area": "Brisbane",
-      "blurb": "A clubhouse supporting the recovery of people living with mental illness."
+      "blurb": "A clubhouse supporting the recovery of people living with mental illness.",
+      "state": "QLD"
     },
     {
       "id": "spp",
       "name": "Suicide Prevention Pathways",
       "category": "Suicide prevention",
       "area": "Queensland",
-      "blurb": "Community suicide prevention support."
+      "blurb": "Community suicide prevention support.",
+      "state": "QLD"
     },
     {
       "id": "sunshine-butterflies",
       "name": "Sunshine Butterflies",
       "category": "Disability",
       "area": "Sunshine Coast",
-      "blurb": "Programs and support for people living with disability and their families."
+      "blurb": "Programs and support for people living with disability and their families.",
+      "state": "QLD"
     },
     {
       "id": "sunlight",
       "name": "The Sunlight Centre",
       "category": "Counselling",
       "area": "Brisbane",
-      "blurb": "Not-for-profit counselling service."
+      "blurb": "Not-for-profit counselling service.",
+      "state": "QLD"
     },
     {
       "id": "trek2health",
       "name": "Trek 2 Health",
       "category": "Community",
       "area": "Queensland",
-      "blurb": "Community walks and treks that get people moving for health."
+      "blurb": "Community walks and treks that get people moving for health.",
+      "state": "QLD"
+    },
+    {
+      "id": "headspace-centres",
+      "name": "headspace",
+      "category": "Youth",
+      "area": "National",
+      "blurb": "Free mental health support for 12 to 25 year olds, at local centres and online.",
+      "url": "https://headspace.org.au/headspace-centres/",
+      "state": "National"
+    },
+    {
+      "id": "sane",
+      "name": "SANE",
+      "category": "Mental health info",
+      "area": "National",
+      "blurb": "Support and information for people living with complex mental health issues. Mon–Fri 10am–8pm.",
+      "phone": "1800 187 263",
+      "url": "https://www.sane.org/get-support",
+      "state": "National"
+    },
+    {
+      "id": "butterfly",
+      "name": "Butterfly National Helpline",
+      "category": "Eating disorders",
+      "area": "National",
+      "blurb": "Support for eating disorders and body image, including for carers. 7 days, 8am–midnight.",
+      "phone": "1800 33 4673",
+      "url": "https://butterfly.org.au/get-support/helpline/",
+      "state": "National"
+    },
+    {
+      "id": "1800respect",
+      "name": "1800RESPECT",
+      "category": "Family violence",
+      "area": "National",
+      "blurb": "For anyone affected by domestic, family or sexual violence. 24/7.",
+      "phone": "1800 737 732",
+      "url": "https://www.1800respect.org.au/",
+      "state": "National"
+    },
+    {
+      "id": "gambling-help",
+      "name": "Gambling Help Online",
+      "category": "Gambling",
+      "area": "National",
+      "blurb": "For anyone affected by gambling, including family. 24/7.",
+      "phone": "1800 858 858",
+      "url": "https://www.gamblinghelponline.org.au/",
+      "state": "National"
+    },
+    {
+      "id": "aod-hotline",
+      "name": "National Alcohol and Other Drug Hotline",
+      "category": "Alcohol and drugs",
+      "area": "National",
+      "blurb": "Worried about your own or someone else's drinking or drug use. 24/7.",
+      "phone": "1800 250 015",
+      "url": "https://www.health.gov.au/contacts/national-alcohol-and-other-drug-hotline",
+      "state": "National"
+    },
+    {
+      "id": "panda",
+      "name": "PANDA Perinatal Helpline",
+      "category": "Parents",
+      "area": "National",
+      "blurb": "For expecting and new parents, from pregnancy to a year after birth. Mon–Fri 9am–7:30pm, weekends 9am–4pm.",
+      "phone": "1300 726 306",
+      "url": "https://www.panda.org.au/",
+      "state": "National"
+    },
+    {
+      "id": "carer-gateway",
+      "name": "Carer Gateway",
+      "category": "Carers",
+      "area": "National",
+      "blurb": "Free support and counselling for unpaid carers. Mon–Fri 8am–5pm.",
+      "phone": "1800 422 737",
+      "url": "https://www.carergateway.gov.au/",
+      "state": "National"
     }
   ]
 }

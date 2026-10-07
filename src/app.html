@@ -268,6 +268,12 @@ h1[tabindex="-1"]:focus{outline:none}
 
 .linkish{border:0;background:none;padding:0;color:var(--accent-ink);font-weight:700;text-decoration:underline;text-underline-offset:2px;font-size:inherit}
 
+select{font:inherit;color:inherit;width:100%;border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:10px 12px}
+input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:8px 10px}
+:root[data-text="lg"] .app,:root[data-text="lg"] .sheet{zoom:1.12}
+:root[data-text="xl"] .app,:root[data-text="xl"] .sheet{zoom:1.25}
+@media (max-width:440px){:root[data-text="xl"] .wordmark{display:none}}
+
 .empty{border:1px dashed var(--line);border-radius:var(--r);padding:18px;text-align:center;color:var(--ink-3);font-size:14px}
 .foot{font-size:12px;color:var(--ink-3);text-align:center;padding-top:8px}
 
@@ -330,7 +336,7 @@ h1[tabindex="-1"]:focus{outline:none}
           <label class="small muted" for="note">A note for yourself</label>
           <textarea id="note" placeholder="e.g. Slept badly, big week at work"></textarea>
           <div class="row" style="justify-content:space-between;flex-wrap:wrap">
-            <span class="saved" id="savedMsg" role="status" hidden>Saved to this device</span>
+            <span class="stack" style="gap:2px"><span class="saved" id="savedMsg" role="status" hidden>Saved to this device</span><button class="linkish small" type="button" id="remLink" hidden>Get a daily reminder</button></span>
             <button class="btn" id="saveCheckin" type="button">Save check-in</button>
           </div>
         </div>
@@ -535,7 +541,10 @@ h1[tabindex="-1"]:focus{outline:none}
         <button class="guide-card" type="button" data-guide="grief"><span class="gc-ic" style="background:color-mix(in srgb,var(--m3) 25%,var(--surface));color:var(--ink-2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21c-4-3-8-6.5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 4.5-4 8-8 11z"/></svg></span><span class="gc-txt"><b>After a suicide loss</b><span>Grief, what can help, and support for those left behind</span></span></button>
       </div>
 
-      <button class="chip back" id="guideBack" type="button" hidden>← All guides</button>
+      <div class="row" id="guideBar" hidden style="justify-content:space-between">
+        <button class="chip back" id="guideBack" type="button">← All guides</button>
+        <button class="chip" id="listenBtn" type="button" hidden><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="vertical-align:-3px;margin-right:4px"><path d="M11 5L6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg><span>Listen</span></button>
+      </div>
 
       <div class="stack" id="g-mate" hidden style="gap:20px">
       <div class="hello"><p class="eyebrow">Spot · Speak · Support</p><h1 class="h-xl">Worried about someone?</h1><p class="muted">You don't need to be an expert. Noticing, asking and staying with them can make a real difference.</p></div>
@@ -839,13 +848,27 @@ h1[tabindex="-1"]:focus{outline:none}
 
     <!-- SUPPORT -->
     <section class="view" id="v-support" hidden>
-      <div class="hello"><p class="eyebrow">Find support</p><h1 class="h-xl">People who can help</h1><p class="muted">Queensland organisations the Foundation funds, and national support lines.</p></div>
-      <input type="search" id="svcSearch" placeholder="Search services" aria-label="Search services">
-      <div class="chips" id="svcCats"></div>
-      <div id="svcList"></div>
+      <div class="hello"><p class="eyebrow">Find support</p><h1 class="h-xl">People who can help</h1><p class="muted">Support lines and services across Australia. Choose your state to see local help first.</p></div>
+      <div class="card state-card">
+        <label for="stateSel" class="small"><b>Where are you?</b></label>
+        <select id="stateSel">
+          <option value="">All of Australia</option><option value="QLD">Queensland</option><option value="NSW">New South Wales</option><option value="VIC">Victoria</option><option value="SA">South Australia</option><option value="WA">Western Australia</option><option value="TAS">Tasmania</option><option value="NT">Northern Territory</option><option value="ACT">Australian Capital Territory</option>
+        </select>
+      </div>
       <div class="stack">
         <h2 class="h-m">Phone and text lines</h2>
         <div id="linesInline"></div>
+      </div>
+      <div class="stack">
+        <h2 class="h-m">Services</h2>
+        <p class="small muted" id="svcNote"></p>
+        <input type="search" id="svcSearch" placeholder="Search services" aria-label="Search services">
+        <div class="chips" id="svcCats"></div>
+        <div id="svcList"></div>
+      </div>
+      <div class="card">
+        <h2 class="h-m">Help in your language</h2>
+        <p class="small">Call TIS National on <span class="num" style="font-size:16px;user-select:all">131 450</span> and ask for an interpreter to connect you to any service. It's free, 24/7.</p>
       </div>
     </section>
 
@@ -897,6 +920,7 @@ h1[tabindex="-1"]:focus{outline:none}
       <a class="btn sos-call" href="tel:000">Call 000</a>
     </div>
     <div id="linesSheet"><div class="list"><div class="li"><div class="li-main"><b>Lifeline</b><span class="num">13 11 14</span><span class="small">Text <span class="num" style="font-size:15px">0477 13 11 14</span></span><span class="small muted">Anyone in crisis or needing to talk · 24/7</span></div><a class="icon-btn call" href="tel:131114" aria-label="Call Lifeline">Call</a></div></div></div>
+    <p class="small" id="stateHint" hidden><button class="linkish" type="button" data-go="support">Choose your state</button> to see your local mental health line.</p>
     <p class="small muted">Calls are free or the cost of a local call. If a button doesn't work on your device, press and hold the number to copy it.</p>
   </div>
 </div>
@@ -912,6 +936,18 @@ h1[tabindex="-1"]:focus{outline:none}
         <li>If you share this phone, anyone using it could see them. You can delete them any time.</li>
       </ul>
       <button class="btn ghost" id="clearData" type="button">Delete my data from this device</button>
+    </div>
+    <div class="card" id="remCard">
+      <h3 class="h-m">Daily reminder</h3>
+      <p class="small muted">Add a gentle daily nudge to check in. It goes in your own calendar, so nothing is sent to us.</p>
+      <div class="row"><label for="remTime" class="small"><b>Time</b></label><input type="time" id="remTime" value="19:00" style="width:auto"></div>
+      <div class="row" style="flex-wrap:wrap"><a class="btn" id="remGoogle" href="#" target="_blank" rel="noopener">Add to Google Calendar</a><button class="btn ghost" id="remIcs" type="button">Apple or Outlook calendar</button></div>
+    </div>
+    <div class="card">
+      <h3 class="h-m">Display</h3>
+      <p class="small"><b>Text size</b></p>
+      <div class="seg" role="group" aria-label="Text size"><button type="button" data-text="md" aria-pressed="true">Standard</button><button type="button" data-text="lg" aria-pressed="false">Large</button><button type="button" data-text="xl" aria-pressed="false">Largest</button></div>
+      <p class="small muted">Guides also have a Listen button that reads them aloud.</p>
     </div>
     <div class="card">
       <h3 class="h-m">Important</h3>
@@ -986,9 +1022,12 @@ function lineRow(l){
   ${l.sms?`<a class="icon-btn" href="sms:${digits(l.sms)}" aria-label="Text ${esc(l.name)}">${ICON_SMS}</a>`:""}
   <a class="icon-btn call" href="${tel(l.number)}" aria-label="Call ${esc(l.name)}">${ICON_CALL}</a></div>`;
 }
+let userState=store.get("ll.state","");
+const shownLines=()=>LINES.filter(l=>!l.state||l.state==="National"||l.state===userState);
 function renderLines(){
-  const html=`<div class="list">${LINES.map(lineRow).join("")}</div>`;
+  const html=`<div class="list">${shownLines().map(lineRow).join("")}</div>`;
   $("#linesSheet").innerHTML=html; $("#linesInline").innerHTML=html;
+  const hint=document.getElementById("stateHint"); if(hint) hint.hidden=!!userState;
 }
 safe(renderLines,"lines");
 
@@ -1121,6 +1160,7 @@ $("#saveCheckin").onclick=()=>{
   const ok=store.set("ll.checkins",log);
   $("#savedMsg").textContent=ok?"Saved to this device":"Couldn't save on this device";
   $("#savedMsg").hidden=false; renderWeek(); safe(renderInsights); if(ok&&first) plant("checkin");
+  $("#remLink").hidden=!ok||store.get("ll.reminded",false);
 };
 function renderWeek(){
   const log=store.get("ll.checkins",{}); const out=[]; const now=new Date(); let count=0;
@@ -1376,7 +1416,7 @@ window.addEventListener("pagehide",savePlan);document.addEventListener("visibili
 function showGuide(k){
   const open=GUIDES.includes(k);
   GUIDES.forEach(x=>$("#g-"+x).hidden=x!==k);
-  $("#guideGrid").hidden=open;$("#guideBack").hidden=!open;
+  $("#guideGrid").hidden=open;$("#guideBar").hidden=!open;stopListen();
   if(k==="move")renderMove();
 }
 $("#guideGrid").addEventListener("click",e=>{const b=e.target.closest("[data-guide]");if(b)nav({tab:"guides",guide:b.dataset.guide})});
@@ -1623,14 +1663,55 @@ $("#mtSend").onclick=async()=>{const text=$("#mtText").value.trim();if(!text)ret
 $("#mtCopy").onclick=()=>copy($("#mtText").value.trim());
 safe(renderMate);
 
+
+/* ---------- Your state ---------- */
+$("#stateSel").value=userState;
+$("#stateSel").addEventListener("change",()=>{userState=$("#stateSel").value;store.set("ll.state",userState);svcCat="All";renderAll();toast(userState?"Showing help for "+$("#stateSel").selectedOptions[0].text:"Showing help across Australia")});
+
+/* ---------- Text size ---------- */
+function setText(v){if(!["md","lg","xl"].includes(v))v="md";document.documentElement.dataset.text=v;$$("button[data-text]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.text===v));store.set("ll.text",v);setTimeout(()=>safe(drawGarden),50)}
+$$("button[data-text]").forEach(b=>b.addEventListener("click",()=>setText(b.dataset.text)));
+setText(store.get("ll.text","md"));
+
+/* ---------- Read guides aloud ---------- */
+const canSpeak="speechSynthesis" in window&&typeof SpeechSynthesisUtterance!=="undefined";
+let speaking=false;
+function stopListen(){if(canSpeak){try{speechSynthesis.cancel()}catch(e){}}speaking=false;const b=document.getElementById("listenBtn");if(b){b.querySelector("span").textContent="Listen";b.hidden=!canSpeak}}
+$("#listenBtn").onclick=()=>{
+  if(!canSpeak)return; if(speaking){stopListen();return}
+  const panel=GUIDES.map(k=>$("#g-"+k)).find(el=>el&&!el.hidden);if(!panel)return;
+  const clone=panel.cloneNode(true);clone.querySelectorAll("button,textarea,input,[hidden],.sr,svg").forEach(n=>n.remove());
+  const text=clone.innerText.replace(/\n{2,}/g,"\n").trim();if(!text)return;
+  const u=new SpeechSynthesisUtterance(text);u.lang="en-AU";u.rate=0.95;
+  const v=speechSynthesis.getVoices().find(v=>/en[-_]AU/i.test(v.lang))||speechSynthesis.getVoices().find(v=>/^en/i.test(v.lang));if(v)u.voice=v;
+  u.onend=u.onerror=()=>stopListen();
+  speechSynthesis.cancel();speechSynthesis.speak(u);speaking=true;$("#listenBtn span").textContent="Stop";
+};
+stopListen();
+
+/* ---------- Daily reminder (added to the person's own calendar) ---------- */
+const APP_URL=/^https?:$/.test(location.protocol)&&document.documentElement.dataset.site==="1"?location.origin+location.pathname:"https://callangis-a11y.github.io/little-lift/";
+function remStart(){const [h,m]=($("#remTime").value||"19:00").split(":").map(Number);const d=new Date();d.setHours(h||19,m||0,0,0);if(d<new Date())d.setDate(d.getDate()+1);return d}
+const ymdhms=d=>d.getFullYear()+String(d.getMonth()+1).padStart(2,"0")+String(d.getDate()).padStart(2,"0")+"T"+String(d.getHours()).padStart(2,"0")+String(d.getMinutes()).padStart(2,"0")+"00";
+function updateRem(){const a=remStart(),b=new Date(a.getTime()+5*60000);let tz="";try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||""}catch(e){}
+  $("#remGoogle").href="https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("Little Lift check-in")+"&details="+encodeURIComponent("A quick check-in: "+APP_URL)+"&dates="+ymdhms(a)+"/"+ymdhms(b)+"&recur="+encodeURIComponent("RRULE:FREQ=DAILY")+(tz?"&ctz="+encodeURIComponent(tz):"");}
+$("#remTime").addEventListener("change",updateRem);updateRem();
+$("#remGoogle").addEventListener("click",()=>store.set("ll.reminded",true));
+$("#remIcs").onclick=()=>{const a=remStart(),b=new Date(a.getTime()+5*60000);
+  const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Little Lift//EN","BEGIN:VEVENT","UID:little-lift-checkin-"+Date.now()+"@littlelift","DTSTAMP:"+new Date().toISOString().replace(/[-:]/g,"").split(".")[0]+"Z","DTSTART:"+ymdhms(a),"DTEND:"+ymdhms(b),"RRULE:FREQ=DAILY","SUMMARY:Little Lift check-in","DESCRIPTION:A quick check-in: "+APP_URL,"URL:"+APP_URL,"BEGIN:VALARM","ACTION:DISPLAY","DESCRIPTION:Little Lift check-in","TRIGGER:PT0M","END:VALARM","END:VEVENT","END:VCALENDAR"].join("\r\n");
+  try{const url=URL.createObjectURL(new Blob([ics],{type:"text/calendar"}));const link=document.createElement("a");link.href=url;link.download="little-lift-reminder.ics";document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),4000);store.set("ll.reminded",true);toast("Open the downloaded file to add it to your calendar.")}catch(e){toast("Couldn't create the calendar file on this device.")}};
+$("#remLink").onclick=()=>{showSheet("#aboutSheet");setTimeout(()=>$("#remCard").scrollIntoView({block:"center"}),50)};
+
 /* ---------- Services, events, gyms ---------- */
 let svcCat="All";
 function renderServices(){
-  const cats=["All",...new Set(SERVICES.map(s=>s.category).filter(Boolean))];
+  const cats=["All",...new Set(SERVICES.filter(s=>!s.state||s.state==="National"||!userState||s.state===userState).map(s=>s.category).filter(Boolean))];
   if(!cats.includes(svcCat))svcCat="All";
   $("#svcCats").innerHTML=cats.length>2?cats.map(c=>`<button class="chip" type="button" data-cat="${esc(c)}" aria-pressed="${c===svcCat}">${esc(c)}</button>`).join(""):"";
   const q=$("#svcSearch").value.trim().toLowerCase();
-  const list=SERVICES.filter(s=>(svcCat==="All"||s.category===svcCat)&&(!q||[s.name,s.blurb,s.category,s.area].join(" ").toLowerCase().includes(q)))
+  const inState=s=>!s.state||s.state==="National"||!userState||s.state===userState;
+  $("#svcNote").textContent=userState&&userState!=="QLD"?"National services. The organisations the Mental Awareness Foundation funds are in Queensland: choose Queensland or All of Australia to see them.":"Includes the Queensland organisations the Mental Awareness Foundation funds.";
+  const list=SERVICES.filter(s=>inState(s)&&(svcCat==="All"||s.category===svcCat)&&(!q||[s.name,s.blurb,s.category,s.area].join(" ").toLowerCase().includes(q)))
     .sort((a,b)=>(a.order??99)-(b.order??99)||String(a.name).localeCompare(b.name));
   if(!SERVICES.length){$("#svcList").innerHTML=`<div class="empty">${contentState==="loading"?"Loading services…":"Services the Foundation supports will appear here."}</div>`;return}
   if(!list.length){$("#svcList").innerHTML=`<div class="empty">No services match “${esc(q)}”.</div>`;return}

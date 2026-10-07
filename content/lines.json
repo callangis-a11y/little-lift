@@ -12,6 +12,96 @@
       "order": 1
     },
     {
+      "id": "qld-1300-mh-call",
+      "name": "1300 MH CALL (Queensland)",
+      "number": "1300 642 255",
+      "who": "Queensland public mental health services",
+      "hours": "24/7",
+      "url": "https://www.qld.gov.au/health/mental-health/help-lines/1300-mh-call",
+      "state": "QLD",
+      "order": 1.5
+    },
+    {
+      "id": "nsw-mental-health-line",
+      "name": "NSW Mental Health Line",
+      "number": "1800 011 511",
+      "who": "Anyone in NSW worried about their own or someone else's mental health",
+      "hours": "24/7",
+      "url": "https://www.health.nsw.gov.au/mentalhealth/Pages/mental-health-line.aspx",
+      "state": "NSW",
+      "order": 1.5
+    },
+    {
+      "id": "vic-nurse-on-call",
+      "name": "NURSE-ON-CALL (Victoria)",
+      "number": "1300 60 60 24",
+      "who": "Urgent health advice in Victoria, including mental health. Your local area mental health service can also help",
+      "hours": "24/7",
+      "url": "https://www.betterhealth.vic.gov.au/health/ServicesAndSupport/urgent-treatment-for-mental-illness",
+      "state": "VIC",
+      "order": 1.5
+    },
+    {
+      "id": "sa-mental-health-triage",
+      "name": "SA Mental Health Triage Service",
+      "number": "13 14 65",
+      "who": "South Australians needing mental health assessment and advice",
+      "hours": "24/7",
+      "url": "https://www.sahealth.sa.gov.au/",
+      "state": "SA",
+      "order": 1.5
+    },
+    {
+      "id": "wa-mherl",
+      "name": "WA Mental Health Emergency Response Line",
+      "number": "1300 555 788",
+      "who": "Perth metro (Peel: 1800 676 822)",
+      "hours": "24/7",
+      "url": "https://mhc.wa.gov.au/mherl",
+      "state": "WA",
+      "order": 1.5
+    },
+    {
+      "id": "tas-access-mental-health",
+      "name": "Access Mental Health Service (Tasmania)",
+      "number": "1800 332 388",
+      "who": "Tasmanians needing mental health support",
+      "hours": "24/7",
+      "url": "https://health.tas.gov.au/",
+      "state": "TAS",
+      "order": 1.5
+    },
+    {
+      "id": "nt-mental-health-line",
+      "name": "NT Mental Health Line",
+      "number": "1800 682 288",
+      "who": "Mental health support across the Northern Territory",
+      "hours": "24/7",
+      "url": "https://nt.gov.au/wellbeing/mental-health/24-hour-mental-health-hotlines",
+      "state": "NT",
+      "order": 1.5
+    },
+    {
+      "id": "act-access-mental-health",
+      "name": "ACT Access Mental Health Line",
+      "number": "1800 629 354",
+      "who": "Anyone in the ACT worried about their own or someone else's mental health",
+      "hours": "24/7",
+      "url": "https://www.canberrahealthservices.act.gov.au/services-and-clinics/services/access-mental-health",
+      "state": "ACT",
+      "order": 1.5
+    },
+    {
+      "id": "wa-rurallink",
+      "name": "Rurallink (regional WA)",
+      "number": "1800 552 002",
+      "who": "Regional and remote Western Australia",
+      "hours": "Weeknights 4:30pm–8:30am, 24 hours on weekends and public holidays",
+      "url": "https://mhc.wa.gov.au/mherl",
+      "state": "WA",
+      "order": 1.6
+    },
+    {
       "id": "suicide-callback",
       "name": "Suicide Call Back Service",
       "number": "1300 659 467",
@@ -42,7 +132,7 @@
       "name": "Medicare Mental Health",
       "number": "1800 595 212",
       "who": "Free mental health nurses who help you find the right care. Not a crisis line",
-      "hours": "Weekdays, business hours",
+      "hours": "Mon–Fri 8:30am–5pm",
       "url": "https://www.medicarementalhealth.gov.au",
       "order": 3.5
     },
@@ -54,6 +144,15 @@
       "hours": "24/7",
       "url": "https://kidshelpline.com.au",
       "order": 4
+    },
+    {
+      "id": "eheadspace",
+      "name": "eheadspace",
+      "number": "1800 650 890",
+      "who": "Young people aged 12–25 and their families",
+      "hours": "3pm–10pm every day",
+      "url": "https://headspace.org.au/",
+      "order": 4.5
     },
     {
       "id": "mensline",
@@ -98,6 +197,15 @@
       "who": "Construction, mining and energy workers",
       "hours": "24/7",
       "order": 9
+    },
+    {
+      "id": "tis-national",
+      "name": "TIS National (interpreters)",
+      "number": "131 450",
+      "who": "Free interpreter for calling any service in your language",
+      "hours": "24/7",
+      "url": "https://www.tisnational.gov.au/",
+      "order": 10
     }
   ]
 }

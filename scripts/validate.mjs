@@ -10,8 +10,8 @@ const err = (f, m) => errors.push(`${f}: ${m}`);
 const warn = (f, m) => warnings.push(`${f}: ${m}`);
 
 const SCHEMA = {
-  lines:    { required: ["id", "name", "number"], optional: ["sms", "who", "hours", "url", "order", "hidden"] },
-  services: { required: ["id", "name"], optional: ["category", "area", "blurb", "phone", "url", "order", "hidden"] },
+  lines:    { required: ["id", "name", "number"], optional: ["sms", "who", "hours", "url", "state", "order", "hidden"] },
+  services: { required: ["id", "name"], optional: ["category", "area", "blurb", "phone", "url", "state", "order", "hidden"] },
   events:   { required: ["id", "title"], optional: ["date", "when", "place", "blurb", "url", "order", "hidden"] },
   partners: { required: ["id", "name"], optional: ["area", "blurb", "phone", "url", "offer", "order", "hidden"] }
 };
@@ -48,6 +48,7 @@ for (const [kind, rule] of Object.entries(SCHEMA)) {
     }
     if (it.url !== undefined && !/^https:\/\/[^\s]+\.[^\s]+/.test(it.url)) err(where, `"url" must start with https://`);
     if (it.date !== undefined && !/^\d{4}-\d{2}-\d{2}$/.test(it.date)) err(where, `"date" must look like 2026-11-14`);
+    if (it.state !== undefined && !["National","QLD","NSW","VIC","SA","WA","TAS","NT","ACT"].includes(it.state)) err(where, `"state" must be National, QLD, NSW, VIC, SA, WA, TAS, NT or ACT`);
     if (it.order !== undefined && typeof it.order !== "number") err(where, `"order" must be a number (no quotes)`);
     if (it.hidden !== undefined && typeof it.hidden !== "boolean") err(where, `"hidden" must be true or false (no quotes)`);
   });
