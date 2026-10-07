@@ -652,7 +652,7 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
         </div>
         <div class="card">
           <h2 class="h-m">Bring this to your workplace</h2>
-          <p class="small muted">The Foundation runs a 45-minute Spot–Speak–Support workshop led by mental health professionals with lived experience, plus Resilience in the Workplace training.</p>
+          <p class="small muted">The Mental Awareness Foundation runs a 45-minute Spot–Speak–Support workshop led by mental health professionals with lived experience, plus Resilience in the Workplace training.</p>
           <a class="btn slate" href="https://www.mentalawarenessfoundation.org/spot-speak-support" target="_blank" rel="noopener">About the workshops</a>
         </div>
       </div>
@@ -869,7 +869,7 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
         </div>
 
         <div class="stack" id="partnersWrap" hidden>
-          <h2 class="h-m">Gyms that support the Foundation</h2>
+          <h2 class="h-m">Gyms that support The Mental Awareness Foundation</h2>
           <p class="small muted">24/7 Snap Fitness clubs in Queensland and South Australia that are proud to back mental health.</p>
           <div id="partnersList"></div>
         </div>
@@ -918,7 +918,7 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
       <div class="card">
         <p class="eyebrow">For the 3,300</p>
         <h2 class="h-m">Every number is a person</h2>
-        <p class="small muted">The Foundation's For the 3,300 campaign honours the Australians lost to suicide each year and funds frontline programs. Change happens when we move, talk, listen and act together.</p>
+        <p class="small muted">The Mental Awareness Foundation's For the 3,300 campaign honours the Australians lost to suicide each year and funds frontline programs. Change happens when we move, talk, listen and act together.</p>
         <a class="btn ghost" href="https://forthe3300.com.au/" target="_blank" rel="noopener">Learn more</a>
       </div>
       <div class="stack"><h2 class="h-m">Events</h2><div id="eventList"></div></div>
@@ -926,7 +926,7 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
         <h2 class="h-m">Donate</h2>
         <p class="small muted">Donations fund frontline mental health organisations across Queensland.</p>
         <a class="btn" id="donateBtn" href="https://www.mentalawarenessfoundation.org/make-a-donation" target="_blank" rel="noopener">Donate</a>
-        <p class="small muted">Opens the Foundation's secure donation page, where you can choose a one-off or monthly amount.</p>
+        <p class="small muted">Opens The Mental Awareness Foundation's secure donation page, where you can choose a one-off or monthly amount.</p>
       </div>
       <div class="tile-grid">
         <a class="tile" href="https://fundraising.mentalawarenessfoundation.org/" target="_blank" rel="noopener" style="text-decoration:none;color:inherit"><b>Start a fundraiser</b><span>Run your own challenge or event</span></a>
@@ -1804,7 +1804,7 @@ function renderServices(){
   $("#svcNote").textContent=userState&&userState!=="QLD"?"National services. The organisations the Mental Awareness Foundation funds are in Queensland: choose Queensland or All of Australia to see them.":"Includes the Queensland organisations the Mental Awareness Foundation funds.";
   const list=SERVICES.filter(s=>inState(s)&&(svcCat==="All"||s.category===svcCat)&&(!q||[s.name,s.blurb,s.category,s.area].join(" ").toLowerCase().includes(q)))
     .sort((a,b)=>(a.order??99)-(b.order??99)||String(a.name).localeCompare(b.name));
-  if(!SERVICES.length){$("#svcList").innerHTML=`<div class="empty">${contentState==="loading"?"Loading services…":"Services the Foundation supports will appear here."}</div>`;return}
+  if(!SERVICES.length){$("#svcList").innerHTML=`<div class="empty">${contentState==="loading"?"Loading services…":"Services The Mental Awareness Foundation supports will appear here."}</div>`;return}
   if(!list.length){$("#svcList").innerHTML=`<div class="empty">No services match “${esc(q)}”.</div>`;return}
   $("#svcList").innerHTML=`<div class="list">${list.map(s=>`<div class="li"><div class="li-main"><b>${esc(s.name)}</b><span class="small muted">${esc(s.blurb||"")}</span><span class="row" style="gap:6px;flex-wrap:wrap;margin-top:4px">${s.category?`<span class="tag">${esc(s.category)}</span>`:""}${s.area?`<span class="tag">${esc(s.area)}</span>`:""}</span></div>${s.phone?`<a class="icon-btn" href="${tel(s.phone)}" aria-label="Call ${esc(s.name)} on ${esc(s.phone)}">${ICON_CALL}</a>`:""}${s.url?`<a class="icon-btn" href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="Visit ${esc(s.name)} website">${ICON_LINK}</a>`:""}</div>`).join("")}</div>`;
 }
@@ -1813,15 +1813,26 @@ $("#svcCats").addEventListener("click",e=>{const b=e.target.closest("[data-cat]"
 
 function eventCard(ev){
   const d=ev.date?new Date(ev.date+"T00:00:00"):null,valid=d&&!isNaN(d);
-  const cal=valid?`<div class="cal" aria-hidden="true"><b>${d.getDate()}</b><span>${d.toLocaleDateString("en-AU",{month:"short"})}</span></div>`:`<div class="cal" aria-hidden="true"><b>·</b><span>TBC</span></div>`;
-  return `<div class="card"><div class="event">${cal}<div class="stack" style="gap:4px;min-width:0"><b>${esc(ev.title)}</b><span class="small muted">${esc([ev.when||(valid?d.toLocaleDateString("en-AU",{weekday:"long",day:"numeric",month:"long",year:"numeric"}):""),ev.place].filter(Boolean).join(" · "))}</span>${ev.blurb?`<p class="small">${esc(ev.blurb)}</p>`:""}${ev.url?`<a class="small" href="${esc(ev.url)}" target="_blank" rel="noopener">Details<span class="sr"> about ${esc(ev.title)}</span></a>`:""}</div></div></div>`;
+  const e=ev.end?new Date(ev.end+"T00:00:00"):null,eValid=e&&!isNaN(e);
+  const td=dayKey(new Date()),onNow=valid&&eValid&&ev.date<=td&&ev.end>=td;
+  const cal=onNow?`<div class="cal" aria-hidden="true"><b style="font-size:15px">Now</b><span>on</span></div>`:valid?`<div class="cal" aria-hidden="true"><b>${d.getDate()}</b><span>${d.toLocaleDateString("en-AU",{month:"short"})}</span></div>`:`<div class="cal" aria-hidden="true"><b>·</b><span>TBC</span></div>`;
+  const long={weekday:"long",day:"numeric",month:"long",year:"numeric"};
+  const whenTxt=ev.when||(valid?(eValid?d.toLocaleDateString("en-AU",{day:"numeric",month:"long"})+" to "+e.toLocaleDateString("en-AU",{day:"numeric",month:"long",year:"numeric"}):d.toLocaleDateString("en-AU",long)):"");
+  const own=isOwnEvent(ev);
+  return `<div class="card"><div class="event">${cal}<div class="stack" style="gap:4px;min-width:0"><b>${esc(ev.title)}</b>${ev.host?`<span class="small" style="font-weight:700;color:${own?"var(--accent-ink)":"var(--ink-2)"}">${own?"Hosted by ":"Run by "}${esc(ev.host)}</span>`:""}${whenTxt?`<span class="small muted">${esc(whenTxt)}</span>`:""}${ev.place?`<span class="small muted">${esc(ev.place)}</span>`:""}${ev.blurb?`<p class="small">${esc(ev.blurb)}</p>`:""}${ev.url?`<a class="small" href="${esc(ev.url)}" target="_blank" rel="noopener">Find out more<span class="sr"> about ${esc(ev.title)}</span></a>`:""}</div></div></div>`;
 }
+const isOwnEvent=e=>/mental awareness foundation/i.test(e.host||"");
 function renderEvents(){
   const today=dayKey(new Date());
-  const up=EVENTS.filter(e=>!e.date||e.date>=today).sort((a,b)=>(a.date||"9999").localeCompare(b.date||"9999")||(a.order??99)-(b.order??99));
+  const up=EVENTS.filter(e=>!e.date||(e.end||e.date)>=today).sort((a,b)=>(a.date||"9999").localeCompare(b.date||"9999")||(a.order??99)-(b.order??99));
   const empty=`<div class="empty">${contentState==="loading"?"Loading events…":"No upcoming events listed yet."}</div>`;
-  $("#eventList").innerHTML=up.length?`<div class="stack">${up.map(eventCard).join("")}</div>`:empty;
-  $("#nextEvent").innerHTML=up.length?eventCard(up[0]):empty;
+  if(!up.length){$("#eventList").innerHTML=empty;$("#nextEvent").innerHTML=empty;return}
+  const own=up.filter(isOwnEvent),other=up.filter(e=>!isOwnEvent(e));
+  const group=(title,list)=>list.length?`<h3 class="small eyebrow" style="margin:6px 0 0">${esc(title)}</h3><div class="stack">${list.map(eventCard).join("")}</div>`:"";
+  $("#eventList").innerHTML=`<div class="stack">${group("From The Mental Awareness Foundation",own)}${group("Mental health events around Australia",other)}</div>`;
+  const dated=up.filter(e=>e.date),mine=dated.find(isOwnEvent),next=dated.find(e=>!isOwnEvent(e));
+  const pick=[mine,next].filter(Boolean);
+  $("#nextEvent").innerHTML=`<div class="stack">${(pick.length?pick:[up[0]]).map(eventCard).join("")}</div>`;
 }
 function renderPartners(){
   $("#partnersWrap").hidden=!PARTNERS.length;

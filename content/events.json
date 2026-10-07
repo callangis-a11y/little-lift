@@ -1,28 +1,107 @@
 {
-  "_help": "Edit this list to change the events shown in the app. See AGENTS.md for the rules.",
+  "_help": "Edit this list to change the events shown in the app. See AGENTS.md for the rules. Use 'date' for the start (YYYY-MM-DD) and 'end' for the last day of a week- or month-long event; events hide themselves after they finish. 'host' is who runs it.",
   "items": [
     {
+      "id": "walk",
+      "title": "Walk For Awareness 2026",
+      "host": "The Mental Awareness Foundation",
+      "date": "2026-10-18",
+      "when": "Sunday 18 October 2026, from 7:30am (walk starts 8:30am)",
+      "place": "Captain Burke Park, Kangaroo Point, Brisbane, or Walk Anywhere",
+      "blurb": "The flagship walk: 5km or 9km under the Story Bridge. Family, wheelchair and pet friendly. Kids 14 and under walk free.",
+      "url": "https://www.walkforawareness.org.au/"
+    },
+    {
       "id": "luncheon",
-      "title": "Fundraising Luncheon",
-      "when": "Date to be announced",
-      "blurb": "The Foundation's annual donor event.",
+      "title": "Annual Fundraising Luncheon",
+      "host": "The Mental Awareness Foundation",
+      "when": "2027 date to be announced",
+      "place": "Brisbane",
+      "blurb": "An annual fundraising lunch with guest speakers, auctions and raffles, supporting mental health in South East Queensland.",
       "url": "https://www.mentalawarenessfoundation.org/fundraising-luncheon"
     },
     {
       "id": "workshops",
       "title": "Spot–Speak–Support workshops",
+      "host": "The Mental Awareness Foundation",
       "when": "Book any time",
-      "place": "Your workplace",
-      "blurb": "45-minute mental health workshop for teams.",
+      "place": "At your workplace",
+      "blurb": "A 45-minute mental health workshop for teams, led by professionals with lived experience.",
       "url": "https://www.mentalawarenessfoundation.org/spot-speak-support"
     },
     {
-      "id": "walk",
-      "title": "Walk For Awareness",
-      "when": "Date to be announced",
-      "place": "Brisbane",
-      "blurb": "The Foundation's flagship walk. Register, walk, fundraise or volunteer.",
-      "url": "https://www.walkforawareness.org.au/"
+      "id": "mh-month-2026",
+      "title": "Mental Health Month",
+      "host": "Mental Health Australia",
+      "date": "2026-10-01",
+      "end": "2026-10-31",
+      "when": "All of October 2026",
+      "place": "Australia-wide",
+      "blurb": "This year's theme is Together we Thrive: small, everyday moments of care, kindness and conversation.",
+      "url": "https://www.mhaustralia.org/get-involved/mental-health-month-2026"
+    },
+    {
+      "id": "qmhw-2026",
+      "title": "Queensland Mental Health Week",
+      "host": "Queensland Mental Health Commission",
+      "date": "2026-10-03",
+      "end": "2026-10-11",
+      "when": "3 to 11 October 2026",
+      "place": "Across Queensland",
+      "blurb": "Free local events celebrating wellbeing. This year's theme is Build Community, Build Wellbeing.",
+      "url": "https://www.qldmentalhealthweek.org.au/"
+    },
+    {
+      "id": "wmhd-2026",
+      "title": "World Mental Health Day",
+      "host": "Mental Health Australia",
+      "date": "2026-10-10",
+      "when": "Saturday 10 October 2026",
+      "place": "Australia-wide",
+      "blurb": "A day to start a conversation, check in on someone and look after your own mental health.",
+      "url": "https://www.mhaustralia.org/get-involved/mental-health-month-2026"
+    },
+    {
+      "id": "movember-2026",
+      "title": "Movember",
+      "host": "Movember",
+      "date": "2026-11-01",
+      "end": "2026-11-30",
+      "when": "All of November 2026",
+      "place": "Australia-wide",
+      "blurb": "Grow a mo, move, or host an event to raise funds for men's health, including mental health and suicide prevention.",
+      "url": "https://movember.com/"
+    },
+    {
+      "id": "survivor-day-2026",
+      "title": "International Survivors of Suicide Loss Day",
+      "host": "American Foundation for Suicide Prevention",
+      "date": "2026-11-21",
+      "when": "Saturday 21 November 2026",
+      "place": "Local gatherings and free online events",
+      "blurb": "A day for people who have lost someone to suicide to come together, share stories and find support.",
+      "url": "https://afsp.org/survivorday"
+    },
+    {
+      "id": "pmhw-2026",
+      "title": "Perinatal Mental Health Week",
+      "host": "PANDA",
+      "date": "2026-11-22",
+      "end": "2026-11-28",
+      "when": "22 to 28 November 2026",
+      "place": "Australia-wide",
+      "blurb": "For anyone expecting, a new parent, trying to conceive, or grieving a pregnancy or infant loss, and the people around them.",
+      "url": "https://www.pmhweek.org.au/"
+    },
+    {
+      "id": "ruok-2027",
+      "title": "R U OK? Day",
+      "host": "R U OK?",
+      "date": "2027-09-09",
+      "when": "Thursday 9 September 2027",
+      "place": "Australia-wide",
+      "blurb": "A reminder to ask the people in your world how they're really going, and to keep asking all year.",
+      "url": "https://www.ruok.org.au/"
     }
   ]
 }

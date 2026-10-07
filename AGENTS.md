@@ -13,7 +13,7 @@ You are helping maintain **Little Lift** ("A little lift, any time."), a free me
 | What | File | Who usually edits |
 |---|---|---|
 | Phone and text support lines | `content/lines.json` | Content editors |
-| Organisations the Foundation funds | `content/services.json` | Content editors |
+| Organisations The Mental Awareness Foundation funds | `content/services.json` | Content editors |
 | Events (Walk For Awareness, luncheon, workshops) | `content/events.json` | Content editors |
 | Gyms that support the Foundation | `content/partners.json` | Content editors |
 | The app itself (screens, games, guides, styles) | `src/app.html` | Developers only |
@@ -29,7 +29,7 @@ Each file looks like `{ "_help": "...", "items": [ ... ] }`. Keep the `_help` li
 
 **services.json** (`id`, `name` required): `category`, `area`, `blurb` (one sentence), `phone`, `url`, `order`, `hidden`.
 
-**events.json** (`id`, `title` required): `date` (`YYYY-MM-DD`; past events hide themselves), `when` (free text like "Sunday 9 November, 7am"), `place`, `blurb`, `url`, `order`, `hidden`.
+**events.json** (`id`, `title` required): `date` (`YYYY-MM-DD` start; past events hide themselves), `end` (`YYYY-MM-DD` last day, for week- or month-long events), `host` (who runs it; events hosted by "The Mental Awareness Foundation" are grouped first), `when` (free text like "Sunday 9 November, 7am"), `place`, `blurb`, `url`, `order`, `hidden`. Include mental health events from any reputable organisation, not only the Foundation's, and check dates on the organiser's own website.
 
 **partners.json** (`id`, `name` required): `area`, `blurb` (address), `phone`, `url`, `offer` (short member offer, e.g. "Free week for walkers"), `order`, `hidden`.
 
