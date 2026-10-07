@@ -251,6 +251,13 @@ details.acc summary::-webkit-details-marker{display:none}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .icon-btn.call:not(:has(svg)){width:auto;padding:0 12px;font-weight:700;font-size:14px}
 h1[tabindex="-1"]:focus{outline:none}
+.exit-btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 14px;font-weight:700;font-size:14px;display:inline-flex;align-items:center;gap:6px;align-self:flex-start}
+.exit-btn svg{width:16px;height:16px}
+.exit-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.a2hs{display:flex;gap:12px;align-items:flex-start}
+.a2hs .mk{flex:none;width:40px;height:40px;border-radius:12px;background:linear-gradient(45deg,#FF5A5F,#FF7A50 55%,#FFA845);display:grid;place-items:center}
+.a2hs .mk svg{width:26px}
+.a2hs .grow{flex:1;min-width:0;display:flex;flex-direction:column;gap:8px}
 
 @media (max-width:389px){.brand-txt span{display:none}.help-btn{padding:8px 12px;font-size:13px}.top{gap:8px}}
 
@@ -322,6 +329,7 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
           <li><span><b>Help is one tap away.</b> The red button at the top is always there.</span></li>
           <li><span><b>Small things add up.</b> Check in, play a game, try a guide. Your garden grows as you go.</span></li>
         </ul>
+        <p class="small muted">Made with adults in mind. If you're younger, Kids Helpline is free and there 24/7 for anyone aged 5 to 25: <a href="tel:1800551800">1800 55 1800</a>.</p>
         <p class="small"><b>What brings you here?</b> <span class="muted">Pick any. We'll put the most useful tools first.</span></p>
         <div class="chips focus-chips" role="group" aria-label="What brings you here"></div>
         <button class="btn" id="welcomeGo" type="button">Let's start</button>
@@ -349,6 +357,15 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
           <button class="btn" type="button" data-open-help>See support lines</button>
           <button class="btn ghost" type="button" id="nudgePlan" data-go="toolkit" data-tool="plan" hidden>My safety plan</button>
           <button class="btn ghost" type="button" data-go="toolkit" data-tool="breathe">Try a breathing exercise</button>
+        </div>
+      </div>
+
+      <div class="card a2hs" id="a2hs" hidden>
+        <div class="mk" aria-hidden="true"><svg viewBox="8 8 52 46"><path d="M15 31c2.5 11 9.5 17 18 17 9.5 0 15.5-8 16-26" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M42 27.5L49 18l7 9.5" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="21" r="4.2" fill="#fff"/></svg></div>
+        <div class="grow">
+          <h2 class="h-m">Keep Little Lift handy</h2>
+          <p class="small" id="a2hsText">Add it to your home screen so it's one tap away, like an app. It's free and works offline.</p>
+          <div class="row" style="flex-wrap:wrap"><button class="btn" id="a2hsInstall" type="button" hidden>Add to home screen</button><button class="btn ghost" id="a2hsLater" type="button">Got it</button></div>
         </div>
       </div>
 
@@ -864,6 +881,7 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
     <!-- SUPPORT -->
     <section class="view" id="v-support" hidden>
       <div class="hello"><p class="eyebrow">Find support</p><h1 class="h-xl">People who can help</h1><p class="muted">Support lines and services across Australia. Choose your state to see local help first.</p></div>
+      <div class="exit-row"><button class="exit-btn" type="button" data-exit><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>Leave quickly</button><span class="small muted">If someone might see your screen. You can also press Esc three times.</span></div>
       <div class="card state-card">
         <label for="stateSel" class="small"><b>Where are you?</b></label>
         <select id="stateSel">
@@ -930,6 +948,7 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
 <div class="scrim" id="helpSheet" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
     <div class="sheet-head"><h2 class="h-l" id="helpTitle">Talk to someone now</h2><button class="close" id="helpClose" type="button" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="exit-row"><button class="exit-btn" type="button" data-exit><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>Leave quickly</button><span class="small muted">Jumps to a weather site.</span></div>
     <div class="sos">
       <p class="small" style="flex:1;min-width:0"><b>Emergency.</b> If you or someone else is in immediate danger, call triple zero.</p>
       <a class="btn sos-call" href="tel:000">Call 000</a>
@@ -970,8 +989,14 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
     <div class="card">
       <h3 class="h-m">Important</h3>
       <p class="small">This app supports your wellbeing. It isn't a crisis service and doesn't replace a doctor, psychologist or counsellor. If you're worried about your safety or someone else's, call 000 or Lifeline on 13 11 14.</p>
+      <p class="small">It's made with adults in mind. Kids Helpline is free and there 24/7 for anyone aged 5 to 25 on <a href="tel:1800551800">1800 55 1800</a>.</p>
     </div>
-    <p class="small muted">Tools in this app are based on approaches with research behind them, such as cognitive behavioural therapy, behavioural activation, gratitude practice, safety planning and exercise. Support line details are checked regularly. Questions or feedback: contact the Mental Awareness Foundation at <span style="user-select:all">info@mentalawareness.org.au</span>.</p>
+    <div class="card">
+      <h3 class="h-m">Send feedback</h3>
+      <p class="small muted">Spotted something wrong, or have an idea? We read every message. Please don't include private health details. If you need support now, use Get help now instead.</p>
+      <a class="btn ghost" id="feedbackBtn" href="mailto:info@mentalawareness.org.au?subject=Little%20Lift%20feedback">Email your feedback</a>
+    </div>
+    <p class="small muted">Tools in this app are based on approaches with research behind them, such as cognitive behavioural therapy, behavioural activation, gratitude practice, safety planning and exercise. Support line details are checked regularly. Contact: the Mental Awareness Foundation at <span style="user-select:all">info@mentalawareness.org.au</span>.</p>
   </div>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
@@ -1066,6 +1091,23 @@ function hideSheet(silent){
 const openHelp=()=>{const pl=store.get("ll.plan",{});const has=Object.values(pl).some(v=>typeof v==="string"&&v.trim());const b=document.getElementById("sheetPlan");if(b)b.hidden=!has;showSheet("#helpSheet")};
 $$(".scrim").forEach(s=>s.addEventListener("click",e=>{if(e.target===s)hideSheet()}));
 $$(".scrim .close").forEach(b=>b.addEventListener("click",()=>hideSheet()));
+/* ---------- Quick exit: leaves for a neutral site straight away ---------- */
+const EXIT_URL="https://www.bom.gov.au/";
+function quickExit(){
+  try{hideSheet(true)}catch(e){}
+  try{history.replaceState(null,"","#today")}catch(e){}
+  document.title="Weather";
+  document.body.style.visibility="hidden";
+  try{window.open(EXIT_URL,"_self")}catch(e){}
+  try{location.replace(EXIT_URL)}catch(e){}
+}
+document.addEventListener("click",e=>{if(e.target.closest("[data-exit]")){e.preventDefault();quickExit()}});
+let escTimes=[];
+document.addEventListener("keydown",e=>{
+  if(e.key!=="Escape") return;
+  const t=Date.now();escTimes=escTimes.filter(x=>t-x<1500);escTimes.push(t);
+  if(escTimes.length>=3) quickExit();
+},true);
 document.addEventListener("keydown",e=>{
   if(!openSheet) return;
   if(e.key==="Escape"){hideSheet();return}
@@ -1156,6 +1198,28 @@ const CIRC=326.7;
 /* ---------- Welcome (first visit) ---------- */
 if(!store.get("ll.welcomed",false)) $("#welcome").hidden=false;
 $("#welcomeGo").onclick=()=>{store.set("ll.welcomed",true);$("#welcome").hidden=true;$("#checkin").scrollIntoView({behavior:"smooth",block:"start"})};
+
+/* ---------- Add to home screen tip (live site, from the second day of use) ---------- */
+safe(()=>{
+  const a=$("#a2hs");
+  const onSite=/^https?:$/.test(location.protocol)&&document.documentElement.dataset.site==="1";
+  const installed=window.matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+  const today=new Date().toISOString().slice(0,10);
+  const first=store.get("ll.firstDay","");
+  if(!first) store.set("ll.firstDay",today);
+  let deferred=null;
+  const ua=navigator.userAgent||"";
+  const ios=/iPhone|iPad|iPod/.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  const txt=$("#a2hsText");
+  if(ios) txt.innerHTML="Add it to your home screen so it's one tap away, like an app. In Safari, tap the <b>Share</b> button, then <b>Add to Home Screen</b>.";
+  else txt.innerHTML="Add it to your home screen so it's one tap away, like an app. Open your browser menu (<b>⋮</b>), then tap <b>Add to Home screen</b> or <b>Install app</b>.";
+  const show=()=>{if(onSite&&!installed&&first&&first!==today&&!store.get("ll.a2hsDone",false)&&store.get("ll.welcomed",false))a.hidden=false};
+  window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e;$("#a2hsInstall").hidden=false;txt.textContent="Add it to your home screen so it's one tap away, like an app. It's free and works offline.";show()});
+  $("#a2hsInstall").onclick=async()=>{if(!deferred)return;deferred.prompt();try{const r=await deferred.userChoice;if(r&&r.outcome==="accepted"){store.set("ll.a2hsDone",true);a.hidden=true}}catch(e){}deferred=null};
+  $("#a2hsLater").onclick=()=>{store.set("ll.a2hsDone",true);a.hidden=true};
+  window.addEventListener("appinstalled",()=>{store.set("ll.a2hsDone",true);a.hidden=true});
+  show();
+},"a2hs");
 
 /* ---------- Today: check-in ---------- */
 const MOODS=[{v:1,l:"Really low"},{v:2,l:"Low"},{v:3,l:"Okay"},{v:4,l:"Good"},{v:5,l:"Great"}];
