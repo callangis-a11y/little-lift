@@ -344,9 +344,10 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
 
       <div class="nudge" id="lowNudge" hidden>
         <h3 class="h-m">Sounds like a hard day.</h3>
-        <p class="small">You don't need to wait for things to get worse to talk to someone. Lifeline is free, 24/7, and you can call or text.</p>
+        <p class="small">You don't need to wait for things to get worse to talk to someone. Lifeline (13 11 14) is free and 24/7, by call or text. If you're under 25, Kids Helpline (1800 55 1800) is there too.</p>
         <div class="row" style="flex-wrap:wrap">
           <button class="btn" type="button" data-open-help>See support lines</button>
+          <button class="btn ghost" type="button" id="nudgePlan" data-go="toolkit" data-tool="plan" hidden>My safety plan</button>
           <button class="btn ghost" type="button" data-go="toolkit" data-tool="breathe">Try a breathing exercise</button>
         </div>
       </div>
@@ -429,6 +430,7 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
         <div id="flipOwn" class="stack" hidden>
           <label for="ownThought"><b class="small">What's the thought bugging you?</b></label>
           <textarea id="ownThought" placeholder="e.g. I stuffed up that meeting, they'll think I'm useless"></textarea>
+          <p class="small muted">If the thought is about ending your life or not wanting to be here, please talk to someone now. <button class="linkish" type="button" data-open-help>Get help now</button></p>
           <p class="small"><b>Any traps in there?</b></p>
           <div class="chips" id="ownTraps"></div>
           <label for="ownBalanced"><b class="small">What would you say to a friend who thought this?</b></label>
@@ -441,7 +443,7 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
       <!-- Find the Smile -->
       <div class="card" id="t-smile" hidden>
         <div class="row" style="justify-content:space-between"><h2 class="h-m">Find the Smile</h2><span class="tag" id="smileBest">Best: –</span></div>
-        <p class="small muted" id="smileIntro">Tap the one smiling face as fast as you can. You have 30 seconds. Practising noticing friendly faces is a simple attention exercise. Some studies suggest it can take the edge off stress.</p>
+        <p class="small muted" id="smileIntro">Tap the one smiling face as fast as you can. You have 30 seconds. It's a quick way to shift your focus. Research on whether games like this reduce stress is mixed, so treat it as a short break.</p>
         <div class="row" style="justify-content:space-between" id="smileHud" hidden><span class="h-m" id="smileTime">30s</span><span class="h-m" id="smileScore">0</span></div>
         <div class="smile-grid" id="smileGrid" aria-label="Faces"></div>
         <button class="btn" id="smileStart" type="button">Start</button>
@@ -476,7 +478,7 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
       <!-- Good Things Jar -->
       <div class="card" id="t-jar" hidden>
         <h2 class="h-m">Good Things Jar</h2>
-        <p class="small muted">Write down three good things from today, big or small, and why they happened. Done regularly, it trains your brain to notice what's going right.</p>
+        <p class="small muted">Write down three good things from today, big or small, and why they happened. Done regularly, it can help you notice more of what's going right.</p>
         <div class="jar-wrap"><canvas id="jarCanvas" width="160" height="190" style="width:120px;height:142px" aria-hidden="true"></canvas><div class="stack" style="gap:6px;min-width:0"><p class="h-l" id="jarCount">0</p><p class="small muted" id="jarToday">good things so far</p><button class="btn ghost" id="jarPull" type="button">Pull one out</button></div></div>
         <p class="quote" id="jarPulled" hidden></p>
         <label for="jarInput"><b class="small">Something good today</b></label>
@@ -486,7 +488,7 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
 
       <div class="card" id="t-breathe" hidden>
         <h2 class="h-m">Box breathing</h2>
-        <p class="small muted">Breathe in, hold, out, hold, four counts each. A few rounds slows your heart rate and gives your mind something steady to follow.</p>
+        <p class="small muted">Breathe in, hold, out, hold, four counts each. A few rounds can help you feel calmer. If holding your breath feels uncomfortable, skip the holds or stop.</p>
         <div class="breathe-stage">
           <div class="orb-wrap"><div class="orb-track"></div><div class="orb" id="orb"></div></div>
         </div>
@@ -515,7 +517,7 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
       <div class="card" id="t-sleep" hidden>
         <div class="row" style="justify-content:space-between"><h2 class="h-m">Wind down for sleep</h2><span class="tag" id="wdStep"></span></div>
         <div class="g-dots" id="wdDots" aria-hidden="true"></div>
-        <div class="stack" id="wdBody" aria-live="polite"></div>
+        <div class="stack" id="wdBody"></div>
         <div class="row" style="justify-content:space-between">
           <button class="btn ghost" id="wdBack" type="button">Back</button>
           <button class="btn" id="wdNext" type="button">Next</button>
@@ -527,6 +529,7 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
         <p class="small muted">Fill this in when you're feeling okay, so it's ready if things get hard. It saves as you type and stays on this device.</p>
         <div class="stack" id="planFields"></div>
         <p class="small muted">A safety plan works best made with someone you trust, like a GP, counsellor or friend.</p>
+        <p class="small"><b>If you're in danger right now, call 000.</b></p>
       </div>
     </section>
 
@@ -572,6 +575,10 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
             <li>Drinking or using more to cope</li>
             <li>Falling behind at work or school</li>
             <li>Talking about feeling trapped, hopeless or like a burden</li>
+            <li>Talking or posting about death, suicide or not being around</li>
+            <li>Giving things away, saying goodbye or sorting out their affairs</li>
+            <li>Seeming suddenly calm after a very low time</li>
+            <li>A big loss or setback, like a break-up, job loss or death</li>
           </ul>
         </div>
         <div class="card">
@@ -579,7 +586,7 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
           <p class="small muted">The same signs apply to you. If you recognise several, try a check-in on the Today tab or talk to someone you trust.</p>
         </div>
         <div class="sos">
-          <p class="small" style="flex:1;min-width:0"><b>If someone talks about ending their life, take it seriously.</b> If they're in immediate danger, call 000 and stay with them.</p><a class="btn sos-call" href="tel:000">Call 000</a>
+          <p class="small" style="flex:1;min-width:0"><b>The last few signs mean act today.</b> If someone talks about ending their life, take it seriously. If they're in immediate danger, call 000 and stay with them.</p><a class="btn sos-call" href="tel:000">Call 000</a>
         </div>
       </div>
 
@@ -600,10 +607,13 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
         <div class="nudge">
           <h3 class="h-m">If they say yes, they're thinking about suicide</h3>
           <ul class="ticks small">
-            <li>Stay calm and thank them for telling you</li>
-            <li>Don't leave them alone if you think they're at risk right now</li>
-            <li>Help put away anything they could use to hurt themselves</li>
-            <li>Call Lifeline on 13 11 14 together, or 000 if they're in immediate danger</li>
+            <li>Stay calm. Thank them for telling you</li>
+            <li>Ask if they've thought about how or when. It helps you know how urgent it is</li>
+            <li>If they have a plan, or you think they're at risk right now, don't leave them alone. Call 000</li>
+            <li>If it's safe to, help put away anything they could use to hurt themselves. Don't put yourself in danger</li>
+            <li>Don't promise to keep it a secret. Their safety comes first</li>
+            <li>Call Lifeline (13 11 14) or Suicide Call Back Service (1300 659 467) together</li>
+            <li>Afterwards, look after yourself. You can call these lines for yourself too</li>
           </ul>
           <button class="btn" type="button" data-open-help>Support lines</button>
         </div>
@@ -633,7 +643,7 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
 
       <!-- ADHD -->
       <div class="stack" id="g-adhd" hidden style="gap:20px">
-        <div class="hello"><p class="eyebrow">Living with ADHD</p><h1 class="h-xl">Brains that work differently</h1><p class="muted">ADHD affects attention, impulses and activity levels, in kids and adults. What used to be called ADD is now the "inattentive" type of ADHD. With the right support, people with ADHD do really well.</p></div>
+        <div class="hello"><p class="eyebrow">Living with ADHD</p><h1 class="h-xl">Brains that work differently</h1><p class="muted">ADHD affects attention, impulses and activity levels, in kids and adults. What used to be called ADD is now the "inattentive" type of ADHD. With the right support, people with ADHD can thrive.</p></div>
         <div class="stack" style="gap:8px">
           <p class="small"><b>Who is this about?</b></p>
           <div class="seg" role="group" aria-label="Who"><button type="button" data-who="me" aria-pressed="true">Me</button><button type="button" data-who="partner" aria-pressed="false">My partner</button><button type="button" data-who="child" aria-pressed="false">My child</button></div>
@@ -694,7 +704,7 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
               <li>Use shared calendars and timers so your partner isn't your memory</li>
               <li>When things get heated, take a break and come back to it</li>
               <li>Repeat back what you heard to make sure you've got it</li>
-              <li>Split jobs by strengths, not by what's "fair" on paper</li>
+              <li>Split jobs by strengths, in a way that works for you both</li>
             </ul>
           </div>
         </div>
@@ -725,9 +735,9 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
           <div class="stack small">
             <p><b>Inattentive signs:</b> easily distracted, loses things, struggles to start or finish tasks, forgetful, seems not to listen.</p>
             <p><b>Hyperactive or impulsive signs:</b> restless, fidgety, talks a lot, interrupts, acts before thinking.</p>
-            <p class="muted">Everyone does these sometimes. With ADHD they're frequent, last more than 6 months and get in the way at home, school or work.</p>
+            <p class="muted">Everyone does these sometimes. With ADHD they're frequent, started in childhood, last more than 6 months, and show up in more than one place, like home and school or work.</p>
             <p><b>Getting assessed in Australia:</b> start with your GP. They can refer you to a paediatrician (for children), or a psychiatrist or psychologist. Adults may be asked for school reports, as signs usually start in childhood.</p>
-            <p><b>Treatment</b> can include strategies and coaching, therapy such as CBT, parenting programs, and medication. A doctor can talk through what suits you.</p>
+            <p><b>Treatment</b> can include strategies and coaching, therapy such as CBT, parenting programs, and medication. A psychologist can assess, but only a doctor can prescribe medication. Your GP can talk through what suits you.</p>
           </div>
         </details>
 
@@ -755,11 +765,13 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
             <li>Keep caffeine to the morning, and go easy on alcohol. It breaks up sleep later in the night</li>
             <li>Keep your bed for sleep. If you've been awake for about 20 minutes, get up, do something calm in dim light, and go back when you feel sleepy</li>
             <li>Busy mind at night? Write worries down and give them a set time tomorrow</li>
+            <li>Try not to check the clock during the night</li>
+            <li>If you nap, keep it short (under 30 minutes) and before mid-afternoon</li>
           </ul>
         </div>
         <div class="nudge">
           <h3 class="h-m">When to see your GP</h3>
-          <p class="small">If poor sleep has gone on for more than a few weeks, you snore loudly or stop breathing in your sleep, or sleep problems come with low mood, talk to your GP. Ask about CBT for insomnia, which is the recommended first treatment for ongoing sleep problems.</p>
+          <p class="small">If poor sleep has gone on for more than a few weeks, you snore loudly or stop breathing in your sleep, or sleep problems come with low mood, or you feel very sleepy during the day (especially when driving), talk to your GP. Ask about CBT for insomnia, which is the recommended first treatment for ongoing sleep problems.</p>
         </div>
         <div class="list">
           <div class="li"><div class="li-main"><b>Sleep Health Foundation</b><span class="small muted">Australian fact sheets on sleep problems</span></div><a class="icon-btn" href="https://www.sleephealthfoundation.org.au/" target="_blank" rel="noopener" aria-label="Visit Sleep Health Foundation website">${LINK}</a></div>
@@ -772,10 +784,12 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
         <div class="card">
           <h2 class="h-m">Things that can help</h2>
           <ul class="ticks">
+            <li>It's not your fault. People who die by suicide are usually in pain that others can't see or fix</li>
             <li>Talk about the person and how you feel, with people you trust</li>
             <li>Keep up the basics: eating, sleeping, moving, even a little</li>
             <li>Expect hard days around anniversaries and birthdays</li>
-            <li>Join a support group with others who understand</li>
+            <li>Join a support group with others who understand. StandBy can help you find one</li>
+            <li>Children grieve too. Use simple, honest words. StandBy can help you talk with them</li>
             <li>See your GP, and let them know what's happened</li>
           </ul>
         </div>
@@ -794,14 +808,15 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
           </ul>
         </div>
         <div class="list">
-          <div class="li"><div class="li-main"><b>StandBy Support After Suicide</b><span class="num">1300 727 247</span><span class="small muted">Free support for anyone bereaved by suicide · 24/7</span></div><button class="icon-btn" type="button" data-copy="1300 727 247" aria-label="Copy StandBy number">${COPY}</button><a class="icon-btn call" href="tel:1300727247" aria-label="Call StandBy">${CALL}</a></div>
+          <div class="li"><div class="li-main"><b>StandBy Support After Suicide</b><span class="num">1300 727 247</span><span class="small muted">Free support for anyone bereaved by suicide · 6am–10pm, 7 days</span></div><button class="icon-btn" type="button" data-copy="1300 727 247" aria-label="Copy StandBy number">${COPY}</button><a class="icon-btn call" href="tel:1300727247" aria-label="Call StandBy">${CALL}</a></div>
           <div class="li"><div class="li-main"><b>Suicide Call Back Service</b><span class="num">1300 659 467</span><span class="small muted">Counselling for people affected by suicide · 24/7</span></div><button class="icon-btn" type="button" data-copy="1300 659 467" aria-label="Copy number">${COPY}</button><a class="icon-btn call" href="tel:1300659467" aria-label="Call Suicide Call Back Service">${CALL}</a></div>
+          <div class="li"><div class="li-main"><b>Thirrili</b><span class="num">1800 805 801</span><span class="small muted">Support after suicide for Aboriginal and Torres Strait Islander people and communities · 24/7</span></div><button class="icon-btn" type="button" data-copy="1800 805 801" aria-label="Copy Thirrili number">${COPY}</button><a class="icon-btn call" href="tel:1800805801" aria-label="Call Thirrili">${CALL}</a></div>
         </div>
       </div>
 
       <!-- MOVE -->
       <div class="stack" id="g-move" hidden style="gap:20px">
-        <div class="hello"><p class="eyebrow">Move for your mind</p><h1 class="h-xl">Move your body, lift your mood</h1><p class="muted">A large 2023 University of South Australia review of more than 1,000 trials found exercise eases depression and anxiety, with benefits that can match talking therapy or medication for many people. Every bit counts, and you don't need a gym to start.</p><p class="small muted">Exercise works best alongside other care. Keep any current treatment going and talk to your GP before changing it.</p></div>
+        <div class="hello"><p class="eyebrow">Move for your mind</p><h1 class="h-xl">Move your body, lift your mood</h1><p class="muted">A large 2023 University of South Australia review, drawing on more than 1,000 trials, found regular exercise helped reduce symptoms of depression and anxiety. For some people the effect was similar to other treatments. Every bit counts, and you don't need a gym to start.</p><p class="small muted">Exercise works best alongside other care. Keep any current treatment going and talk to your GP before changing it.</p></div>
 
         <div class="card">
           <div class="row" style="justify-content:space-between"><h2 class="h-m">This week</h2><span class="tag" id="mvTag"></span></div>
@@ -830,9 +845,9 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
           <ul class="ticks">
             <li>Pick something you enjoy. You'll keep doing it</li>
             <li>Train with a mate. It's exercise and a catch-up in one</li>
-            <li>Lifting weights is especially good for low mood, and yoga for anxiety</li>
+            <li>Walking, jogging, yoga and strength training have some of the best evidence for mood</li>
             <li>Short and regular beats long and rare</li>
-            <li>The Australian guidelines are 150–300 minutes of moderate activity a week, plus strength work twice a week</li>
+            <li>The Australian guidelines for adults are 150–300 minutes of moderate activity a week, plus strength work twice a week. Under 18? Aim for about an hour a day</li>
           </ul>
         </div>
 
@@ -885,7 +900,7 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
       <div class="card">
         <p class="eyebrow">For the 3,300</p>
         <h2 class="h-m">Every number is a person</h2>
-        <p class="small muted">Around 3,300 Australians are lost to suicide each year. This campaign honours them and funds frontline programs. Change happens when we move, talk, listen and act together.</p>
+        <p class="small muted">The Foundation's For the 3,300 campaign honours the Australians lost to suicide each year and funds frontline programs. Change happens when we move, talk, listen and act together.</p>
         <a class="btn ghost" href="https://forthe3300.com.au/" target="_blank" rel="noopener">Learn more</a>
       </div>
       <div class="stack"><h2 class="h-m">Events</h2><div id="eventList"></div></div>
@@ -920,8 +935,10 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
       <a class="btn sos-call" href="tel:000">Call 000</a>
     </div>
     <div id="linesSheet"><div class="list"><div class="li"><div class="li-main"><b>Lifeline</b><span class="num">13 11 14</span><span class="small">Text <span class="num" style="font-size:15px">0477 13 11 14</span></span><span class="small muted">Anyone in crisis or needing to talk · 24/7</span></div><a class="icon-btn call" href="tel:131114" aria-label="Call Lifeline">Call</a></div></div></div>
+    <p class="small"><a href="https://www.lifeline.org.au/chat" target="_blank" rel="noopener">Prefer to type? Chat with Lifeline online, 24/7</a></p>
+    <button class="btn ghost" type="button" id="sheetPlan" data-go="toolkit" data-tool="plan" hidden>Open my safety plan</button>
     <p class="small" id="stateHint" hidden><button class="linkish" type="button" data-go="support">Choose your state</button> to see your local mental health line.</p>
-    <p class="small muted">Calls are free or the cost of a local call. If a button doesn't work on your device, press and hold the number to copy it.</p>
+    <p class="small muted">Most calls are free from mobiles and landlines. 1300 numbers may cost a local call. If a button doesn't work on your device, press and hold the number to copy it.</p>
   </div>
 </div>
 <div class="scrim" id="aboutSheet" hidden>
@@ -934,12 +951,13 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
         <li>No account, no sign-up, no ads.</li>
         <li>Your check-ins, notes, safety plan and journal stay on this device. They're never sent to us or anyone else.</li>
         <li>If you share this phone, anyone using it could see them. You can delete them any time.</li>
+        <li>The app's fonts load from Google, which sees your device's internet address, as with any website visit. Nothing you write is sent.</li>
       </ul>
       <button class="btn ghost" id="clearData" type="button">Delete my data from this device</button>
     </div>
     <div class="card" id="remCard">
       <h3 class="h-m">Daily reminder</h3>
-      <p class="small muted">Add a gentle daily nudge to check in. It goes in your own calendar, so nothing is sent to us.</p>
+      <p class="small muted">Add a gentle daily nudge to check in. It goes in your own calendar, so nothing is sent to us. It's called "Daily check-in", so it stays private if others can see your calendar.</p>
       <div class="row"><label for="remTime" class="small"><b>Time</b></label><input type="time" id="remTime" value="19:00" style="width:auto"></div>
       <div class="row" style="flex-wrap:wrap"><a class="btn" id="remGoogle" href="#" target="_blank" rel="noopener">Add to Google Calendar</a><button class="btn ghost" id="remIcs" type="button">Apple or Outlook calendar</button></div>
     </div>
@@ -995,10 +1013,11 @@ function copy(txt){
 const CORE_LINES=[
  {name:"Lifeline",number:"13 11 14",sms:"0477 13 11 14",who:"Anyone in crisis or needing to talk",hours:"24/7 · call or text",order:1,core:true},
  {name:"Suicide Call Back Service",number:"1300 659 467",who:"Anyone affected by suicide",hours:"24/7",order:2,core:true},
- {name:"StandBy Support After Suicide",number:"1300 727 247",who:"Anyone bereaved by suicide",hours:"24/7",order:2.5},
+ {name:"StandBy Support After Suicide",number:"1300 727 247",who:"Anyone bereaved by suicide",hours:"6am–10pm, 7 days",order:2.5},
  {name:"Beyond Blue",number:"1300 22 4636",who:"Anxiety, depression, low mood",hours:"24/7",order:3,core:true},
  {name:"Medicare Mental Health",number:"1800 595 212",who:"Free mental health nurses who help you find the right care. Not a crisis line",hours:"Weekdays, business hours",order:3.5},
  {name:"Kids Helpline",number:"1800 55 1800",who:"Young people aged 5–25",hours:"24/7",order:4,core:true},
+ {name:"1800RESPECT",number:"1800 737 732",who:"Domestic, family or sexual violence",hours:"24/7",order:4.8},
  {name:"MensLine Australia",number:"1300 78 99 78",who:"Men, relationships and family",hours:"24/7",order:5},
  {name:"13YARN",number:"13 92 76",who:"Aboriginal and Torres Strait Islander people",hours:"24/7",order:6},
  {name:"QLife",number:"1800 184 527",who:"LGBTIQ+ peer support",hours:"3pm–midnight daily",order:7},
@@ -1044,7 +1063,7 @@ function hideSheet(silent){
   $(".app").inert=false; document.body.style.overflow="";
   if(!silent&&lastFocus&&lastFocus.focus) lastFocus.focus();
 }
-const openHelp=()=>showSheet("#helpSheet");
+const openHelp=()=>{const pl=store.get("ll.plan",{});const has=Object.values(pl).some(v=>typeof v==="string"&&v.trim());const b=document.getElementById("sheetPlan");if(b)b.hidden=!has;showSheet("#helpSheet")};
 $$(".scrim").forEach(s=>s.addEventListener("click",e=>{if(e.target===s)hideSheet()}));
 $$(".scrim .close").forEach(b=>b.addEventListener("click",()=>hideSheet()));
 document.addEventListener("keydown",e=>{
@@ -1150,7 +1169,7 @@ $("#moods").innerHTML=MOODS.map(m=>`<button class="mood" type="button" data-mood
 $("#factors").innerHTML=FACTORS.map(f=>`<button class="chip" type="button" data-factor="${f}" aria-pressed="false">${f}</button>`).join("");
 $("#moods").addEventListener("click",e=>{const b=e.target.closest("[data-mood]");if(!b)return;sel.mood=+b.dataset.mood;
   $$("[data-mood]").forEach(x=>x.setAttribute("aria-pressed",x===b));$("#checkinMore").hidden=false;$("#savedMsg").hidden=true;
-  $("#lowNudge").hidden=sel.mood>2;});
+  $("#lowNudge").hidden=sel.mood>2;$("#nudgePlan").hidden=sel.mood!==1;});
 $("#factors").addEventListener("click",e=>{const b=e.target.closest("[data-factor]");if(!b)return;const f=b.dataset.factor;
   sel.factors.has(f)?sel.factors.delete(f):sel.factors.add(f);b.setAttribute("aria-pressed",sel.factors.has(f));});
 $("#saveCheckin").onclick=()=>{
@@ -1243,7 +1262,7 @@ const FLIPS=[
  {t:"I forgot her birthday. I'm a terrible friend.",a:"label",o:["label","cat","disc"],b:"I made a mistake. Good friends sometimes forget, and I can make it up to her."},
  {t:"I should be coping better than this by now.",a:"should",o:["should","all","pers"],b:"Recovery isn't on a timetable. I'm doing what I can, and that's enough for today."},
  {t:"They only said nice things about my work to be polite.",a:"disc",o:["disc","mind","label"],b:"Maybe they meant it. I can let a compliment land without arguing with it."},
- {t:"Mum's in a bad mood. It must be something I did.",a:"pers",o:["pers","fort","cat"],b:"Her mood could be about lots of things. If I'm worried, I can ask her."}
+ {t:"Mum's in a bad mood. It must be something I did.",a:"pers",o:["pers","fort","cat"],b:"Her mood could be about lots of things. It's not my job to fix it."}
 ];
 let fi=Math.floor(Math.random()*FLIPS.length),flipped=store.get("ll.flips",0);
 const shuffle=a=>a.map(v=>[Math.random(),v]).sort((p,q)=>p[0]-q[0]).map(p=>p[1]);
@@ -1400,9 +1419,9 @@ safe(renderG);
 /* ---------- Safety plan ---------- */
 const PLAN=[{k:"signs",l:"My warning signs",p:"Thoughts, moods or situations that tell me I'm struggling"},
  {k:"cope",l:"Things I can do on my own",p:"e.g. go for a walk, shower, music, breathing"},
- {k:"places",l:"People and places that take my mind off things",p:"e.g. the beach, my sister's place, the gym"},
+ {k:"places",l:"People and places that take my mind off things",p:"e.g. the beach, my sister's place, the gym, a café"},
  {k:"people",l:"People I can ask for help",p:"Names and numbers"},
- {k:"pros",l:"Professionals I can contact",p:"GP, counsellor, Lifeline 13 11 14"},
+ {k:"pros",l:"Professionals I can contact",p:"GP, counsellor, Lifeline 13 11 14, Suicide Call Back 1300 659 467, or 000 in an emergency"},
  {k:"safe",l:"Making my environment safe",p:"e.g. ask someone to hold onto medications for now"},
  {k:"reasons",l:"My reasons for living",p:"The things that matter most to me"}];
 const plan=store.get("ll.plan",{});
@@ -1540,7 +1559,7 @@ $("#wkSkip").onclick=()=>{wkClock.stop();wkAdvance()};
 $("#wkEnd").onclick=()=>finishWorkout(false);
 
 /* ---------- What brings you here (focus) and "For you" tiles ---------- */
-const FOCUS_OPTS=[["stress","Stress and worry"],["low","Low mood"],["sleep","Sleep"],["adhd","ADHD"],["support","Supporting someone"],["active","Getting active"],["explore","Just exploring"]];
+const FOCUS_OPTS=[["stress","Stress and worry"],["low","Low mood"],["sleep","Sleep"],["grief","Grief or loss"],["adhd","ADHD"],["support","Supporting someone"],["active","Getting active"],["explore","Just exploring"]];
 const TILE_IC={
  breathe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="3"/></svg>',
  ground:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/></svg>',
@@ -1552,6 +1571,8 @@ const TILE_IC={
  mate:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>',
  workout:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="14" cy="4" r="2"/><path d="M8 21l3-6 3 2v5M6 12l3-4 4 1 2 4 3 1"/></svg>',
  plan:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg>',
+ talk:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>',
+ grief:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21c-4-3-8-6.5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 4.5-4 8-8 11z"/></svg>',
  smile:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8 14c1.2 1.6 2.5 2.2 4 2.2s2.8-.6 4-2.2M9 9.5h.01M15 9.5h.01"/></svg>'
 };
 const TILES={
@@ -1565,9 +1586,11 @@ const TILES={
  mate:{go:"guides",guide:"mate",t:"Check on a mate",d:"What to say, and a text to send"},
  workout:{go:"guides",guide:"move",t:"Quick workout",d:"Guided sessions, no gym needed"},
  plan:{go:"toolkit",tool:"plan",t:"My safety plan",d:"Your steps for tough moments"},
+ talk:{help:true,t:"Talk to someone",d:"Free support lines, any time"},
+ grief:{go:"guides",guide:"grief",t:"Grief and loss",d:"What can help, and who to call"},
  smile:{go:"toolkit",tool:"smile",t:"Find the Smile",d:"A 30-second attention game"}
 };
-const FOCUS_TILES={stress:["breathe","ground","flip","plan"],low:["boost","jar","flip","plan"],sleep:["sleep","breathe","jar","boost"],adhd:["adhd","workout","boost","breathe"],support:["mate","breathe","jar","workout"],active:["workout","boost","breathe","jar"],explore:["breathe","flip","workout","mate"]};
+const FOCUS_TILES={stress:["breathe","ground","flip","plan"],low:["boost","jar","talk","plan"],grief:["grief","talk","breathe","jar"],sleep:["sleep","breathe","jar","boost"],adhd:["adhd","workout","boost","breathe"],support:["mate","breathe","jar","workout"],active:["workout","boost","breathe","jar"],explore:["breathe","flip","workout","mate"]};
 let focusSel=new Set(store.get("ll.focus",[]).filter(f=>FOCUS_TILES[f]));
 function renderFocusChips(){
   $$(".focus-chips").forEach(box=>{box.innerHTML=FOCUS_OPTS.map(([k,l])=>`<button class="chip" type="button" data-focus="${k}" aria-pressed="${focusSel.has(k)}">${l}</button>`).join("")});
@@ -1578,10 +1601,11 @@ function renderForYou(){
   const lists=(focusSel.size?[...focusSel]:["explore"]).map(f=>FOCUS_TILES[f]);
   const out=[];for(let i=0;out.length<4&&i<4;i++)lists.forEach(l=>{if(out.length<4&&l[i]&&!out.includes(l[i]))out.push(l[i])});
   ["breathe","workout","mate","plan"].forEach(k=>{if(out.length<4&&!out.includes(k))out.push(k)});
-  $("#forYou").innerHTML=out.map(k=>{const t=TILES[k];return `<button class="tile" type="button" data-go="${t.go}"${t.tool?` data-tool="${t.tool}"`:""}${t.guide?` data-guide="${t.guide}"`:""}><span class="ic">${TILE_IC[k]}</span><b>${t.t}</b><span>${t.d}</span></button>`}).join("");
+  $("#forYou").innerHTML=out.map(k=>{const t=TILES[k];return `<button class="tile" type="button" ${t.help?"data-open-help":`data-go="${t.go}"`}${t.tool?` data-tool="${t.tool}"`:""}${t.guide?` data-guide="${t.guide}"`:""}><span class="ic">${TILE_IC[k]}</span><b>${t.t}</b><span>${t.d}</span></button>`}).join("");
 }
 function saveFocus(){store.set("ll.focus",[...focusSel]);renderForYou()}
-$("#focusEditBtn").onclick=()=>{const open=$("#focusEdit").hidden;$("#focusEdit").hidden=!open;$("#focusEditBtn").setAttribute("aria-expanded",open);$("#focusEditBtn").textContent=open?"Close":"Change"};
+let focusSnap=null;
+$("#focusEditBtn").onclick=()=>{const open=$("#focusEdit").hidden;if(open)focusSnap=new Set(focusSel);else if(focusSnap){focusSel=focusSnap;renderFocusChips()}$("#focusEdit").hidden=!open;$("#focusEditBtn").setAttribute("aria-expanded",open);$("#focusEditBtn").textContent=open?"Close":"Change"};
 $("#focusSave").onclick=()=>{saveFocus();$("#focusEdit").hidden=true;$("#focusEditBtn").textContent="Change";$("#focusEditBtn").setAttribute("aria-expanded","false");toast("Updated your tools")};
 $("#welcomeGo").addEventListener("click",saveFocus);
 safe(renderFocusChips);safe(renderForYou);
@@ -1595,36 +1619,39 @@ function renderInsights(){
   const avg=a=>a.reduce((p,q)=>p+q,0)/a.length, all=avg(got.map(x=>x.m));
   const chart=`<div class="ins-chart" role="img" aria-label="Mood over the last 30 days. ${got.length} check-ins, average ${all.toFixed(1)} out of 5.">${days.map(x=>x.m?`<i style="height:${8+x.m*9}px;background:var(--m${x.m})"></i>`:`<i class="none"></i>`).join("")}</div><div class="ins-axis" aria-hidden="true"><span>${days[0].d.toLocaleDateString("en-AU",{day:"numeric",month:"short"})}</span><span>Today</span></div>`;
   const notes=[];
+  const last7=got.filter(x=>(now-x.d)/864e5<7),last14=got.filter(x=>(now-x.d)/864e5<14);
+  const sustainedLow=last7.filter(x=>x.m<=2).length>=4||(last14.length>=4&&last14.filter(x=>x.m<=2).length>last14.length/2);
+  const lowCard=sustainedLow?`<div class="sos" style="flex-direction:column;align-items:flex-start;gap:10px"><p class="small"><b>You've had a lot of low days lately.</b> That's worth talking to someone about. A GP is a good place to start, and Lifeline (13 11 14) is there any time, by call or text.</p><div class="row" style="flex-wrap:wrap"><button class="btn" type="button" data-open-help>See support lines</button><button class="btn ghost" type="button" data-go="toolkit" data-tool="plan">Open my safety plan</button></div></div>`:"";
   const word=v=>v>=4.5?"great":v>=3.5?"good":v>=2.5?"okay":v>=1.5?"low":"really low";
   notes.push(`Your average mood was <b>${word(all)}</b> (${all.toFixed(1)} out of 5) across ${got.length} check-ins.`);
   const recent=got.filter(x=>(now-x.d)/864e5<7),prior=got.filter(x=>(now-x.d)/864e5>=7&&(now-x.d)/864e5<14);
   if(recent.length>=2&&prior.length>=2){const dlt=avg(recent.map(x=>x.m))-avg(prior.map(x=>x.m));
-    if(dlt>=0.5)notes.push("This week has been better than last week. Whatever you're doing, keep it up.");
+    if(dlt>=0.5&&!sustainedLow)notes.push("This week has felt better than last week.");
     else if(dlt<=-0.5)notes.push(`This week has been harder than last week. Go gently, and <button class="linkish" type="button" data-open-help>reach out</button> if you need to.`);}
-  const fx=FACTORS.map(f=>{const ms=got.filter(x=>x.f.includes(f)).map(x=>x.m);return {f,n:ms.length,diff:ms.length?avg(ms)-all:0}}).filter(x=>x.n>=2);
+  const fx=got.length<7?[]:FACTORS.map(f=>{const ms=got.filter(x=>x.f.includes(f)).map(x=>x.m);return {f,n:ms.length,diff:ms.length?avg(ms)-all:0}}).filter(x=>x.n>=3);
   const lowF=fx.filter(x=>x.diff<=-0.5).sort((a,b)=>a.diff-b.diff)[0];
   const highF=fx.filter(x=>x.diff>=0.5).sort((a,b)=>b.diff-a.diff)[0];
-  const tips={Sleep:["the Sleep better guide","guides","sleep"],Work:["a breathing break","toolkit","breathe"],Money:["Thought Flip","toolkit","flip"],Loneliness:["Mood Boost's Connect ideas","toolkit","boost"],Family:["a breathing break","toolkit","breathe"],Relationships:["Thought Flip","toolkit","flip"],Health:["a gentle workout","guides","move"],Study:["a focus sprint","guides","adhd"]};
-  if(lowF){const t=tips[lowF.f];notes.push(`Days you mentioned <b>${lowF.f.toLowerCase()}</b> tended to be harder.${t?` <button class="linkish" type="button" data-go="${t[1]}" data-${t[1]==="toolkit"?"tool":"guide"}="${t[2]}">Try ${t[0]}</button>`:""}`)}
-  if(highF)notes.push(`Days you mentioned <b>${highF.f.toLowerCase()}</b> tended to be better.`);
+  const tips={Sleep:`<button class="linkish" type="button" data-go="guides" data-guide="sleep">Try the Sleep better guide</button>`,Work:`<button class="linkish" type="button" data-go="toolkit" data-tool="breathe">Try a breathing break</button>`,Money:`The National Debt Helpline (1800 007 007, weekdays) gives free, confidential advice.`,Loneliness:`<button class="linkish" type="button" data-go="toolkit" data-tool="boost">Try Mood Boost's Connect ideas</button>`,Family:`<button class="linkish" type="button" data-open-help>Support lines are here if you need them</button>`,Relationships:`<button class="linkish" type="button" data-open-help>Support lines are here if you need them</button>`,Health:`It might be worth talking it over with your GP.`,Study:`<button class="linkish" type="button" data-go="guides" data-guide="adhd">Try a focus sprint</button>`};
+  if(lowF)notes.push(`Days you mentioned <b>${lowF.f.toLowerCase()}</b> were often harder in your check-ins so far. ${tips[lowF.f]||""}`);
+  if(highF)notes.push(`Days you mentioned <b>${highF.f.toLowerCase()}</b> were often better in your check-ins so far.`);
   const boostDays=new Set(store.get("ll.boost",[]).filter(b=>b&&b.at).map(b=>dayKey(new Date(b.at))));
   const withB=got.filter(x=>boostDays.has(dayKey(x.d))).map(x=>x.m),noB=got.filter(x=>!boostDays.has(dayKey(x.d))).map(x=>x.m);
-  if(withB.length>=2&&noB.length>=2&&avg(withB)-avg(noB)>=0.5)notes.push("Days you did a Mood Boost activity averaged higher. Small actions are working for you.");
+  if(!sustainedLow&&withB.length>=3&&noB.length>=3&&avg(withB)-avg(noB)>=0.5)notes.push("Days you did a Mood Boost activity averaged higher. It might be worth doing more of.");
   const move=store.get("ll.move",{}),mvDays=got.filter(x=>(+move[dayKey(x.d)]||0)>=20).map(x=>x.m),noMv=got.filter(x=>!((+move[dayKey(x.d)]||0)>=20)).map(x=>x.m);
-  if(mvDays.length>=2&&noMv.length>=2&&avg(mvDays)-avg(noMv)>=0.5)notes.push("Days you moved for 20 minutes or more averaged higher.");
-  $("#insBody").innerHTML=chart+`<ul class="ins-list">${notes.map(n=>`<li><span>${n}</span></li>`).join("")}</ul><p class="small muted">Patterns, not a diagnosis. If you're worried about how you've been feeling, talk to your GP.</p>`;
+  if(mvDays.length>=3&&noMv.length>=3&&avg(mvDays)-avg(noMv)>=0.5)notes.push("Days you moved for 20 minutes or more averaged higher.");
+  $("#insBody").innerHTML=lowCard+chart+`<ul class="ins-list">${notes.map(n=>`<li><span>${n}</span></li>`).join("")}</ul><p class="small muted">Patterns, not a diagnosis. If you're worried about how you've been feeling, talk to your GP.</p>`;
 }
 safe(renderInsights,"insights");
 
 /* ---------- Wind down for sleep ---------- */
 const WD=[
  {t:"Set tomorrow aside",b:'<p>Write down anything on your mind for tomorrow, so your brain doesn\'t have to hold onto it overnight.</p><label for="wdDump" class="small"><b>On my mind</b></label><textarea id="wdDump" placeholder="Call the bank, email Sam, buy bread…"></textarea>'},
- {t:"Dim the lights",b:"<p>Switch off the main lights and turn your screen brightness right down. Dim light tells your body that evening has arrived.</p><p class=\"small muted\">Tap Next when you're done.</p>"},
+ {t:"Dim the lights",b:"<p>Switch off the main lights, and turn your screen brightness right down now. Dim light tells your body that evening has arrived.</p><p class=\"small muted\">Tap Next when you're done.</p>"},
  {t:"Slow your breathing",timer:"breath"},
  {t:"Relax your body",timer:"body"},
  {t:"Off to bed",b:"<p class=\"wd-big\">That's it.</p><p>Put your phone away from your bed and let your mind drift. If you're still awake after about 20 minutes, get up, do something calm in dim light, and go back when you feel sleepy.</p><p>Goodnight.</p>"}
 ];
-const RELAX_STEPS=["Feet: curl your toes tight… and let go","Legs: tense your thighs… and let go","Hands: make fists… and let go","Shoulders: lift them to your ears… and drop","Face: scrunch it up… and soften","Whole body: feel heavy and warm"];
+const RELAX_STEPS=["Feet: gently curl your toes… and let go","Legs: tense your thighs… and let go","Hands: make fists… and let go","Shoulders: lift them to your ears… and drop","Face: scrunch it up… and soften","Whole body: feel heavy and warm"];
 let wdI=0,wdTimer=null;
 function wdStop(){if(wdTimer){clearInterval(wdTimer);wdTimer=null;wantWake(false)}}
 function renderWD(){
@@ -1632,13 +1659,13 @@ function renderWD(){
   $("#wdDots").innerHTML=WD.map((_,i)=>`<i class="${i<=wdI?"on":""}"></i>`).join("");
   $("#wdBack").disabled=wdI===0;$("#wdNext").textContent=wdI===WD.length-1?"Finish":"Next";
   if(s.timer==="breath"){
-    $("#wdBody").innerHTML=`<h3 class="h-m">${s.t}</h3><p class="small muted">Breathe in for 4, out for 6. Longer out-breaths help your body settle. Six rounds, about a minute.</p><div class="wd-orb" id="wdOrb">In</div><p class="wd-big" id="wdCue">Breathe in</p>`;
+    $("#wdBody").innerHTML=`<h3 class="h-m">${s.t}</h3><p class="small muted">Breathe in for 4, out for 6. Longer out-breaths help your body settle. Six rounds, about a minute. If it feels uncomfortable, just breathe normally.</p><div class="wd-orb" id="wdOrb" aria-hidden="true">In</div><p class="wd-big" id="wdCue" aria-live="polite">Breathe in</p>`;
     let t=0;const total=60,orb=$("#wdOrb");wantWake(true);
     const step=()=>{const c=t%10,inP=c<4;orb.textContent=inP?4-c:10-c;$("#wdCue").textContent=t>=total?"Nice. Tap Next.":inP?"Breathe in":"Breathe out";
       orb.style.transitionDuration=reduce?"0s":(inP?"4s":"6s");orb.style.transform=inP?"scale(1.25)":"scale(.85)";if(t>=total){wdStop();orb.textContent="✓"}t++};
     step();wdTimer=setInterval(step,1000);
   }else if(s.timer==="body"){
-    $("#wdBody").innerHTML=`<h3 class="h-m">${s.t}</h3><p class="small muted">Tense each part for a few seconds, then let it go. Notice the difference.</p><p class="wd-big" id="wdCue"></p>`;
+    $("#wdBody").innerHTML=`<h3 class="h-m">${s.t}</h3><p class="small muted">Tense each part gently, about half strength, for a few seconds, then let go. Skip any part that's sore or injured.</p><p class="wd-big" id="wdCue" aria-live="polite"></p>`;
     let k=0;wantWake(true);const step=()=>{$("#wdCue").textContent=k<RELAX_STEPS.length?RELAX_STEPS[k]:"Nice. Tap Next.";if(k>=RELAX_STEPS.length)wdStop();k++};step();wdTimer=setInterval(step,9000);
   }else{
     $("#wdBody").innerHTML=`<h3 class="h-m">${s.t}</h3>${s.b}`;
@@ -1694,11 +1721,11 @@ const APP_URL=/^https?:$/.test(location.protocol)&&document.documentElement.data
 function remStart(){const [h,m]=($("#remTime").value||"19:00").split(":").map(Number);const d=new Date();d.setHours(h||19,m||0,0,0);if(d<new Date())d.setDate(d.getDate()+1);return d}
 const ymdhms=d=>d.getFullYear()+String(d.getMonth()+1).padStart(2,"0")+String(d.getDate()).padStart(2,"0")+"T"+String(d.getHours()).padStart(2,"0")+String(d.getMinutes()).padStart(2,"0")+"00";
 function updateRem(){const a=remStart(),b=new Date(a.getTime()+5*60000);let tz="";try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||""}catch(e){}
-  $("#remGoogle").href="https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("Little Lift check-in")+"&details="+encodeURIComponent("A quick check-in: "+APP_URL)+"&dates="+ymdhms(a)+"/"+ymdhms(b)+"&recur="+encodeURIComponent("RRULE:FREQ=DAILY")+(tz?"&ctz="+encodeURIComponent(tz):"");}
+  $("#remGoogle").href="https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("Daily check-in")+"&details="+encodeURIComponent("A quick check-in: "+APP_URL)+"&dates="+ymdhms(a)+"/"+ymdhms(b)+"&recur="+encodeURIComponent("RRULE:FREQ=DAILY")+(tz?"&ctz="+encodeURIComponent(tz):"");}
 $("#remTime").addEventListener("change",updateRem);updateRem();
 $("#remGoogle").addEventListener("click",()=>store.set("ll.reminded",true));
 $("#remIcs").onclick=()=>{const a=remStart(),b=new Date(a.getTime()+5*60000);
-  const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Little Lift//EN","BEGIN:VEVENT","UID:little-lift-checkin-"+Date.now()+"@littlelift","DTSTAMP:"+new Date().toISOString().replace(/[-:]/g,"").split(".")[0]+"Z","DTSTART:"+ymdhms(a),"DTEND:"+ymdhms(b),"RRULE:FREQ=DAILY","SUMMARY:Little Lift check-in","DESCRIPTION:A quick check-in: "+APP_URL,"URL:"+APP_URL,"BEGIN:VALARM","ACTION:DISPLAY","DESCRIPTION:Little Lift check-in","TRIGGER:PT0M","END:VALARM","END:VEVENT","END:VCALENDAR"].join("\r\n");
+  const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Little Lift//EN","BEGIN:VEVENT","UID:little-lift-checkin-"+Date.now()+"@littlelift","DTSTAMP:"+new Date().toISOString().replace(/[-:]/g,"").split(".")[0]+"Z","DTSTART:"+ymdhms(a),"DTEND:"+ymdhms(b),"RRULE:FREQ=DAILY","SUMMARY:Daily check-in","DESCRIPTION:A quick check-in: "+APP_URL,"URL:"+APP_URL,"BEGIN:VALARM","ACTION:DISPLAY","DESCRIPTION:Daily check-in","TRIGGER:PT0M","END:VALARM","END:VEVENT","END:VCALENDAR"].join("\r\n");
   try{const url=URL.createObjectURL(new Blob([ics],{type:"text/calendar"}));const link=document.createElement("a");link.href=url;link.download="little-lift-reminder.ics";document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),4000);store.set("ll.reminded",true);toast("Open the downloaded file to add it to your calendar.")}catch(e){toast("Couldn't create the calendar file on this device.")}};
 $("#remLink").onclick=()=>{showSheet("#aboutSheet");setTimeout(()=>$("#remCard").scrollIntoView({block:"center"}),50)};
 

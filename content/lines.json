@@ -35,7 +35,7 @@
       "id": "vic-nurse-on-call",
       "name": "NURSE-ON-CALL (Victoria)",
       "number": "1300 60 60 24",
-      "who": "Urgent health advice in Victoria, including mental health. Your local area mental health service can also help",
+      "who": "Victoria has no single mental health line. NURSE-ON-CALL gives urgent health advice, including mental health, and can point you to your local service",
       "hours": "24/7",
       "url": "https://www.betterhealth.vic.gov.au/health/ServicesAndSupport/urgent-treatment-for-mental-illness",
       "state": "VIC",
@@ -115,8 +115,9 @@
       "name": "StandBy Support After Suicide",
       "number": "1300 727 247",
       "who": "Anyone bereaved by suicide",
-      "hours": "24/7",
-      "order": 2.5
+      "hours": "6am–10pm, 7 days",
+      "order": 2.5,
+      "url": "https://standbysupport.com.au/"
     },
     {
       "id": "beyond-blue",
@@ -153,6 +154,15 @@
       "hours": "3pm–10pm every day",
       "url": "https://headspace.org.au/",
       "order": 4.5
+    },
+    {
+      "id": "1800respect",
+      "name": "1800RESPECT",
+      "number": "1800 737 732",
+      "who": "Domestic, family or sexual violence",
+      "hours": "24/7",
+      "url": "https://www.1800respect.org.au/",
+      "order": 4.8
     },
     {
       "id": "mensline",
@@ -197,6 +207,15 @@
       "who": "Construction, mining and energy workers",
       "hours": "24/7",
       "order": 9
+    },
+    {
+      "id": "thirrili",
+      "name": "Thirrili",
+      "number": "1800 805 801",
+      "who": "Support after suicide for Aboriginal and Torres Strait Islander people and communities",
+      "hours": "24/7",
+      "url": "https://thirrili.com.au/",
+      "order": 9.5
     },
     {
       "id": "tis-national",
