@@ -254,6 +254,20 @@ h1[tabindex="-1"]:focus{outline:none}
 
 @media (max-width:389px){.brand-txt span{display:none}.help-btn{padding:8px 12px;font-size:13px}.top{gap:8px}}
 
+.ins-chart{display:grid;grid-template-columns:repeat(30,1fr);gap:2px;align-items:end;height:56px}
+.ins-chart i{display:block;border-radius:3px 3px 1px 1px;min-height:4px}
+.ins-chart i.none{background:var(--line);height:4px}
+.ins-axis{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-3)}
+.ins-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.ins-list li{display:flex;gap:10px;align-items:flex-start;font-size:14px}
+.ins-list li::before{content:"";flex:none;width:8px;height:8px;margin-top:7px;border-radius:50%;background:var(--sky)}
+.mt-opt{display:flex;gap:10px;align-items:flex-start;text-align:left;border:1.5px solid var(--line);background:var(--bg);border-radius:12px;padding:10px 12px;font-size:14px}
+.mt-opt[aria-checked="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.wd-orb{width:120px;height:120px;border-radius:50%;margin:8px auto;background:radial-gradient(circle at 40% 35%,var(--sky),color-mix(in srgb,var(--sky) 40%,var(--slate)));transition:transform linear;display:grid;place-items:center;color:#fff;font-family:var(--font-display);font-weight:800;font-size:22px}
+.wd-big{font-family:var(--font-display);font-size:22px;font-weight:700;text-align:center}
+
+.linkish{border:0;background:none;padding:0;color:var(--accent-ink);font-weight:700;text-decoration:underline;text-underline-offset:2px;font-size:inherit}
+
 .empty{border:1px dashed var(--line);border-radius:var(--r);padding:18px;text-align:center;color:var(--ink-3);font-size:14px}
 .foot{font-size:12px;color:var(--ink-3);text-align:center;padding-top:8px}
 
@@ -302,6 +316,8 @@ h1[tabindex="-1"]:focus{outline:none}
           <li><span><b>Help is one tap away.</b> The red button at the top is always there.</span></li>
           <li><span><b>Small things add up.</b> Check in, play a game, try a guide. Your garden grows as you go.</span></li>
         </ul>
+        <p class="small"><b>What brings you here?</b> <span class="muted">Pick any. We'll put the most useful tools first.</span></p>
+        <div class="chips focus-chips" role="group" aria-label="What brings you here"></div>
         <button class="btn" id="welcomeGo" type="button">Let's start</button>
       </div>
 
@@ -338,6 +354,11 @@ h1[tabindex="-1"]:focus{outline:none}
         <p class="small muted">Check-ins stay on this device only. Nobody else can see them.</p>
       </div>
 
+      <div class="card" id="insights">
+        <div class="row" style="justify-content:space-between"><h2 class="h-m">Your patterns</h2><span class="small muted">Last 30 days</span></div>
+        <div id="insBody" class="stack"></div>
+      </div>
+
       <div class="card garden-card">
         <div class="row" style="justify-content:space-between;align-items:flex-start">
           <div><h2 class="h-m">Your garden</h2><p class="small muted" id="gardenMsg">Check-ins, good things, flipped thoughts and finished activities each plant something.</p></div>
@@ -347,13 +368,13 @@ h1[tabindex="-1"]:focus{outline:none}
       </div>
 
       <div class="stack">
-        <h2 class="h-m">Quick tools</h2>
-        <div class="tile-grid">
-          <button class="tile" type="button" data-go="toolkit" data-tool="breathe"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="3"/></svg></span><b>Box breathing</b><span>Four slow sides to calm your body</span></button>
-          <button class="tile" type="button" data-go="guides" data-guide="move"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="14" cy="4" r="2"/><path d="M8 21l3-6 3 2v5M6 12l3-4 4 1 2 4 3 1"/></svg></span><b>Quick workout</b><span>Move for your mind</span></button>
-          <button class="tile" type="button" data-go="guides" data-guide="mate"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></span><b>Worried about a mate?</b><span>Spot, speak, support</span></button>
-          <button class="tile" type="button" data-go="toolkit" data-tool="plan"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg></span><b>My safety plan</b><span>Your steps for tough moments</span></button>
+        <div class="row" style="justify-content:space-between"><h2 class="h-m">For you</h2><button class="chip" type="button" id="focusEditBtn" aria-expanded="false">Change</button></div>
+        <div class="card" id="focusEdit" hidden>
+          <p class="small"><b>What brings you here?</b> Pick any.</p>
+          <div class="chips focus-chips" role="group" aria-label="What brings you here"></div>
+          <button class="btn" id="focusSave" type="button">Done</button>
         </div>
+        <div class="tile-grid" id="forYou"></div>
       </div>
 
       <div class="stack">
@@ -381,6 +402,7 @@ h1[tabindex="-1"]:focus{outline:none}
           <button class="tile" type="button" data-tool="breathe"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="3"/></svg></span><b>Box breathing</b><span>Four slow sides</span></button>
           <button class="tile" type="button" data-tool="ground"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/></svg></span><b>5-4-3-2-1</b><span>Come back to the room</span></button>
         </div>
+        <button class="tile" type="button" data-tool="sleep" style="flex-direction:row;align-items:center;gap:12px"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></span><span style="display:flex;flex-direction:column;gap:2px;min-width:0"><b>Wind down for sleep</b><span>A 10-minute routine to help you switch off</span></span></button>
         <button class="tile" type="button" data-tool="plan" style="flex-direction:row;align-items:center;gap:12px"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg></span><span style="display:flex;flex-direction:column;gap:2px;min-width:0"><b>My safety plan</b><span>Your steps for tough moments, ready when you need them</span></span></button>
       </div>
 
@@ -483,6 +505,17 @@ h1[tabindex="-1"]:focus{outline:none}
         </div>
       </div>
 
+      <!-- Wind down -->
+      <div class="card" id="t-sleep" hidden>
+        <div class="row" style="justify-content:space-between"><h2 class="h-m">Wind down for sleep</h2><span class="tag" id="wdStep"></span></div>
+        <div class="g-dots" id="wdDots" aria-hidden="true"></div>
+        <div class="stack" id="wdBody" aria-live="polite"></div>
+        <div class="row" style="justify-content:space-between">
+          <button class="btn ghost" id="wdBack" type="button">Back</button>
+          <button class="btn" id="wdNext" type="button">Next</button>
+        </div>
+      </div>
+
       <div class="card" id="t-plan" hidden>
         <h2 class="h-m">My safety plan</h2>
         <p class="small muted">Fill this in when you're feeling okay, so it's ready if things get hard. It saves as you type and stays on this device.</p>
@@ -497,6 +530,7 @@ h1[tabindex="-1"]:focus{outline:none}
         <div class="hello"><p class="eyebrow">Guides</p><h1 class="h-xl">For the people in your life</h1><p class="muted">Short, practical guides for the situations people ask about most.</p></div>
         <button class="guide-card" type="button" data-guide="mate"><span class="gc-ic" style="background:var(--accent-soft);color:var(--accent-ink)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></span><span class="gc-txt"><b>Worried about a mate</b><span>Spot the signs, start the conversation, help them get support</span></span></button>
         <button class="guide-card" type="button" data-guide="move"><span class="gc-ic" style="background:color-mix(in srgb,var(--m2) 22%,var(--surface));color:var(--accent-ink)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="14" cy="4" r="2"/><path d="M8 21l3-6 3 2v5M6 12l3-4 4 1 2 4 3 1"/></svg></span><span class="gc-txt"><b>Move for your mind</b><span>Quick guided workouts and a weekly move goal</span></span></button>
+        <button class="guide-card" type="button" data-guide="sleep"><span class="gc-ic" style="background:color-mix(in srgb,var(--sky) 20%,var(--surface));color:var(--accent-ink)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></span><span class="gc-txt"><b>Sleep better</b><span>Simple habits that help, and a wind-down routine for tonight</span></span></button>
         <button class="guide-card" type="button" data-guide="adhd"><span class="gc-ic" style="background:color-mix(in srgb,var(--m5) 20%,var(--surface));color:var(--m5)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="3"/></svg></span><span class="gc-txt"><b>Living with ADHD</b><span>For you, your partner or your child, with tools that help day to day</span></span></button>
         <button class="guide-card" type="button" data-guide="grief"><span class="gc-ic" style="background:color-mix(in srgb,var(--m3) 25%,var(--surface));color:var(--ink-2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21c-4-3-8-6.5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 4.5-4 8-8 11z"/></svg></span><span class="gc-txt"><b>After a suicide loss</b><span>Grief, what can help, and support for those left behind</span></span></button>
       </div>
@@ -505,6 +539,14 @@ h1[tabindex="-1"]:focus{outline:none}
 
       <div class="stack" id="g-mate" hidden style="gap:20px">
       <div class="hello"><p class="eyebrow">Spot · Speak · Support</p><h1 class="h-xl">Worried about someone?</h1><p class="muted">You don't need to be an expert. Noticing, asking and staying with them can make a real difference.</p></div>
+      <div class="card" id="mateText">
+        <h2 class="h-m">Send a check-in text</h2>
+        <p class="small muted">Sometimes the hardest part is the first message. Pick one, make it yours, and send it.</p>
+        <div class="stack" id="mtOpts" style="gap:8px" role="radiogroup" aria-label="Message"></div>
+        <label for="mtText" class="small"><b>Your message</b></label>
+        <textarea id="mtText"></textarea>
+        <div class="row" style="flex-wrap:wrap"><button class="btn" id="mtSend" type="button">Send</button><button class="btn ghost" id="mtCopy" type="button">Copy</button></div>
+      </div>
       <div class="sss-tabs" role="group" aria-label="Step">
         <button class="sss-tab" type="button" data-sss="spot" aria-pressed="true"><b>Spot</b><span>the signs</span></button>
         <button class="sss-tab" type="button" data-sss="speak" aria-pressed="false"><b>Speak</b><span>ask the question</span></button>
@@ -688,6 +730,30 @@ h1[tabindex="-1"]:focus{outline:none}
             <div class="li"><div class="li-main"><b>Raising Children Network</b><span class="small muted">ADHD guides for parents</span></div><a class="icon-btn" href="https://raisingchildren.net.au/adhd" target="_blank" rel="noopener" aria-label="Visit Raising Children Network">${LINK}</a></div>
             <div class="li"><div class="li-main"><b>healthdirect: adult ADHD</b><span class="small muted">Symptoms, diagnosis and treatment</span></div><a class="icon-btn" href="https://www.healthdirect.gov.au/adult-adhd" target="_blank" rel="noopener" aria-label="Visit healthdirect">${LINK}</a></div>
           </div>
+        </div>
+      </div>
+
+      <!-- SLEEP -->
+      <div class="stack" id="g-sleep" hidden style="gap:20px">
+        <div class="hello"><p class="eyebrow">Sleep better</p><h1 class="h-xl">Good sleep, better days</h1><p class="muted">Sleep and mood feed each other. A rough night makes everything harder, and stress makes sleep harder. Small, steady habits help both.</p></div>
+        <button class="btn" type="button" data-go="toolkit" data-tool="sleep">Start tonight's wind-down</button>
+        <div class="card">
+          <h2 class="h-m">Habits that help</h2>
+          <ul class="ticks">
+            <li>Get up at the same time every day, even on weekends. It sets your body clock</li>
+            <li>Get daylight in the morning, and keep evenings dim</li>
+            <li>Give yourself 30 to 60 minutes to wind down before bed</li>
+            <li>Keep caffeine to the morning, and go easy on alcohol. It breaks up sleep later in the night</li>
+            <li>Keep your bed for sleep. If you've been awake for about 20 minutes, get up, do something calm in dim light, and go back when you feel sleepy</li>
+            <li>Busy mind at night? Write worries down and give them a set time tomorrow</li>
+          </ul>
+        </div>
+        <div class="nudge">
+          <h3 class="h-m">When to see your GP</h3>
+          <p class="small">If poor sleep has gone on for more than a few weeks, you snore loudly or stop breathing in your sleep, or sleep problems come with low mood, talk to your GP. Ask about CBT for insomnia, which is the recommended first treatment for ongoing sleep problems.</p>
+        </div>
+        <div class="list">
+          <div class="li"><div class="li-main"><b>Sleep Health Foundation</b><span class="small muted">Australian fact sheets on sleep problems</span></div><a class="icon-btn" href="https://www.sleephealthfoundation.org.au/" target="_blank" rel="noopener" aria-label="Visit Sleep Health Foundation website">${LINK}</a></div>
         </div>
       </div>
 
@@ -957,8 +1023,8 @@ $("#aboutBtn").onclick=()=>showSheet("#aboutSheet");
 
 /* ---------- Routing: #today, #toolkit, #tool-flip, #guides, #guide-adhd, #support, #involved ---------- */
 const TABS=["today","toolkit","guides","support","involved"];
-const TOOLS=["flip","smile","boost","jar","breathe","ground","plan"];
-const GUIDES=["mate","move","adhd","grief"];
+const TOOLS=["flip","smile","boost","jar","breathe","ground","sleep","plan"];
+const GUIDES=["mate","move","sleep","adhd","grief"];
 let route="today";
 function parseRoute(r){
   r=String(r||"").replace(/^#/,"");
@@ -980,7 +1046,7 @@ function applyRoute(r,{focus=false}={}){
   if(o.tab==="toolkit") safe(()=>showTool(o.tool||null));
   else {stopBreathing();stopSmile(false)}
   if(o.tab==="guides") safe(()=>showGuide(o.guide||null));
-  if(o.tab==="today") safe(()=>{renderWeek();drawGarden()});
+  if(o.tab==="today") safe(()=>{renderWeek();drawGarden();renderInsights();renderForYou()});
   window.scrollTo({top:0});
   if(focus) focusView();
 }
@@ -1054,7 +1120,7 @@ $("#saveCheckin").onclick=()=>{
   log[k]={mood:sel.mood,factors:[...sel.factors],note:$("#note").value.trim(),at:Date.now()};
   const ok=store.set("ll.checkins",log);
   $("#savedMsg").textContent=ok?"Saved to this device":"Couldn't save on this device";
-  $("#savedMsg").hidden=false; renderWeek(); if(ok&&first) plant("checkin");
+  $("#savedMsg").hidden=false; renderWeek(); safe(renderInsights); if(ok&&first) plant("checkin");
 };
 function renderWeek(){
   const log=store.get("ll.checkins",{}); const out=[]; const now=new Date(); let count=0;
@@ -1113,6 +1179,7 @@ function showTool(t){
   if(t!=="breathe") stopBreathing();
   if(t!=="smile") stopSmile(false);
   if(t==="jar") drawJar();
+  if(t==="sleep") renderWD(); else if(typeof wdStop==="function") wdStop();
 }
 $("#toolGrid").addEventListener("click",e=>{const b=e.target.closest("[data-tool]");if(b)nav({tab:"toolkit",tool:b.dataset.tool})});
 $("#toolBack").onclick=()=>nav({tab:"toolkit"});
@@ -1431,6 +1498,130 @@ $("#wkPick").addEventListener("click",e=>{const b=e.target.closest("[data-wk]");
 $("#wkPause").onclick=()=>{if(!wk)return;if(wkClock.paused){wkClock.resume();if(!wkRest)wkPhaseStart=Date.now()-(wkLen-wkClock.left)*1000;$("#wkPause").textContent="Pause"}else{wkBank();wkClock.pause();$("#wkPause").textContent="Resume"}};
 $("#wkSkip").onclick=()=>{wkClock.stop();wkAdvance()};
 $("#wkEnd").onclick=()=>finishWorkout(false);
+
+/* ---------- What brings you here (focus) and "For you" tiles ---------- */
+const FOCUS_OPTS=[["stress","Stress and worry"],["low","Low mood"],["sleep","Sleep"],["adhd","ADHD"],["support","Supporting someone"],["active","Getting active"],["explore","Just exploring"]];
+const TILE_IC={
+ breathe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="3"/></svg>',
+ ground:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/></svg>',
+ flip:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h13l-3-3M20 17H7l3 3"/></svg>',
+ boost:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>',
+ jar:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 3h8M7 6h10v13a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2z"/></svg>',
+ sleep:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>',
+ adhd:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>',
+ mate:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>',
+ workout:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="14" cy="4" r="2"/><path d="M8 21l3-6 3 2v5M6 12l3-4 4 1 2 4 3 1"/></svg>',
+ plan:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg>',
+ smile:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8 14c1.2 1.6 2.5 2.2 4 2.2s2.8-.6 4-2.2M9 9.5h.01M15 9.5h.01"/></svg>'
+};
+const TILES={
+ breathe:{go:"toolkit",tool:"breathe",t:"Box breathing",d:"Four slow sides to calm your body"},
+ ground:{go:"toolkit",tool:"ground",t:"5-4-3-2-1",d:"Bring a racing mind back to the room"},
+ flip:{go:"toolkit",tool:"flip",t:"Thought Flip",d:"Catch a thinking trap, find a fairer thought"},
+ boost:{go:"toolkit",tool:"boost",t:"Mood Boost",d:"One small thing, then see what it does"},
+ jar:{go:"toolkit",tool:"jar",t:"Good Things Jar",d:"Three good things, every day"},
+ sleep:{go:"toolkit",tool:"sleep",t:"Wind down",d:"A 10-minute routine before bed"},
+ adhd:{go:"guides",guide:"adhd",t:"ADHD tools",d:"Focus sprints, routines and tips"},
+ mate:{go:"guides",guide:"mate",t:"Check on a mate",d:"What to say, and a text to send"},
+ workout:{go:"guides",guide:"move",t:"Quick workout",d:"Guided sessions, no gym needed"},
+ plan:{go:"toolkit",tool:"plan",t:"My safety plan",d:"Your steps for tough moments"},
+ smile:{go:"toolkit",tool:"smile",t:"Find the Smile",d:"A 30-second attention game"}
+};
+const FOCUS_TILES={stress:["breathe","ground","flip","plan"],low:["boost","jar","flip","plan"],sleep:["sleep","breathe","jar","boost"],adhd:["adhd","workout","boost","breathe"],support:["mate","breathe","jar","workout"],active:["workout","boost","breathe","jar"],explore:["breathe","flip","workout","mate"]};
+let focusSel=new Set(store.get("ll.focus",[]).filter(f=>FOCUS_TILES[f]));
+function renderFocusChips(){
+  $$(".focus-chips").forEach(box=>{box.innerHTML=FOCUS_OPTS.map(([k,l])=>`<button class="chip" type="button" data-focus="${k}" aria-pressed="${focusSel.has(k)}">${l}</button>`).join("")});
+}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-focus]");if(!b)return;const k=b.dataset.focus;focusSel.has(k)?focusSel.delete(k):focusSel.add(k);
+  $$(`[data-focus="${k}"]`).forEach(x=>x.setAttribute("aria-pressed",focusSel.has(k)))});
+function renderForYou(){
+  const lists=(focusSel.size?[...focusSel]:["explore"]).map(f=>FOCUS_TILES[f]);
+  const out=[];for(let i=0;out.length<4&&i<4;i++)lists.forEach(l=>{if(out.length<4&&l[i]&&!out.includes(l[i]))out.push(l[i])});
+  ["breathe","workout","mate","plan"].forEach(k=>{if(out.length<4&&!out.includes(k))out.push(k)});
+  $("#forYou").innerHTML=out.map(k=>{const t=TILES[k];return `<button class="tile" type="button" data-go="${t.go}"${t.tool?` data-tool="${t.tool}"`:""}${t.guide?` data-guide="${t.guide}"`:""}><span class="ic">${TILE_IC[k]}</span><b>${t.t}</b><span>${t.d}</span></button>`}).join("");
+}
+function saveFocus(){store.set("ll.focus",[...focusSel]);renderForYou()}
+$("#focusEditBtn").onclick=()=>{const open=$("#focusEdit").hidden;$("#focusEdit").hidden=!open;$("#focusEditBtn").setAttribute("aria-expanded",open);$("#focusEditBtn").textContent=open?"Close":"Change"};
+$("#focusSave").onclick=()=>{saveFocus();$("#focusEdit").hidden=true;$("#focusEditBtn").textContent="Change";$("#focusEditBtn").setAttribute("aria-expanded","false");toast("Updated your tools")};
+$("#welcomeGo").addEventListener("click",saveFocus);
+safe(renderFocusChips);safe(renderForYou);
+
+/* ---------- Your patterns (mood insights, all on this device) ---------- */
+function renderInsights(){
+  const log=store.get("ll.checkins",{}),now=new Date(),days=[];
+  for(let i=29;i>=0;i--){const d=new Date(now);d.setDate(now.getDate()-i);const e=log[dayKey(d)];const m=e&&MOODS[(+e.mood)-1]?+e.mood:0;days.push({d,m,f:m&&Array.isArray(e.factors)?e.factors:[]})}
+  const got=days.filter(x=>x.m);
+  if(got.length<3){$("#insBody").innerHTML=`<p class="small muted">Check in on 3 different days and you'll start to see patterns here, like what tends to go with your better and harder days. So far: ${got.length} of 3.</p>`;return}
+  const avg=a=>a.reduce((p,q)=>p+q,0)/a.length, all=avg(got.map(x=>x.m));
+  const chart=`<div class="ins-chart" role="img" aria-label="Mood over the last 30 days. ${got.length} check-ins, average ${all.toFixed(1)} out of 5.">${days.map(x=>x.m?`<i style="height:${8+x.m*9}px;background:var(--m${x.m})"></i>`:`<i class="none"></i>`).join("")}</div><div class="ins-axis" aria-hidden="true"><span>${days[0].d.toLocaleDateString("en-AU",{day:"numeric",month:"short"})}</span><span>Today</span></div>`;
+  const notes=[];
+  const word=v=>v>=4.5?"great":v>=3.5?"good":v>=2.5?"okay":v>=1.5?"low":"really low";
+  notes.push(`Your average mood was <b>${word(all)}</b> (${all.toFixed(1)} out of 5) across ${got.length} check-ins.`);
+  const recent=got.filter(x=>(now-x.d)/864e5<7),prior=got.filter(x=>(now-x.d)/864e5>=7&&(now-x.d)/864e5<14);
+  if(recent.length>=2&&prior.length>=2){const dlt=avg(recent.map(x=>x.m))-avg(prior.map(x=>x.m));
+    if(dlt>=0.5)notes.push("This week has been better than last week. Whatever you're doing, keep it up.");
+    else if(dlt<=-0.5)notes.push(`This week has been harder than last week. Go gently, and <button class="linkish" type="button" data-open-help>reach out</button> if you need to.`);}
+  const fx=FACTORS.map(f=>{const ms=got.filter(x=>x.f.includes(f)).map(x=>x.m);return {f,n:ms.length,diff:ms.length?avg(ms)-all:0}}).filter(x=>x.n>=2);
+  const lowF=fx.filter(x=>x.diff<=-0.5).sort((a,b)=>a.diff-b.diff)[0];
+  const highF=fx.filter(x=>x.diff>=0.5).sort((a,b)=>b.diff-a.diff)[0];
+  const tips={Sleep:["the Sleep better guide","guides","sleep"],Work:["a breathing break","toolkit","breathe"],Money:["Thought Flip","toolkit","flip"],Loneliness:["Mood Boost's Connect ideas","toolkit","boost"],Family:["a breathing break","toolkit","breathe"],Relationships:["Thought Flip","toolkit","flip"],Health:["a gentle workout","guides","move"],Study:["a focus sprint","guides","adhd"]};
+  if(lowF){const t=tips[lowF.f];notes.push(`Days you mentioned <b>${lowF.f.toLowerCase()}</b> tended to be harder.${t?` <button class="linkish" type="button" data-go="${t[1]}" data-${t[1]==="toolkit"?"tool":"guide"}="${t[2]}">Try ${t[0]}</button>`:""}`)}
+  if(highF)notes.push(`Days you mentioned <b>${highF.f.toLowerCase()}</b> tended to be better.`);
+  const boostDays=new Set(store.get("ll.boost",[]).filter(b=>b&&b.at).map(b=>dayKey(new Date(b.at))));
+  const withB=got.filter(x=>boostDays.has(dayKey(x.d))).map(x=>x.m),noB=got.filter(x=>!boostDays.has(dayKey(x.d))).map(x=>x.m);
+  if(withB.length>=2&&noB.length>=2&&avg(withB)-avg(noB)>=0.5)notes.push("Days you did a Mood Boost activity averaged higher. Small actions are working for you.");
+  const move=store.get("ll.move",{}),mvDays=got.filter(x=>(+move[dayKey(x.d)]||0)>=20).map(x=>x.m),noMv=got.filter(x=>!((+move[dayKey(x.d)]||0)>=20)).map(x=>x.m);
+  if(mvDays.length>=2&&noMv.length>=2&&avg(mvDays)-avg(noMv)>=0.5)notes.push("Days you moved for 20 minutes or more averaged higher.");
+  $("#insBody").innerHTML=chart+`<ul class="ins-list">${notes.map(n=>`<li><span>${n}</span></li>`).join("")}</ul><p class="small muted">Patterns, not a diagnosis. If you're worried about how you've been feeling, talk to your GP.</p>`;
+}
+safe(renderInsights,"insights");
+
+/* ---------- Wind down for sleep ---------- */
+const WD=[
+ {t:"Set tomorrow aside",b:'<p>Write down anything on your mind for tomorrow, so your brain doesn\'t have to hold onto it overnight.</p><label for="wdDump" class="small"><b>On my mind</b></label><textarea id="wdDump" placeholder="Call the bank, email Sam, buy bread…"></textarea>'},
+ {t:"Dim the lights",b:"<p>Switch off the main lights and turn your screen brightness right down. Dim light tells your body that evening has arrived.</p><p class=\"small muted\">Tap Next when you're done.</p>"},
+ {t:"Slow your breathing",timer:"breath"},
+ {t:"Relax your body",timer:"body"},
+ {t:"Off to bed",b:"<p class=\"wd-big\">That's it.</p><p>Put your phone away from your bed and let your mind drift. If you're still awake after about 20 minutes, get up, do something calm in dim light, and go back when you feel sleepy.</p><p>Goodnight.</p>"}
+];
+const RELAX_STEPS=["Feet: curl your toes tight… and let go","Legs: tense your thighs… and let go","Hands: make fists… and let go","Shoulders: lift them to your ears… and drop","Face: scrunch it up… and soften","Whole body: feel heavy and warm"];
+let wdI=0,wdTimer=null;
+function wdStop(){if(wdTimer){clearInterval(wdTimer);wdTimer=null;wantWake(false)}}
+function renderWD(){
+  wdStop();const s=WD[wdI];$("#wdStep").textContent=`Step ${wdI+1} of ${WD.length}`;
+  $("#wdDots").innerHTML=WD.map((_,i)=>`<i class="${i<=wdI?"on":""}"></i>`).join("");
+  $("#wdBack").disabled=wdI===0;$("#wdNext").textContent=wdI===WD.length-1?"Finish":"Next";
+  if(s.timer==="breath"){
+    $("#wdBody").innerHTML=`<h3 class="h-m">${s.t}</h3><p class="small muted">Breathe in for 4, out for 6. Longer out-breaths help your body settle. Six rounds, about a minute.</p><div class="wd-orb" id="wdOrb">In</div><p class="wd-big" id="wdCue">Breathe in</p>`;
+    let t=0;const total=60,orb=$("#wdOrb");wantWake(true);
+    const step=()=>{const c=t%10,inP=c<4;orb.textContent=inP?4-c:10-c;$("#wdCue").textContent=t>=total?"Nice. Tap Next.":inP?"Breathe in":"Breathe out";
+      orb.style.transitionDuration=reduce?"0s":(inP?"4s":"6s");orb.style.transform=inP?"scale(1.25)":"scale(.85)";if(t>=total){wdStop();orb.textContent="✓"}t++};
+    step();wdTimer=setInterval(step,1000);
+  }else if(s.timer==="body"){
+    $("#wdBody").innerHTML=`<h3 class="h-m">${s.t}</h3><p class="small muted">Tense each part for a few seconds, then let it go. Notice the difference.</p><p class="wd-big" id="wdCue"></p>`;
+    let k=0;wantWake(true);const step=()=>{$("#wdCue").textContent=k<RELAX_STEPS.length?RELAX_STEPS[k]:"Nice. Tap Next.";if(k>=RELAX_STEPS.length)wdStop();k++};step();wdTimer=setInterval(step,9000);
+  }else{
+    $("#wdBody").innerHTML=`<h3 class="h-m">${s.t}</h3>${s.b}`;
+    const dump=$("#wdDump");if(dump){dump.value=store.get("ll.sleepdump","");dump.addEventListener("input",()=>store.set("ll.sleepdump",dump.value))}
+  }
+}
+$("#wdNext").onclick=()=>{if(wdI===WD.length-1){wdStop();plant("breathe");toast("Sleep well.");wdI=0;nav({tab:"toolkit"});return}wdI++;renderWD()};
+$("#wdBack").onclick=()=>{if(wdI>0){wdI--;renderWD()}};
+
+/* ---------- Check on a mate: send a text ---------- */
+const MATE_MSGS=["Hey, been thinking about you. How are you travelling?","You've seemed a bit flat lately. Want to grab a coffee or go for a walk this week?","No pressure to reply. Just wanted you to know I'm here if you want to talk.","How are you going, really? I'm happy to listen."];
+let mtI=0;
+function renderMate(){
+  $("#mtOpts").innerHTML=MATE_MSGS.map((m,i)=>`<button class="mt-opt" type="button" role="radio" aria-checked="${i===mtI}" data-mt="${i}">${esc(m)}</button>`).join("");
+  $("#mtText").value=MATE_MSGS[mtI];
+}
+$("#mtOpts").addEventListener("click",e=>{const b=e.target.closest("[data-mt]");if(!b)return;mtI=+b.dataset.mt;renderMate()});
+$("#mtSend").onclick=async()=>{const text=$("#mtText").value.trim();if(!text)return;
+  if(navigator.share){try{await navigator.share({text});toast("Nice one. That message could mean a lot.");return}catch(e){if(e&&e.name==="AbortError")return}}
+  const a=document.createElement("a");a.href="sms:?&body="+encodeURIComponent(text);a.click();
+  setTimeout(()=>toast("If your messages app didn't open, tap Copy and paste it in."),600)};
+$("#mtCopy").onclick=()=>copy($("#mtText").value.trim());
+safe(renderMate);
 
 /* ---------- Services, events, gyms ---------- */
 let svcCat="All";

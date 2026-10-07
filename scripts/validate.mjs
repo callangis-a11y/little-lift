@@ -64,7 +64,7 @@ for (const [kind, rule] of Object.entries(SCHEMA)) {
 const app = readFileSync(join(root, "src/app.html"), "utf8");
 const mustHave = [["tel:000", "the Call 000 button"], ["13 11 14", "Lifeline"], ['id="helpBtn"', "the Get help now button"], ["CORE_LINES", "the built-in support lines"]];
 for (const [needle, what] of mustHave) if (!app.includes(needle)) err("src/app.html", `is missing ${what}`);
-if (/<!doctype|<html|<head>|<body/i.test(app)) err("src/app.html", "should not include <!doctype>, <html>, <head> or <body>. The build adds them.");
+if (/<!doctype|<html[\s>]|<head>|<body[\s>]/i.test(app)) err("src/app.html", "should not include <!doctype>, <html>, <head> or <body>. The build adds them.");
 
 warnings.forEach(w => console.warn("Warning: " + w));
 if (errors.length) { errors.forEach(e => console.error("Problem: " + e)); console.error(`\n${errors.length} problem(s). Nothing was published.`); process.exit(1); }
