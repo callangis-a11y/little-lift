@@ -225,6 +225,15 @@
       "hours": "24/7",
       "url": "https://www.tisnational.gov.au/",
       "order": 10
+    },
+    {
+      "id": "nrs",
+      "name": "National Relay Service",
+      "number": "133 677",
+      "sms": "0423 677 767",
+      "who": "If you're deaf, hard of hearing or have a speech impairment. Call by TTY or SMS relay and ask for the number you need, such as Lifeline. Voice relay: 1300 555 727. Emergency by TTY: 106.",
+      "url": "https://www.infrastructure.gov.au/media-communications-arts/phone/services-people-disability/accesshub/national-relay-service",
+      "order": 10.5
     }
   ]
 }

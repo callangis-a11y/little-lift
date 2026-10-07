@@ -39,11 +39,20 @@ const head = `<!doctype html>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<style>body{margin:0}img{max-width:100%}</style>
+<link rel="preload" href="fonts/AtkinsonHyperlegible-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Gabarito";src:url(fonts/gabarito-variable.woff2) format("woff2");font-weight:400 900;font-display:swap}
+@font-face{font-family:"Atkinson Hyperlegible";src:url(fonts/AtkinsonHyperlegible-Regular.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Atkinson Hyperlegible";src:url(fonts/AtkinsonHyperlegible-Bold.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Atkinson Hyperlegible";src:url(fonts/AtkinsonHyperlegible-Italic.woff2) format("woff2");font-weight:400;font-style:italic;font-display:swap}
+body{margin:0}img{max-width:100%}
+</style>
 </head>
 <body>
 `;
-const html = head + app.replace(/<title>[^<]*<\/title>\s*/, `<title>${title}</title>\n`) + "\n</body>\n</html>\n";
+// The website uses its own copy of the fonts (public/fonts), so nothing is requested from Google.
+const appSite = app.replace(/<link[^>]+fonts\.(googleapis|gstatic)\.com[^>]*>\s*/g, "");
+const html = head + appSite.replace(/<title>[^<]*<\/title>\s*/, `<title>${title}</title>\n`) + "\n</body>\n</html>\n";
 writeFileSync(join(dist, "index.html"), html);
 
 cpSync(join(root, "content"), join(dist, "content"), { recursive: true });

@@ -251,6 +251,7 @@ details.acc summary::-webkit-details-marker{display:none}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .icon-btn.call:not(:has(svg)){width:auto;padding:0 12px;font-weight:700;font-size:14px}
 h1[tabindex="-1"]:focus{outline:none}
+.event .row a,.event .row .linkish{display:inline-block;padding:10px 0;margin:-6px 0}
 .exit-btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 14px;font-weight:700;font-size:14px;display:inline-flex;align-items:center;gap:6px;align-self:flex-start}
 .exit-btn svg{width:16px;height:16px}
 .exit-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
@@ -923,6 +924,11 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
       </div>
       <div class="stack"><h2 class="h-m">Events</h2><div id="eventList"></div></div>
       <div class="card">
+        <h2 class="h-m">Share Little Lift</h2>
+        <p class="small muted">Know someone who could use a lift? Sending the link is a kind, low-key way to say you're thinking of them.</p>
+        <button class="btn" type="button" data-share>Share the app</button>
+      </div>
+      <div class="card">
         <h2 class="h-m">Donate</h2>
         <p class="small muted">Donations fund frontline mental health organisations across Queensland.</p>
         <a class="btn" id="donateBtn" href="https://www.mentalawarenessfoundation.org/make-a-donation" target="_blank" rel="noopener">Donate</a>
@@ -970,7 +976,7 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
         <li>No account, no sign-up, no ads.</li>
         <li>Your check-ins, notes, safety plan and journal stay on this device. They're never sent to us or anyone else.</li>
         <li>If you share this phone, anyone using it could see them. You can delete them any time.</li>
-        <li>The app's fonts load from Google, which sees your device's internet address, as with any website visit. Nothing you write is sent.</li>
+        <li data-gfonts-note>The app's fonts load from Google, which sees your device's internet address, as with any website visit. Nothing you write is sent.</li>
       </ul>
       <button class="btn ghost" id="clearData" type="button">Delete my data from this device</button>
     </div>
@@ -994,7 +1000,7 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
     <div class="card">
       <h3 class="h-m">Send feedback</h3>
       <p class="small muted">Spotted something wrong, or have an idea? We read every message. Please don't include private health details. If you need support now, use Get help now instead.</p>
-      <a class="btn ghost" id="feedbackBtn" href="mailto:info@mentalawareness.org.au?subject=Little%20Lift%20feedback">Email your feedback</a>
+      <div class="row" style="flex-wrap:wrap"><button class="btn" type="button" data-share>Share the app</button><a class="btn ghost" id="feedbackBtn" href="mailto:info@mentalawareness.org.au?subject=Little%20Lift%20feedback">Email your feedback</a></div>
     </div>
     <p class="small muted">Tools in this app are based on approaches with research behind them, such as cognitive behavioural therapy, behavioural activation, gratitude practice, safety planning and exercise. Support line details are checked regularly. Contact: the Mental Awareness Foundation at <span style="user-select:all">info@mentalawareness.org.au</span>.</p>
   </div>
@@ -1793,6 +1799,34 @@ $("#remIcs").onclick=()=>{const a=remStart(),b=new Date(a.getTime()+5*60000);
   try{const url=URL.createObjectURL(new Blob([ics],{type:"text/calendar"}));const link=document.createElement("a");link.href=url;link.download="little-lift-reminder.ics";document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),4000);store.set("ll.reminded",true);toast("Open the downloaded file to add it to your calendar.")}catch(e){toast("Couldn't create the calendar file on this device.")}};
 $("#remLink").onclick=()=>{showSheet("#aboutSheet");setTimeout(()=>$("#remCard").scrollIntoView({block:"center"}),50)};
 
+/* ---------- Share the app ---------- */
+document.addEventListener("click",async e=>{
+  if(!e.target.closest("[data-share]")) return;
+  const data={title:"Little Lift",text:"Little Lift: free, private wellbeing tools and support lines. No download, no sign-up.",url:APP_URL};
+  try{if(navigator.share){await navigator.share(data);return}}catch(err){if(err&&err.name==="AbortError")return}
+  try{await navigator.clipboard.writeText(APP_URL);toast("Link copied. Paste it into a message.")}
+  catch(err){toast("Copy this link: "+APP_URL)}
+});
+
+/* ---------- Add an event to your calendar ---------- */
+const ymd=s=>String(s).replace(/-/g,"");
+const nextDay=s=>{const d=new Date(s+"T00:00:00");d.setDate(d.getDate()+1);return dayKey(d)};
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-addcal]"); if(!b) return;
+  const ev=EVENTS.find(x=>x.id===b.dataset.addcal); if(!ev||!ev.date) return;
+  const endEx=nextDay(ev.end||ev.date);
+  const details=[ev.blurb,ev.when,ev.url].filter(Boolean).join("\n");
+  const apple=/iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent||"");
+  const onSite=/^https?:$/.test(location.protocol)&&document.documentElement.dataset.site==="1";
+  if(apple&&onSite){
+    const icsEsc=t=>String(t||"").replace(/[\\;,]/g,m=>"\\"+m).replace(/\n/g,"\\n");
+    const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Little Lift//EN","BEGIN:VEVENT","UID:little-lift-"+ev.id+"@littlelift","DTSTAMP:"+new Date().toISOString().replace(/[-:]/g,"").split(".")[0]+"Z","DTSTART;VALUE=DATE:"+ymd(ev.date),"DTEND;VALUE=DATE:"+ymd(endEx),"SUMMARY:"+icsEsc(ev.title),"DESCRIPTION:"+icsEsc(details),ev.place?"LOCATION:"+icsEsc(ev.place):"",ev.url?"URL:"+ev.url:"","END:VEVENT","END:VCALENDAR"].filter(Boolean).join("\r\n");
+    try{const url=URL.createObjectURL(new Blob([ics],{type:"text/calendar"}));const a=document.createElement("a");a.href=url;a.download=ev.id+".ics";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),4000);toast("Open the file to add it to your calendar.");return}catch(err){}
+  }
+  const g="https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent(ev.title)+"&dates="+ymd(ev.date)+"/"+ymd(endEx)+"&details="+encodeURIComponent(details)+(ev.place?"&location="+encodeURIComponent(ev.place):"");
+  window.open(g,"_blank","noopener");
+});
+
 /* ---------- Services, events, gyms ---------- */
 let svcCat="All";
 function renderServices(){
@@ -1819,7 +1853,7 @@ function eventCard(ev){
   const long={weekday:"long",day:"numeric",month:"long",year:"numeric"};
   const whenTxt=ev.when||(valid?(eValid?d.toLocaleDateString("en-AU",{day:"numeric",month:"long"})+" to "+e.toLocaleDateString("en-AU",{day:"numeric",month:"long",year:"numeric"}):d.toLocaleDateString("en-AU",long)):"");
   const own=isOwnEvent(ev);
-  return `<div class="card"><div class="event">${cal}<div class="stack" style="gap:4px;min-width:0"><b>${esc(ev.title)}</b>${ev.host?`<span class="small" style="font-weight:700;color:${own?"var(--accent-ink)":"var(--ink-2)"}">${own?"Hosted by ":"Run by "}${esc(ev.host)}</span>`:""}${whenTxt?`<span class="small muted">${esc(whenTxt)}</span>`:""}${ev.place?`<span class="small muted">${esc(ev.place)}</span>`:""}${ev.blurb?`<p class="small">${esc(ev.blurb)}</p>`:""}${ev.url?`<a class="small" href="${esc(ev.url)}" target="_blank" rel="noopener">Find out more<span class="sr"> about ${esc(ev.title)}</span></a>`:""}</div></div></div>`;
+  return `<div class="card"><div class="event">${cal}<div class="stack" style="gap:4px;min-width:0"><b>${esc(ev.title)}</b>${ev.host?`<span class="small" style="font-weight:700;color:${own?"var(--accent-ink)":"var(--ink-2)"}">${own?"Hosted by ":"Run by "}${esc(ev.host)}</span>`:""}${whenTxt?`<span class="small muted">${esc(whenTxt)}</span>`:""}${ev.place?`<span class="small muted">${esc(ev.place)}</span>`:""}${ev.blurb?`<p class="small">${esc(ev.blurb)}</p>`:""}<span class="row" style="gap:16px;flex-wrap:wrap">${ev.url?`<a class="small" href="${esc(ev.url)}" target="_blank" rel="noopener">Find out more<span class="sr"> about ${esc(ev.title)}</span></a>`:""}${valid&&ev.id?`<button class="linkish small" type="button" data-addcal="${esc(ev.id)}">Add to calendar<span class="sr">: ${esc(ev.title)}</span></button>`:""}</span></div></div></div>`;
 }
 const isOwnEvent=e=>/mental awareness foundation/i.test(e.host||"");
 function renderEvents(){
@@ -1868,7 +1902,7 @@ async function loadFromDb(){
   let pending=KINDS.length;
   const done=()=>{if(--pending<=0&&contentState==="loading"){contentState="ready";renderAll()}};
   KINDS.forEach(k=>{let first=true;
-    db.collection(k).onSnapshot(s=>{setContent(k,s.docs.map(d=>d.data()));if(first){first=false;done()}renderAll()},()=>{if(first){first=false;done()}});
+    db.collection(k).onSnapshot(s=>{setContent(k,s.docs.map(d=>Object.assign({id:d.id},d.data())));if(first){first=false;done()}renderAll()},()=>{if(first){first=false;done()}});
   });
   return true;
 }
@@ -1890,6 +1924,9 @@ setTimeout(()=>{if(contentState==="loading"){contentState="off";renderAll()}},12
 applyRoute(location.hash||"today");
 try{history.replaceState({r:route},"","#"+route)}catch(e){}
 setInterval(()=>{const k=dayKey(new Date());if(k!==checkinLoadedFor&&parseRoute(route).tab==="today")safe(()=>{greet();renderWeek()})},60000);
+
+/* ---------- Live site uses its own copy of the fonts ---------- */
+if(document.documentElement.dataset.site==="1") $$("[data-gfonts-note]").forEach(el=>el.remove());
 
 /* ---------- Offline support on the live site ---------- */
 if("serviceWorker" in navigator&&/^https?:$/.test(location.protocol)&&document.documentElement.dataset.site==="1"){

@@ -49,7 +49,7 @@ To remove something temporarily, set `"hidden": true` instead of deleting it.
 - Name: always "Little Lift" in text (the logo wordmark is lowercase, but text isn't). Tagline: "A little lift, any time."
 - Logo files are in `public/brand/`. Don't redraw, recolour or retype the logo.
 - Colours are CSS tokens in `src/app.html`: coral is the brand (decorative), sky blue `--accent` is for buttons and links, and `--danger` red is only for help and emergency cues.
-- Fonts: Gabarito for headings, Atkinson Hyperlegible for body text.
+- Fonts: Gabarito for headings, Atkinson Hyperlegible for body text. The website serves its own copies from `public/fonts/` (SIL Open Font Licence, see the OFL files there); `scripts/build.mjs` removes the Google Fonts link so the live site makes no requests to Google. The Claude artifact preview still uses Google Fonts.
 
 ## Writing style
 
