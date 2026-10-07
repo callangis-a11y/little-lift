@@ -449,6 +449,19 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
     <section class="view" id="v-toolkit" hidden>
       <div class="hello" id="toolHead"><p class="eyebrow">Toolkit</p><h1 class="h-xl">Play, practise, feel better</h1><p class="muted">Short games and exercises built on techniques psychologists use. Most of them plant something in your garden.</p></div>
       <div id="toolGrid" class="stack">
+        <div class="card" id="nowPick">
+          <h2 class="h-m">Right now I feel…</h2>
+          <div class="chips" role="group" aria-label="Right now I feel">
+            <button class="chip" type="button" data-now="anx" aria-pressed="false">Anxious or on edge</button>
+            <button class="chip" type="button" data-now="low" aria-pressed="false">Down or flat</button>
+            <button class="chip" type="button" data-now="urge" aria-pressed="false">A strong urge</button>
+            <button class="chip" type="button" data-now="prob" aria-pressed="false">Stuck on a problem</button>
+            <button class="chip" type="button" data-now="self" aria-pressed="false">Hard on myself</button>
+            <button class="chip" type="button" data-now="avoid" aria-pressed="false">Avoiding something</button>
+            <button class="chip" type="button" data-now="sleep" aria-pressed="false">Can't sleep</button>
+          </div>
+          <div id="nowOut" class="stack" hidden></div>
+        </div>
         <p class="eyebrow">Games</p>
         <div class="tile-grid">
           <button class="tile game" type="button" data-tool="flip"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h13l-3-3M20 17H7l3 3"/></svg></span><b>Thought Flip</b><span>Spot the thinking trap, flip it to something fairer</span></button>
@@ -702,6 +715,7 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
         <button class="guide-card" type="button" data-guide="move"><span class="gc-ic" style="background:color-mix(in srgb,var(--m2) 22%,var(--surface));color:var(--accent-ink)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="14" cy="4" r="2"/><path d="M8 21l3-6 3 2v5M6 12l3-4 4 1 2 4 3 1"/></svg></span><span class="gc-txt"><b>Move for your mind</b><span>Quick guided workouts and a weekly move goal</span></span></button>
         <button class="guide-card" type="button" data-guide="sleep"><span class="gc-ic" style="background:color-mix(in srgb,var(--sky) 20%,var(--surface));color:var(--accent-ink)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></span><span class="gc-txt"><b>Sleep better</b><span>Simple habits that help, and a wind-down routine for tonight</span></span></button>
         <button class="guide-card" type="button" data-guide="adhd"><span class="gc-ic" style="background:color-mix(in srgb,var(--m5) 20%,var(--surface));color:var(--m5)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="3"/></svg></span><span class="gc-txt"><b>Living with ADHD</b><span>For you, your partner or your child, with tools that help day to day</span></span></button>
+        <button class="guide-card" type="button" data-guide="young"><span class="gc-ic" style="background:var(--coral-soft);color:var(--ink-2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="6" r="3"/><circle cx="17" cy="9" r="2.2"/><path d="M3 21v-1a6 6 0 0 1 12 0v1M14.5 21v-1a4 4 0 0 1 6.5-3"/></svg></span><span class="gc-txt"><b>Supporting a young person</b><span>For parents and carers of teens and young adults</span></span></button>
         <button class="guide-card" type="button" data-guide="grief"><span class="gc-ic" style="background:color-mix(in srgb,var(--m3) 25%,var(--surface));color:var(--ink-2)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21c-4-3-8-6.5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 4.5-4 8-8 11z"/></svg></span><span class="gc-txt"><b>After a suicide loss</b><span>Grief, what can help, and support for those left behind</span></span></button>
       </div>
 
@@ -936,6 +950,71 @@ input[type=time]{border:1px solid var(--line);background:var(--bg);border-radius
         </div>
         <div class="list">
           <div class="li"><div class="li-main"><b>Sleep Health Foundation</b><span class="small muted">Australian fact sheets on sleep problems</span></div><a class="icon-btn" href="https://www.sleephealthfoundation.org.au/" target="_blank" rel="noopener" aria-label="Visit Sleep Health Foundation website">${LINK}</a></div>
+        </div>
+      </div>
+
+      <!-- YOUNG PERSON -->
+      <div class="stack" id="g-young" hidden style="gap:20px">
+        <div class="hello"><p class="eyebrow">Supporting a young person</p><h1 class="h-xl">Worried about your teen?</h1><p class="muted">Moodiness is part of growing up. What matters is a change that lasts more than a couple of weeks and gets in the way of everyday life. You don't need all the answers. Staying close and getting help early makes a real difference.</p></div>
+        <div class="card">
+          <h2 class="h-m">Signs to look out for</h2>
+          <p class="small muted">Especially if they last two weeks or more.</p>
+          <ul class="ticks">
+            <li>Pulling away from friends, family or things they used to enjoy</li>
+            <li>Big changes in sleep, eating or energy</li>
+            <li>Not wanting to go to school or work, or grades dropping</li>
+            <li>Irritability, anger or tears that aren't like them</li>
+            <li>Saying they feel hopeless, worthless or like a burden</li>
+            <li>Using alcohol or drugs to cope</li>
+            <li>Injuries they can't or won't explain, or covering up in hot weather</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2 class="h-m">Starting the conversation</h2>
+          <ol class="steps">
+            <li><div><b>Pick a low-pressure moment.</b><p class="small muted">Side by side often works better than face to face: in the car, on a walk, cooking together.</p></div></li>
+            <li><div><b>Say what you've noticed, without judging.</b><p class="small muted">"I've noticed you've seemed really tired and down lately. How are you going?"</p></div></li>
+            <li><div><b>Listen more than you talk.</b><p class="small muted">Try not to jump in with fixes or lectures. "That sounds really hard" goes a long way.</p></div></li>
+            <li><div><b>If they don't want to talk, that's okay.</b><p class="small muted">Let them know the door is open: "I'm here whenever you want to talk." Try again another day.</p></div></li>
+            <li><div><b>If you're worried about suicide, ask directly.</b><p class="small muted">"Are you thinking about suicide?" Asking won't put the idea in their head, and it shows you can handle the answer.</p></div></li>
+          </ol>
+        </div>
+        <div class="card">
+          <h2 class="h-m">What helps day to day</h2>
+          <ul class="ticks">
+            <li>Keep regular routines for sleep, meals and getting outside</li>
+            <li>Spend easy time together with no big talk expected</li>
+            <li>Notice and praise effort, not just results</li>
+            <li>Agree on phones out of the bedroom at night, if sleep is a problem</li>
+            <li>Look after yourself too. Supporting someone is tiring, and they notice how you're going</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2 class="h-m">Getting help</h2>
+          <ul class="ticks">
+            <li><span><b>Your GP</b> is a good first step. They can check physical health, make a plan and refer to a psychologist.</span></li>
+            <li><span><b>headspace</b> is free or low-cost for 12 to 25 year olds, at centres across Australia or online and by phone through eheadspace. Families can get support too.</span></li>
+            <li><span><b>The school counsellor or wellbeing team</b> can help, and can make school a bit easier while things are hard.</span></li>
+            <li><span><b>Kids Helpline</b> (1800 55 1800) is free and 24/7 for young people aged 5 to 25. Let them know it's there.</span></li>
+          </ul>
+          <div class="row" style="flex-wrap:wrap"><a class="btn ghost" href="https://headspace.org.au/friends-and-family/" target="_blank" rel="noopener">headspace for families</a></div>
+        </div>
+        <div class="nudge">
+          <h3 class="h-m">If you're worried about their safety right now</h3>
+          <p class="small">If they're in immediate danger, call 000. Stay with them, keep calm, and put away things they could use to hurt themselves, such as medicines. Then get help together.</p>
+          <div class="row" style="flex-wrap:wrap"><a class="btn danger" href="tel:000">Call 000</a><button class="btn" type="button" data-open-help>Support lines</button></div>
+        </div>
+        <div class="card">
+          <h2 class="h-m">Support for you</h2>
+          <p class="small muted">Free, confidential counselling for parents and carers. <a href="https://parents.au.reachout.com/" target="_blank" rel="noopener">ReachOut Parents</a> also offers free one-on-one support with a parenting coach for families of 12 to 18 year olds.</p>
+        </div>
+        <div class="list">
+          <div class="li"><div class="li-main"><b>Parentline (QLD and NT)</b><span class="num">1300 30 1300</span><span class="small muted">Counselling for parents and carers · 7 days, plus webchat</span></div><button class="icon-btn" type="button" data-copy="1300 30 1300" aria-label="Copy Parentline QLD and NT number">${COPY}</button><a class="icon-btn call" href="tel:1300301300" aria-label="Call Parentline QLD and NT">${CALL}</a></div>
+          <div class="li"><div class="li-main"><b>Parent Line NSW</b><span class="num">1300 1300 52</span><span class="small muted">Counselling for parents and carers · 9am–9pm weekdays, 4pm–9pm weekends</span></div><button class="icon-btn" type="button" data-copy="1300 1300 52" aria-label="Copy Parent Line NSW number">${COPY}</button><a class="icon-btn call" href="tel:1300130052" aria-label="Call Parent Line NSW">${CALL}</a></div>
+          <div class="li"><div class="li-main"><b>Parent Helpline (SA)</b><span class="num">1300 364 100</span><span class="small muted">Counselling for parents and carers · 24/7</span></div><button class="icon-btn" type="button" data-copy="1300 364 100" aria-label="Copy Parent Helpline SA number">${COPY}</button><a class="icon-btn call" href="tel:1300364100" aria-label="Call Parent Helpline SA">${CALL}</a></div>
+          <div class="li"><div class="li-main"><b>Parentline Tasmania</b><span class="num">1300 808 178</span><span class="small muted">Counselling for parents and carers · 24/7</span></div><button class="icon-btn" type="button" data-copy="1300 808 178" aria-label="Copy Parentline Tasmania number">${COPY}</button><a class="icon-btn call" href="tel:1300808178" aria-label="Call Parentline Tasmania">${CALL}</a></div>
+          <div class="li"><div class="li-main"><b>Ngala Parenting Line (WA)</b><span class="num">1800 111 546</span><span class="small muted">Regional WA, or 08 9368 9368 in Perth · 8am–8pm, 7 days</span></div><button class="icon-btn" type="button" data-copy="1800 111 546" aria-label="Copy Ngala Parenting Line number">${COPY}</button><a class="icon-btn call" href="tel:1800111546" aria-label="Call Ngala Parenting Line">${CALL}</a></div>
+          <div class="li"><div class="li-main"><b>Parentline ACT</b><span class="num">02 6287 3833</span><span class="small muted">Counselling for parents and carers · 9am–5pm weekdays</span></div><button class="icon-btn" type="button" data-copy="02 6287 3833" aria-label="Copy Parentline ACT number">${COPY}</button><a class="icon-btn call" href="tel:0262873833" aria-label="Call Parentline ACT">${CALL}</a></div>
         </div>
       </div>
 
@@ -1286,7 +1365,7 @@ $("#aboutBtn").onclick=()=>showSheet("#aboutSheet");
 /* ---------- Routing: #today, #toolkit, #tool-flip, #guides, #guide-adhd, #support, #involved ---------- */
 const TABS=["today","toolkit","guides","support","involved"];
 const TOOLS=["flip","smile","boost","jar","breathe","ground","wave","kind","worry","solve","brave","sleep","plan"];
-const GUIDES=["mate","move","sleep","adhd","grief"];
+const GUIDES=["mate","move","sleep","adhd","young","grief"];
 let route="today";
 function parseRoute(r){
   r=String(r||"").replace(/^#/,"");
@@ -1812,6 +1891,7 @@ $("#wkEnd").onclick=()=>finishWorkout(false);
 /* ---------- What brings you here (focus) and "For you" tiles ---------- */
 const FOCUS_OPTS=[["stress","Stress and worry"],["low","Low mood"],["sleep","Sleep"],["grief","Grief or loss"],["adhd","ADHD"],["support","Supporting someone"],["active","Getting active"],["explore","Just exploring"]];
 const TILE_IC={
+ young:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="6" r="3"/><circle cx="17" cy="9" r="2.2"/><path d="M3 21v-1a6 6 0 0 1 12 0v1M14.5 21v-1a4 4 0 0 1 6.5-3"/></svg>',
  brave:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 21V3M18 21V3M6 7h12M6 12h12M6 17h12"/></svg>',
  wave:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 15c2.5 0 2.5-3 5-3s2.5 3 5 3 2.5-3 5-3 2.5 3 5 3M2 20c2.5 0 2.5-3 5-3s2.5 3 5 3 2.5-3 5-3 2.5 3 5 3M12 3v5"/></svg>',
  kind:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21c-4-3-8-6.5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 4.5-4 8-8 11z"/><path d="M9 11h6"/></svg>',
@@ -1849,9 +1929,10 @@ const TILES={
  brave:{go:"toolkit",tool:"brave",t:"Brave Steps",d:"Face a fear one small step at a time"},
  talk:{help:true,t:"Talk to someone",d:"Free support lines, any time"},
  grief:{go:"guides",guide:"grief",t:"Grief and loss",d:"What can help, and who to call"},
+ young:{go:"guides",guide:"young",t:"Supporting a young person",d:"Signs, what to say, and where to get help"},
  smile:{go:"toolkit",tool:"smile",t:"Find the Smile",d:"A 30-second attention game"}
 };
-const FOCUS_TILES={stress:["breathe","worry","ground","plan"],low:["boost","kind","talk","plan"],grief:["grief","talk","kind","breathe"],sleep:["sleep","breathe","jar","boost"],adhd:["adhd","workout","boost","breathe"],support:["mate","breathe","jar","workout"],active:["workout","boost","breathe","jar"],explore:["breathe","flip","workout","mate"]};
+const FOCUS_TILES={stress:["breathe","worry","ground","plan"],low:["boost","kind","talk","plan"],grief:["grief","talk","kind","breathe"],sleep:["sleep","breathe","jar","boost"],adhd:["adhd","workout","boost","breathe"],support:["mate","young","breathe","jar"],active:["workout","boost","breathe","jar"],explore:["breathe","flip","workout","mate"]};
 let focusSel=new Set(store.get("ll.focus",[]).filter(f=>FOCUS_TILES[f]));
 function renderFocusChips(){
   $$(".focus-chips").forEach(box=>{box.innerHTML=FOCUS_OPTS.map(([k,l])=>`<button class="chip" type="button" data-focus="${k}" aria-pressed="${focusSel.has(k)}">${l}</button>`).join("")});
@@ -2172,6 +2253,14 @@ function confirmBrave(b){if(braveArm===b){braveArm=null;return true}braveArm=b;t
 $("#braveList").addEventListener("click",e=>{const d=braveData();
   const dn=e.target.closest("[data-bdone]");if(dn){const x=d.steps.find(s=>String(s.id)===dn.dataset.bdone);if(x){x.done=(x.done||0)+1;x.last=Date.now();braveSave(d);plant("brave");toast("That took courage. Well done.")}return}
   const dl=e.target.closest("[data-bdel]");if(dl){d.steps=d.steps.filter(s=>String(s.id)!==dl.dataset.bdel);braveSave(d)}});
+
+/* ---------- Toolkit: "Right now I feel…" picker ---------- */
+const NOW_PICK={anx:["breathe","ground","worry"],low:["boost","kind","jar"],urge:["wave","plan"],prob:["solve","worry"],self:["kind","flip"],avoid:["brave","breathe"],sleep:["sleep","breathe","worry"]};
+document.addEventListener("click",e=>{const b=e.target.closest("[data-now]");if(!b)return;const k=b.dataset.now,on=b.getAttribute("aria-pressed")!=="true";
+  $$("[data-now]").forEach(x=>x.setAttribute("aria-pressed",x===b&&on));const out=$("#nowOut");
+  if(!on){out.hidden=true;return}
+  out.innerHTML=`<p class="small muted">Try one of these:</p><div class="tile-grid">${NOW_PICK[k].map(t=>{const T=TILES[t];return `<button class="tile" type="button" data-tool="${T.tool}"><span class="ic">${TILE_IC[t]}</span><b>${T.t}</b><span>${T.d}</span></button>`}).join("")}</div>${k==="urge"?`<p class="small">If you might act on an urge to hurt yourself or end your life, <button class="linkish" type="button" data-open-help>talk to someone now</button>.</p>`:""}`;
+  out.hidden=false});
 
 /* ---------- Your week: a gentle look back (Sundays and Mondays) ---------- */
 const PLANT_NAMES={checkin:["check-in","check-ins"],jar:["good thing","good things"],flip:["thought flipped","thoughts flipped"],boost:["mood boost","mood boosts"],smile:["smile game","smile games"],breathe:["breathing session","breathing sessions"],wave:["wave ridden","waves ridden"],kind:["kind line","kind lines"],worry:["worry parked","worries parked"],solve:["plan made","plans made"],brave:["brave step","brave steps"]};
